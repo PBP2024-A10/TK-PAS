@@ -90,8 +90,22 @@ Admin memiliki kontrol penuh terhadap aplikasi dan dapat mengelola pengguna, kon
 
 *Registered user* dapat mengakses semua halaman dan fitur yang ada dalam aplikasi, seperti melakukan pemesanan, menambahkan dan mengedit makanan di *Wishlist page*, dan dapat memberikan penilaian berupa *rating* dan *review*.
 
-# 🔗Tautan Deployment Aplikasi🔗
-🔗 PWS: http://rafansya-daryltama-ajenganhalal.pbp.cs.ui.ac.id/
+# 🔗Alur Pengintegrasian dengan Web Service untuk terhubung dengan Aplikasi Web🔗
+1. Menyelesaikan Penambahan End-Point pada Situs Web
+Kami menambahkan end-point untuk setiap modul dalam aplikasi yang memungkinkan kami untuk mengambil (GET) dan mengirim (POST) data. End-point ini akan memungkinkan kami untuk mengakses data dalam database dan mengirim atau menerima data dalam format yang dapat diproses, seperti JSON. GET akan kami gunakan untuk mengambil data dari server dan mengirimkannya ke frontend. POST akan kami gunakan untuk mengirim data dari frontend ke server untuk disimpan atau diproses lebih lanjut.
+
+2. Menambahkan Middleware untuk Akses API dari Luar Situs Web
+Untuk memungkinkan API kami diakses oleh aplikasi atau situs lain, kami perlu menambahkan middleware yang menangani CORS (Cross-Origin Resource Sharing). Middleware ini akan memungkinkan server untuk mengizinkan atau membatasi akses dari domain lain. Kami biasanya menggunakan paket django-cors-headers untuk mengatur aturan akses eksternal.
+
+3. Mengembangkan Fungsi Asinkron untuk Pengambilan, Pengiriman, dan Pembaruan Data
+Kami harus mengelola operasi I/O seperti pengambilan, pengiriman, dan pembaruan data secara asinkron, agar aplikasi kami tidak memblokir proses lainnya. Fungsi asinkron memungkinkan kami untuk melakukan banyak tugas sekaligus tanpa harus menunggu satu per satu. Untuk Django, kami bisa menggunakan `async def` dalam views.
+
+4. Menggunakan HTTP GET untuk Mengambil Data dan Menampilkan dalam Widget
+Di sisi frontend, kami akan menggunakan HTTP GET untuk mengambil data dari server. Data yang kami ambil kemudian akan ditampilkan dalam bentuk widget atau elemen visual lainnya di halaman web. Pengambilan data ini memungkinkan kami untuk memperbarui tampilan halaman tanpa harus memuat ulang seluruh halaman.
+
+5. Menggunakan HTTP POST untuk Mengirim Data ke End-Point dan Menyimpannya ke Basis Data Django
+Untuk mengirim data dari frontend ke server, kami akan menggunakan metode POST. Data yang kami kirimkan melalui POST akan diterima oleh end-point yang kami siapkan di server dan disimpan dalam database Django. Proses ini memungkinkan kami untuk memperbarui atau menyimpan informasi baru yang dimasukkan oleh pengguna.
+
 
 ## Daftar Pustaka
 🔗 https://gis.dukcapil.kemendagri.go.id/peta/
