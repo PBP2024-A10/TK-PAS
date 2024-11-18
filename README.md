@@ -20,7 +20,7 @@ Aplikasi `Ajengan Halal` hadir dengan harapan membawa dampak positif bagi masyar
 
 Aplikasi ini menyediakan fitur rating, rekomendasi tempat makan, kisaran harga, dan daftar souvenir yang ada di Bali. Melalui fitur ini, harapannya pengguna dapat menemukan pilihan makanan terbaik yang sesuai dengan selera dan preferensi mereka. Selain itu, pengguna juga dapat terbantu dalam memilih rekomendasi souvenir yang dapat dibeli di sekitar Bali. 
 
-Kami juga berharap aplikasi ini dapat berkontribusi pada pengembangan sektor pariwisata Bali dengan memberikan solusi yang memudahkan wisatawan Muslim. Dengan kemudahan akses informasi yang ditawarkan, diharapkan wisatawan dapat menikmati pengalaman kuliner yang lebih menyenangkan dan berkesan.
+Kami juga berharap aplikasi ini dapat berkontribusi pada pengembangan sektor pariwisata Bali dengan memberikan solusi yang memudahkan wisatawan beragama Muslim. Dengan kemudahan akses informasi yang ditawarkan, diharapkan wisatawan dapat menikmati pengalaman kuliner yang lebih menyenangkan dan berkesan.
 
 Dengan beragam fitur yang tersedia, harapannya aplikasi ini dapat memudahkan pengguna dan mendorong penggunaan teknologi dalam kehidupan sehari-hari, yang pada akhirnya akan meningkatkan kenyamanan dalam mencari makanan halal di Bali.
 
@@ -53,7 +53,6 @@ User:
   - *User* dapat melihat informasi mengenai kisaran harga makanan pada *card* informasi.
   - *User* dapat membaca ulasan tentang makanan yang tersedia pada *card* informasi.
   - *User* dapat memasukkan makanan ke dalam *wishlist page*.
-
 
 **iv. *Wishlist page*** 
 
