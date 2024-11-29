@@ -121,4 +121,4 @@ Untuk mengirim data dari frontend ke server, kami akan menggunakan metode POST. 
 | Olav       | Wishlist                                                                            |
 
 ## Link Progres
-ristek.link/ProgresTKA10
+🔗 https://ristek.link/ProgresTKA10
