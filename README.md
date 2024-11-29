@@ -1,4 +1,4 @@
-# Ajengan Halal: *Website* Makanan Halal di Bali
+# Ajengan Halal: Aplikasi Makanan Halal di Bali
 
 ## Anggota Kelompok
 1. 2306211231 - Rafansya Daryltama Santoso
@@ -119,3 +119,6 @@ Untuk mengirim data dari frontend ke server, kami akan menggunakan metode POST. 
 | Rafansya   | Editor's choice (cards, form)                                                       |
 | Salsabila  | Manajemen pemesanan (cards, form)                                                   |
 | Olav       | Wishlist                                                                            |
+
+## Link Progres
+ristek.link/ProgresTKA10
