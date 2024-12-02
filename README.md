@@ -1,16 +1,9 @@
-# cards_makanan
+# Ajengan Halal: *Website* Makanan Halal di Bali
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Anggota Kelompok
+1. 2306211231 - Rafansya Daryltama Santoso
+2. 2306165843 - Dandi Apriyansyah
+3. 2306165673 - Anggun Sasmitha Dewi
+4. 2306245560 - Salsabila Arumdapta
+5. 2306230590 - Olav Dendy Christian Manullang
+6. 2306165710 - Leonita Cecilia
