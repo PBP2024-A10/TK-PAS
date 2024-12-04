@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart'; // Add this import for CookieRequest
 import 'package:ajengan_halal_mobile/auth/screens/login.dart'; // Your login page
-import 'package:ajengan_halal_mobile/auth/screens/register.dart'; // Your register page
+// Your register page
 
 void main() {
   runApp(

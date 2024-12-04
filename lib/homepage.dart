@@ -10,14 +10,16 @@ class Homepage extends StatelessWidget {
     'https://s3-ap-southeast-1.amazonaws.com/blog-assets.segari.id/2022/10/Ayam-Betutu---Istock.jpg',
   ];
 
+  const Homepage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Daftar Restoran"),
-        backgroundColor: Color(0xFF3D200A),
+        title: const Text("Daftar Restoran"),
+        backgroundColor: const Color(0xFF3D200A),
       ),
-      drawer: LeftDrawer(),
+      drawer: const LeftDrawer(),
       // body: SingleChildScrollView(
       //   child: Column(
       //     children: [

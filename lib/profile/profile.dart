@@ -15,11 +15,11 @@ void handleLogout(BuildContext context) async {
     // Setelah logout, arahkan ke halaman onboarding
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginApp()),
+      MaterialPageRoute(builder: (context) => const LoginApp()),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("$message"),
+      content: Text(message),
     ));
   }
 }
@@ -46,7 +46,7 @@ class _ProfileSectionState extends State<ProfileSection> {
             width: double.infinity,
             color: Warna.background, // Set content background
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 40, horizontal: 28),
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 28),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -66,7 +66,7 @@ class _ProfileSectionState extends State<ProfileSection> {
                   //     MaterialPageRoute(builder: (context) => PrivacyPolicy()),
                   //   );
                   // }),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   // Opsi Logout
                   _buildProfileOption("Logout", "assets/icons/Logout.png", () {
                     handleLogout(context);
@@ -93,7 +93,7 @@ class _ProfileSectionState extends State<ProfileSection> {
           children: [
             // Ikon yang muncul di sebelah kiri
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 16, 0),
+              margin: const EdgeInsets.fromLTRB(0, 0, 16, 0),
               width: 40,
               height: 40,
               child: Image.asset(iconPath),
@@ -109,7 +109,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               ),
             ),
             // Ikon panah kanan yang mengarah ke halaman baru
-            Container(
+            SizedBox(
               width: 20,
               height: 20,
               child: Image.asset("assets/icons/Left Arrow.png", fit: BoxFit.cover),

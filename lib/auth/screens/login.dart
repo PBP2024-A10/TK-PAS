@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             right: 0,
             child: Container(
               height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Warna.background, // Coklat Agak Gelap
                 borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
               ),
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -97,11 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Warna.lightcyan,  // Coklat Terang
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.person, color: Warna.cyan),
+                            child: const Icon(Icons.person, color: Warna.cyan),
                           ),
                         ),
                         border: OutlineInputBorder(
@@ -109,13 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.cyan),
+                          borderSide: const BorderSide(color: Warna.cyan),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.line),
+                          borderSide: const BorderSide(color: Warna.line),
                         ),
-                        labelStyle: TextStyle(color: Warna.white),
+                        labelStyle: const TextStyle(color: Warna.white),
                       ),
                     ),
                   ),
@@ -137,11 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Warna.lightcyan,  // Coklat Terang
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.lock, color: Warna.cyan),
+                            child: const Icon(Icons.lock, color: Warna.cyan),
                           ),
                         ),
                         suffixIcon: IconButton(
@@ -159,13 +159,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.cyan),
+                          borderSide: const BorderSide(color: Warna.cyan),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.line),
+                          borderSide: const BorderSide(color: Warna.line),
                         ),
-                        labelStyle: TextStyle(color: Warna.white),
+                        labelStyle: const TextStyle(color: Warna.white),
                       ),
                       obscureText: !_passwordVisible,
                     ),
@@ -238,6 +238,10 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(385, 64),
+                      backgroundColor: Warna.blue,  // Warna biru tombol
+                    ),
                     child: Text(
                       'Login',
                       style: GoogleFonts.poppins(
@@ -246,10 +250,6 @@ class _LoginPageState extends State<LoginPage> {
                         height: 1.5,
                         color: Warna.white,
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(385, 64),
-                      backgroundColor: Warna.blue,  // Warna biru tombol
                     ),
                   ),
                 ],
