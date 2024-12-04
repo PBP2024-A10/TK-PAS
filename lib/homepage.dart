@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ajengan_halal_mobile/models/food_entry.dart';
+import 'package:ajengan_halal_mobile/models/FoodEntry/food_entry.dart';
 import 'base/widgets/navbar.dart';
 
 class Homepage extends StatelessWidget {
