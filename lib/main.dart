@@ -1,196 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cards_makanan/cards_makanan/models/menu_item.dart'; // Import model MenuItem
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:cards_makanan/cards_makanan/screens/cards_makanan.dart'; 
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());  // Menjalankan aplikasi dengan widget MyApp
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(  // Membungkus aplikasi dengan MaterialApp
-      title: '[Nama Restaurant]',  // Judul aplikasi
-      theme: ThemeData(
-        primarySwatch: Colors.orange,  // Pengaturan warna tema
-      ),
-      home: const CardsMakanan(),  // Halaman pertama yang akan ditampilkan
-    );
-  }
-}
-
-class CardsMakanan extends StatelessWidget {
-  const CardsMakanan({Key? key}) : super(key: key);
-
-  // Fungsi untuk memuat data JSON
-  Future<List<MenuItem>> fetchMenuItems() async {
-    // Baca file JSON dari folder assets
-    final String jsonString = await rootBundle.loadString('assets/restaurants.json');
-    // Parse JSON menjadi list model MenuItem
-    return menuItemsFromJson(jsonString);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('[Nama Restaurant]'),
-        backgroundColor: Colors.orangeAccent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Tambahkan logika pencarian di sini
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              '[Deskripsi Restaurant]',
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search Menu',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onChanged: (value) {
-                // Tambahkan logika pencarian di sini
-              },
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: FutureBuilder<List<MenuItem>>(
-                future: fetchMenuItems(), // Panggil fungsi untuk memuat data
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                        child: Text('No menu items available.'));
-                  }
-
-                  final menuItems = snapshot.data!;
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Dua kolom per baris
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 0.8, // Proporsi kartu
-                    ),
-                    itemCount: menuItems.length,
-                    itemBuilder: (context, index) {
-                      final item = menuItems[index];
-                      return _buildMenuCard(
-                        imageUrl: item.fields.imageUrlMenu, // Gambar dari JSON
-                        name: item.fields.name, // Nama makanan
-                        price: 'Rp${item.fields.price}', // Harga makanan
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Ajengan Halal',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
         ),
-      ),
-    );
-  }
-
-  // Widget untuk menampilkan kartu menu
-  Widget _buildMenuCard({
-    required String imageUrl,
-    required String name,
-    required String price,
-  }) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    height: 120,
-                    width: double.infinity,
-                    color: Colors.grey[300],
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    height: 120,
-                    width: double.infinity,
-                    color: Colors.grey[300],
-                    child: const Icon(
-                      Icons.error,
-                      color: Colors.red,
-                      size: 40,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                top: 8,
-                right: 8,
-                child: Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  price,
-                  style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.add_circle, color: Colors.blue),
-                    onPressed: () {
-                      // Tambahkan logika untuk item menu di sini
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        home: const CardsMakanan(), 
+      )
     );
   }
 }
