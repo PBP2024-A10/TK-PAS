@@ -1,153 +1,125 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class MenuItem extends StatelessWidget {
+  final String restaurantList;
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MenuPage(),
-    );
-  }
-}
-
-class MenuPage extends StatelessWidget {
-  final List<Map<String, String>> menuItems = List.generate(4, (index) {
-    return {
-      'name': 'Ayam Betutu',
-      'price': 'Rp50.000',
-      'imageUrl':
-          'https://via.placeholder.com/150', // Replace with actual image URL
-    };
-  });
+  MenuItem({required this.restaurantList});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Icon(Icons.restaurant_menu, color: Colors.brown),
+        title: const Text('Ayam Betutu Ibu Nia'),
+        backgroundColor: Colors.orangeAccent,
         actions: [
-          Icon(Icons.menu, color: Colors.brown),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Add search functionality here
+            },
+          ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ayam Betutu Ibu Nia',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.brown,
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
               'Restoran khas Bali yang terkenal dengan Ayam Betutu',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search Menu',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
+              onChanged: (value) {
+                // Add search logic here
+              },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
+                  crossAxisCount: 2, // Dua kolom per baris
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 0.8, // Proporsi kartu
                 ),
-                itemCount: menuItems.length,
+                itemCount: 4, // Sesuaikan dengan jumlah menu
                 itemBuilder: (context, index) {
-                  final item = menuItems[index];
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(8.0),
-                                ),
-                                child: Image.network(
-                                  item['imageUrl']!,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                item['name']!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                item['price']!,
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                          ],
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_border,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 8,
-                          right: 8,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(8),
-                              backgroundColor: Colors.brown,
-                            ),
-                            child: Icon(Icons.add, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
+                  return _buildMenuCard(
+                    imageUrl: 'https://via.placeholder.com/150', // URL gambar
+                    name: 'Ayam Betutu',
+                    price: 'Rp50.000',
                   );
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildMenuCard({required String imageUrl, required String name, required String price}) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                child: Image.network(
+                  imageUrl,
+                  height: 120,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Icon(
+                  Icons.favorite_border,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  price,
+                  style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(Icons.add_circle, color: Colors.blue),
+                    onPressed: () {
+                      // Add menu item logic
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
