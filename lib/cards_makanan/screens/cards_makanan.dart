@@ -5,12 +5,13 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 void main() {
-  runApp(MaterialApp(  // MaterialApp berada di sini untuk memulai aplikasi
+  runApp(MaterialApp(
+    // MaterialApp berada di sini untuk memulai aplikasi
     title: '[Nama Restaurant]',
     theme: ThemeData(
-      primarySwatch: Colors.orange,  // Gunakan warna utama yang valid
+      primarySwatch: Colors.orange, // Gunakan warna utama yang valid
     ),
-    home: const CardsMakanan(),  // Langsung menuju CardsMakanan
+    home: const CardsMakanan(), // Langsung menuju CardsMakanan
   ));
 }
 
@@ -22,16 +23,20 @@ class CardsMakanan extends StatefulWidget {
 }
 
 class _CardsMakananState extends State<CardsMakanan> {
-  TextEditingController _searchController = TextEditingController(); // Controller untuk search bar
+  TextEditingController _searchController =
+      TextEditingController(); // Controller untuk search bar
   String _searchQuery = ""; // Variabel untuk kata kunci pencarian
   List<MenuItem> _menuItems = []; // Daftar menu yang diambil dari API atau JSON
 
   // Fungsi untuk memuat data JSON
   Future<void> fetchMenuItems() async {
-    final String jsonString = await rootBundle.loadString('assets/restaurants.json');
+    final String jsonString =
+        await rootBundle.loadString('assets/restaurants.json');
     final List<dynamic> data = json.decode(jsonString); // Dekode JSON
     setState(() {
-      _menuItems = data.map((item) => MenuItem.fromJson(item)).toList(); // Konversi JSON ke list MenuItem
+      _menuItems = data
+          .map((item) => MenuItem.fromJson(item))
+          .toList(); // Konversi JSON ke list MenuItem
     });
   }
 
@@ -41,7 +46,9 @@ class _CardsMakananState extends State<CardsMakanan> {
       return _menuItems; // Jika pencarian kosong, kembalikan semua item
     }
     return _menuItems.where((item) {
-      return item.fields.name.toLowerCase().contains(_searchQuery.toLowerCase());
+      return item.fields.name
+          .toLowerCase()
+          .contains(_searchQuery.toLowerCase());
     }).toList(); // Filter berdasarkan nama menu
   }
 
@@ -95,7 +102,8 @@ class _CardsMakananState extends State<CardsMakanan> {
               child: _menuItems.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, // Dua kolom per baris
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
@@ -105,7 +113,8 @@ class _CardsMakananState extends State<CardsMakanan> {
                       itemBuilder: (context, index) {
                         final item = _filterMenuItems()[index];
                         return _buildMenuCard(
-                          imageUrl: item.fields.imageUrlMenu, // Gambar dari JSON
+                          imageUrl:
+                              item.fields.imageUrlMenu, // Gambar dari JSON
                           name: item.fields.name, // Nama makanan
                           price: 'Rp${item.fields.price}', // Harga makanan
                         );
@@ -132,7 +141,8 @@ class _CardsMakananState extends State<CardsMakanan> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
                   height: 120,
@@ -159,16 +169,30 @@ class _CardsMakananState extends State<CardsMakanan> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(name,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                Text(price, style: TextStyle(fontSize: 14, color: Colors.grey[700])),
+                Text(price,
+                    style: TextStyle(fontSize: 14, color: Colors.grey[700])),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.add_circle, color: Colors.blue),
-                    onPressed: () {
-                      // Tambahkan logika untuk item menu di sini
-                    },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.favorite, color: Colors.red),
+                        onPressed: () {
+                          // Tambahkan logika untuk ikon hati di sini
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle, color: Colors.blue),
+                        onPressed: () {
+                          // Tambahkan logika untuk tombol tambah ('+') di sini
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cards_makanan/cards_makanan/screens/cards_makanan.dart'; 
+import 'package:cards_makanan/cards_makanan/screens/cards_makanan.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -13,18 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) {
-        CookieRequest request = CookieRequest();
-        return request;
-      },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Ajengan Halal',
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
-        ),
-        home: const CardsMakanan(), 
-      )
-    );
+        create: (_) {
+          CookieRequest request = CookieRequest();
+          return request;
+        },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Ajengan Halal',
+          theme: ThemeData(
+            primarySwatch: Colors.orange,
+          ),
+          home: const CardsMakanan(),
+        ));
   }
 }
