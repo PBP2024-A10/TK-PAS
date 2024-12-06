@@ -4,7 +4,7 @@
     "pk": "55a77fe3-ed8a-4f52-9da7-1e80bf8f5b29",
     "fields": {
         "restaurant": "39c5e061-ba23-47ac-83df-55dae7705ece",
-        "name": "Ayam Betutu",
+        "name": "Ayam Betutu Khas Ibu Nia",
         "description": "Ayam dengan bumbu khas Bali",
         "price": "50.000",
         "meal_type": "Lunch",
@@ -128,7 +128,7 @@
         "description": "Cumi bakar dengan bumbu rempah",
         "price": "75.000", 
         "meal_type": "Dinner",
-        "image_url_menu": "https://mangengking-bsd.com/wp-content/uploads/2020/01/75642494_2440564949526827_7618068541312960154_n-300x300.jpg"
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1005/2024/03/30/Screenshot_20240330-183138_Instagram1-2294437544.jpg"
     }
 },
 {
@@ -140,7 +140,7 @@
         "description": "Udang bakar dengan saus mentega",
         "price": "100.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://thumb.viva.co.id/media/frontend/thumbs3/2012/07/07/162633_udang-bakar-madu-mang-engking_1265_711.png"
+        "image_url_menu": "https://asset.kompas.com/crops/V3D0ZoxpMiTPgDEQScjKECYeRPU=/30x10:998x655/1200x800/data/photo/2022/07/25/62de72082ed89.jpg"
     }
 },
 {
@@ -164,7 +164,7 @@
         "description": "Oyster bakar dengan saus",
         "price": "95.000",
         "meal_type": "Dinner",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2022/08/Cumi-Saos-Tiram-585x500.jpg"
+        "image_url_menu": "https://res.cloudinary.com/dk0z4ums3/image/upload/v1657633880/attached_image/5-manfaat-tiram-bagi-kesehatan-dan-tips-aman-mengolahnya.jpg"
     }
 },
 {
@@ -188,7 +188,7 @@
         "description": "Kerang totok dengan sambal",
         "price": "75.000",
         "meal_type": "Dinner",
-        "image_url_menu": "https://img-global.cpcdn.com/recipes/bbdebb0205b2f03c/680x482cq70/kerang-totok-bumbu-bai-foto-resep-utama.jpg"
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLsVSAKZXpG2BLToq_k0KeYHwsh-pRd7Jw2w&s"
     }
 },
 {
@@ -212,7 +212,7 @@
         "description": "Sayuran kangkung dengan sambal",
         "price": "30.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2019/07/Kangkung-karuh.jpg"
+        "image_url_menu": "https://asset.kompas.com/crops/zA62CPTaXx1R3jfJju6Brz9Q2F0=/0x67:1000x733/1200x800/data/photo/2024/04/12/6618ce41cacb6.jpg"
     }
 },
 {
@@ -224,7 +224,7 @@
         "description": "Salad sayuran dengan kelapa parut",
         "price": "25.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://img-global.cpcdn.com/recipes/aec02d1b7bda281c/680x482cq70/urap-daun-singkong-foto-resep-utama.jpg"
+        "image_url_menu": "https://asset.kompas.com/crops/ojmYFUkt8ax9pkLOmFP8ZZbLQUc=/0x0:1000x667/375x240/data/photo/2020/06/21/5eeebf47e867b.jpg"
     }
 },
 {
@@ -248,7 +248,7 @@
         "description": "Bebek goreng renyah dengan sambal",
         "price": "60.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2019/07/Ayam-Bakar-srundeng-Mangengking.jpg"
+        "image_url_menu": "https://cdn.idntimes.com/content-images/community/2024/04/img-20240404-230601-c6264419ba9f81a50c4668c483eb2e21.jpg"
     }
 },
 {
@@ -260,7 +260,7 @@
         "description": "Bebek bakar dengan bumbu spesial",
         "price": "65.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2019/07/Ayam-bakar-Madu-Mangengkig.jpg"
+        "image_url_menu": "https://asset.kompas.com/crops/WI6qriHr6bHwWR8MtCl8GarvKfA=/69x65:869x598/1200x800/data/photo/2021/11/25/619f7dc86e939.jpg"
     }
 },
 {
@@ -296,7 +296,7 @@
         "description": "Bebek yang dimasak dengan bumbu tradisional",
         "price": "75.000",
         "meal_type": "Dinner",
-        "image_url_menu": "https://happycall.co.id/wp-content/uploads/2021/12/resep-memasak-bebek-betutu-khas-bali-dengan-happycall.jpeg"
+        "image_url_menu": "https://asset.kompas.com/crops/szTElVhk45vHIrJmRt3R0XEOBVQ=/24x0:4000x2651/750x500/data/photo/2020/05/04/5eb01abec536f.jpg"
     }
 },
 {
@@ -304,11 +304,11 @@
     "pk": "7f6b6d4f-a3b7-4cde-938e-0d9cdc51b8d9",
     "fields": {
         "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
-        "name": "Ayam Betutu",
+        "name": "Ayam Betutu Daun Pisang",
         "description": "Ayam yang dibungkus daun pisang dan dibakar",
         "price": "55.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://cdn0-production-images-kly.akamaized.net/Sg9ipT884nbPwxHgvIZ5KGdnOZQ=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1280407/original/028660700_1467472708-20160702-ayam_betutu-denpasar.jpg"
+        "image_url_menu": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/364/2023/10/07/ayam-betutu-384791665.jpg"
     }
 },
 {
@@ -320,7 +320,7 @@
         "description": "Nasi dengan ayam bakar dan sambal",
         "price": "50.000",
         "meal_type": "Breakfast",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2019/07/Ayam-Bakar-srundeng-Mangengking.jpg"
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-wqKgX3qRSiCKr_h_n_Ou1JP5sG_jcq4QA&s"
     }
 },
 {
@@ -344,7 +344,7 @@
         "description": "Nasi campur dengan pilihan lauk",
         "price": "60.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://assets-pergikuliner.com/RdP0vzHP4rP0j11Pd57bavrm8r8=/332x0/smart/https://assets-pergikuliner.com/uploads/image/picture/1467873/picture-1561889267.jpeg"
+        "image_url_menu": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/181dc0a2-97f5-4fc4-8b57-7a030f90acf5_Go-Biz_20210520_194037.jpeg"
     }
 },
 {
@@ -356,7 +356,7 @@
         "description": "Ayam goreng crispy dengan sambal",
         "price": "50.000",
         "meal_type": "Lunch",
-        "image_url_menu": "https://mangengkinggroup.co.id/wp-content/uploads/2019/07/Ayam-Bakar-kecap.jpg"
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/364/2023/08/23/resep-ayam-goreng-ungkep-sambal-blender-3795370326.jpg"
     }
 },
 {
@@ -364,11 +364,11 @@
     "pk": "da2d51fe-750c-4260-ba56-e2f3a298f165",
     "fields": {
         "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
-        "name": "Nasi Seafood",
-        "description": "Nasi dengan berbagai hidangan laut",
+        "name": "Nasi Goreng Seafood",
+        "description": "Nasi goreng dengan berbagai hidangan laut",
         "price": "75.000",
         "meal_type": "Dinner",
-        "image_url_menu": "https://annienugraha.com/wp-content/uploads/2021/09/Engking-6--scaled.jpeg"
+        "image_url_menu": "https://berasmaknyuss.com/wp-content/uploads/2016/09/nasi-goreng-seafood.jpg"
     }
 },
 {
@@ -992,7 +992,7 @@
         "description": "Ayam khas Bali yang dimasak dengan rempah",
         "price": "90.000",
         "meal_type": "Lunch",
-        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2021/08/27/resep-ayam-betutu-gilimanuk_43.jpeg?w=600&q=90"
+        "image_url_menu":"https://www.sasa.co.id/medias/page_medias/resep_ayam_betutu.jpg"
     }
 },
 {
