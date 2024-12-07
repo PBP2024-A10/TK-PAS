@@ -5,6 +5,9 @@ import 'package:ajengan_halal_mobile/homepage.dart';
 import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 void main() {
   runApp(const LoginApp());

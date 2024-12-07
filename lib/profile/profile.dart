@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
-import 'package:ajengan_halal_mobile/base/style/colors.dart'; 
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/auth/screens/login.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -20,11 +22,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String errorMessage = '';
 
   @override
+  void initState() {
+    super.initState();
+    // _loadUserData();
+  }
+
+  // Fetch user data after login
+  // void _loadUserData() {
+  //   final userData = Provider.of(context, listen: false).getUserData();
+    
+  //   if (userData != null) {
+  //     _usernameController.text = userData['username'] ?? ''; // Pre-fill the username
+  //     _emailController.text = userData['email'] ?? ''; // Pre-fill the email
+  //   }
+  // }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -93,6 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(labelText: 'Username'),
+                    enabled: false, // Make username field non-editable
                   ),
                   TextField(
                     controller: _emailController,
@@ -118,8 +139,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: _submitForm,
                     child: Text('Save Changes'),
                     style: ElevatedButton.styleFrom(
-                      // primary: Color(0xFF654A2D),
-                      // onPrimary: Colors.white,
                       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                     ),
                   ),
@@ -129,14 +148,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // Set active index based on your app logic
+        onTap: (index) {
+          // Handle bottom navigation item tap
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 
+  // Submit form logic
   void _submitForm() {
-    // Simulating form submission logic
     setState(() {
-      if (_usernameController.text.isEmpty || _emailController.text.isEmpty) {
-        errorMessage = 'Please fill all required fields';
+      if (_emailController.text.isEmpty) {
+        errorMessage = 'Please fill in your email';
         successMessage = '';
       } else {
         successMessage = 'Profile updated successfully!';
@@ -145,4 +184,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 }
-
