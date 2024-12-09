@@ -7,6 +7,7 @@ import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:ajengan_halal_mobile/profile/profile.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -15,25 +16,21 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
-            child: const Column(
+            child: Column(
               children: [
-                Text(
-                  'Ajengan Halal',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                Image.asset(
+                  'assets/images/navbar-logo.png',
+                  width: 50, // Set the width of the logo
+                  height: 50, // Set the height of the logo
                 ),
-                Padding(padding: EdgeInsets.all(8)),
-                Text(
-                  "Beli barang kebutuhanmu di FreshnBloom",
+                const Text(
+                  "Cari makanan halal di Ajengan Halal!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -47,25 +44,25 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Halaman Utama'),
-            // Bagian redirection ke MyHomePage
             onTap: () {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Homepage(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Homepage(),
+                ),
+              );
             },
           ),
           ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Profile'),
-            // Bagian redirection ke MoodEntryFormPage
             onTap: () {
               Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileScreen(),
-                          ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
             },
           ),
         ],
