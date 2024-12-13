@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cards_makanan/cards_makanan/models/menu_item.dart'; // Import model MenuItem
+import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart'; // Import model MenuItem
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 

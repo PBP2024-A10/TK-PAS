@@ -58,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   // Username
                   TextFormField(
                     controller: _usernameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Username',
                       hintText: 'Enter your username',
                       filled: true,
@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -80,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   // Kolom Email
                   TextFormField(
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Email',
                       hintText: 'Enter your email',
                       filled: true,
@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -106,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   // Password
                   TextFormField(
                     controller: _passwordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Password',
                       hintText: 'Enter your password',
                       filled: true,
@@ -115,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     ),
                     obscureText: true,
                     validator: (value) {
@@ -129,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   // Confirm Password
                   TextFormField(
                     controller: _confirmPasswordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Confirm Password',
                       hintText: 'Confirm your password',
                       filled: true,
@@ -138,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     ),
                     obscureText: true,
                     validator: (value) {
@@ -186,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                       backgroundColor: Warna.blue, // Coklat Gelap
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                     ),

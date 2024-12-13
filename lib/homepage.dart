@@ -35,8 +35,8 @@ class _HomePageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homepage - Daftar Makanan'),
-        backgroundColor: Color(0xFF3D200A),
+        title: const Text('Homepage - Daftar Makanan'),
+        backgroundColor: const Color(0xFF3D200A),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: const LeftDrawer(),
@@ -45,7 +45,7 @@ class _HomePageState extends State<Homepage> {
           children: [
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage('https://example.com/background-image.png'),
                   fit: BoxFit.cover,
