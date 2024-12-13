@@ -1,4 +1,5 @@
 # Ajengan Halal: Aplikasi Makanan Halal di Bali
+# Ajengan Halal: *Website* Makanan Halal di Bali
 
 ## Anggota Kelompok
 1. 2306211231 - Rafansya Daryltama Santoso

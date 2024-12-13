@@ -5,7 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
+<<<<<<< HEAD
 	<string>Ajengan Halal Mobile</string>
+=======
+	<string>Cards Makanan</string>
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +17,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< HEAD
 	<string>ajengan_halal_mobile</string>
+=======
+	<string>cards_makanan</string>
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

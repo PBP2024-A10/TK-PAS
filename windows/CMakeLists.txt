@@ -1,10 +1,18 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
+<<<<<<< HEAD
 project(ajengan_halal_mobile LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "ajengan_halal_mobile")
+=======
+project(cards_makanan LANGUAGES CXX)
+
+# The name of the executable created for the application. Change this to change
+# the on-disk name of your application.
+set(BINARY_NAME "cards_makanan")
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
