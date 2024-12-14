@@ -1,3 +1,5 @@
+import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir.dart';
+import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir_entryform.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,6 +67,18 @@ class LeftDrawer extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProfileScreen(),
+                          ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.list),
+            title: const Text('Oleh-Oleh'),
+            // Bagian redirection ke SouvenirEntryFormPage
+            onTap: () {
+              Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SouvenirPage(),
                           ));
             },
           ),

@@ -171,15 +171,15 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.14",
+      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.15",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.4.0",
+      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "path_provider_linux",
@@ -231,15 +231,15 @@
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.3.3",
+      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
       "name": "shared_preferences_foundation",
-      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_foundation-2.5.3",
+      "rootUri": "file:///C:/Users/pbm/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_foundation-2.5.4",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "shared_preferences_linux",
@@ -344,7 +344,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-04T06:36:52.482680Z",
+  "generated": "2024-12-14T04:17:21.584430Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/Users/Dandi/dev/flutter",
