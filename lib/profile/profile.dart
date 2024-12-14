@@ -20,22 +20,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String successMessage = '';
   String errorMessage = '';
+  String displayedUsername = '';
+  String displayedEmail = '';
 
   @override
   void initState() {
     super.initState();
-    // _loadUserData();
+    // Ambil username dari data yang tersimpan di CookieRequest
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var request = context.read<pbp.CookieRequest>();
+      // Pastikan data user sudah disimpan setelah login
+      // Misalnya request.jsonData['username'] tersedia
+      if (request.jsonData.containsKey('username')) {
+        setState(() {
+          displayedUsername = request.jsonData['username'];
+        });
+      } else {
+        // Jika tidak ada, mungkin Anda perlu memanggil endpoint user detail
+        // atau melakukan mekanisme lain untuk mendapatkan username.
+      }
+      if (request.jsonData.containsKey('email')) {
+        setState(() {
+          displayedEmail = request.jsonData['email'];
+        });
+      } else {
+        // Jika tidak ada, mungkin Anda perlu memanggil endpoint user detail
+        // atau melakukan mekanisme lain untuk mendapatkan username.
+      }
+    });
   }
-
-  // Fetch user data after login
-  // void _loadUserData() {
-  //   final userData = Provider.of(context, listen: false).getUserData();
-    
-  //   if (userData != null) {
-  //     _usernameController.text = userData['username'] ?? ''; // Pre-fill the username
-  //     _emailController.text = userData['email'] ?? ''; // Pre-fill the email
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +82,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     radius: 50,
                     backgroundImage: AssetImage('assets/images/user.png'),
                   ),
+                  SizedBox(height: 8),
+                  // Tampilkan nama pengguna yang sedang login
+                  Text(
+                    displayedUsername.isNotEmpty ? displayedUsername : 'Loading username...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF3D200A),
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 20),
-            
+
             // Account Details Section
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -109,15 +132,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
 
-                  // Form Fields
+                  // TextField(
+                  //   controller: _usernameController..text = displayedUsername,
+                  //   decoration: InputDecoration(labelText: 'Username'),
+                  //   enabled: false, // Make username field non-editable
+                  // ),
                   TextField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(labelText: 'Username'),
-                    enabled: false, // Make username field non-editable
-                  ),
-                  TextField(
-                    controller: _emailController,
+                    controller: _emailController..text = displayedEmail,
                     decoration: InputDecoration(labelText: 'Email'),
+                    enabled: false,
                   ),
                   TextField(
                     controller: _firstNameController,
