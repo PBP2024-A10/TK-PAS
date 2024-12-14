@@ -90,12 +90,21 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
+<<<<<<< HEAD
             VALUE "FileDescription", "ajengan_halal_mobile" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "ajengan_halal_mobile" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "ajengan_halal_mobile.exe" "\0"
             VALUE "ProductName", "ajengan_halal_mobile" "\0"
+=======
+            VALUE "FileDescription", "cards_makanan" "\0"
+            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "InternalName", "cards_makanan" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "cards_makanan.exe" "\0"
+            VALUE "ProductName", "cards_makanan" "\0"
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -6,7 +6,7 @@ import 'package:ajengan_halal_mobile/auth/screens/login.dart';
 import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:ajengan_halal_mobile/profile/profile.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
-
+import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -64,7 +64,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfileSection(),
+                            builder: (context) => ProfileScreen(),
                           ));
             },
           ),

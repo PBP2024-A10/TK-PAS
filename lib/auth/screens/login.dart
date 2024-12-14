@@ -1,8 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/homepage.dart';
+import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 void main() {
@@ -39,217 +43,182 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: 8.0, right: 8.0, bottom: 8.0),
-            child: Text(
-              'Login',
-              style: GoogleFonts.poppins(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                height: 1.5,
-                color: Warna.white,
-              ),
-            ),
-          ),
-        ),
-        backgroundColor: Warna.backgrounddark,  // Coklat Gelap
-      ),
-      backgroundColor: Warna.backgrounddark,  // Coklat Gelap
       body: Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
-                color: Warna.background, // Coklat Agak Gelap
-                borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
+          Center(
+            child: SingleChildScrollView( // Add SingleChildScrollView here
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
+                  // Logo and Heading Section
+                  Container(
                     padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                    child: TextField(
-                      controller: _usernameController,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        height: 1.5,
-                        color: Warna.white,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Username',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: Warna.lightcyan,  // Coklat Terang
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(Icons.person, color: Warna.cyan),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/web-logo.png', 
+                          height: 180,  // Mengurangi tinggi logo agar ada ruang
+                        ),
+                        const SizedBox(height: 15),  // Mengurangi jarak antara logo dan heading
+                        Text(
+                          'Temukan Kuliner Halal di Bali!',
+                          style: GoogleFonts.rasa(
+                            fontSize: 28,  // Mengurangi ukuran font
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFcbbcb5),
+                            height: 1.5,
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.cyan),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.line),
-                        ),
-                        labelStyle: TextStyle(color: Warna.white),
-                      ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 24.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                    child: TextField(
-                      controller: _passwordController,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        height: 1.5,
-                        color: Warna.white,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: Warna.lightcyan,  // Coklat Terang
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(Icons.lock, color: Warna.cyan),
-                          ),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.cyan),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(color: Warna.line),
-                        ),
-                        labelStyle: TextStyle(color: Warna.white),
-                      ),
-                      obscureText: !_passwordVisible,
+                  // Login Form Section
+                  Container(
+                    margin: const EdgeInsets.all(16.0),  // Mengurangi margin
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
                     ),
-                  ),
-                  const SizedBox(height: 18.0),
-                  ElevatedButton(
-                    onPressed: () async {
-                      String username = _usernameController.text;
-                      String password = _passwordController.text;
-
-                      // Make sure the request sends correct headers and body
-                      final response = await http.post(
-                        Uri.parse("http://127.0.0.1:8000/auth/login/"),
-                        headers: {"Content-Type": "application/json"},
-                        body: json.encode({
-                          'username': username,
-                          'password': password,
-                        }),
-                      );
-
-                      if (response.statusCode == 200) {
-                        // Check if login is successful based on response
-                        final data = json.decode(response.body);
-
-                        if (data['status'] == true) {
-                          // Login successful
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Welcome, ${data['username']}!")),
-                          );
-
-                          // Navigate to the homepage
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => Homepage()),
-                          );
-                        } else {
-                          // Show error message from response
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Login Failed'),
-                              content: Text(data['message']),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Username field
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),  // Mengurangi padding vertikal
+                          child: TextField(
+                            controller: _usernameController,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF3d200a),
+                            ),
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                              labelStyle: TextStyle(color: Color(0xFF654a2d)),
+                              filled: true,
+                              fillColor: Color(0xFFcbbcb5),
+                              prefixIcon: Icon(Icons.person, color: Color(0xFF654a2d)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide(color: Color(0xFF654a2d)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Password field
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),  // Mengurangi padding vertikal
+                          child: TextField(
+                            controller: _passwordController,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF3d200a),
+                            ),
+                            obscureText: !_passwordVisible,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(color: Color(0xFF654a2d)),
+                              filled: true,
+                              fillColor: Color(0xFFcbbcb5),
+                              prefixIcon: Icon(Icons.lock, color: Color(0xFF654a2d)),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                  color: Color(0xFF654a2d),
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-                      } else {
-                        // If server response is not 200
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Error'),
-                            content: Text('Server error: ${response.statusCode}'),
-                            actions: [
-                              TextButton(
-                                child: const Text('OK'),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible;
+                                  });
                                 },
                               ),
-                            ],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide(color: Color(0xFF654a2d)),
+                              ),
+                            ),
                           ),
-                        );
-                      }
-                    },
-                    child: Text(
-                      'Login',
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        height: 1.5,
-                        color: Warna.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(385, 64),
-                      backgroundColor: Warna.blue,  // Warna biru tombol
+                        ),
+                        // Login button
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15.0),  // Mengurangi jarak vertical
+                          child: ElevatedButton(
+                            onPressed: _login,
+                            child: Text(
+                              'Log In',
+                              style: GoogleFonts.plusJakartaSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF3d200a),
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Sign up and guest login links
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account? ",
+                              style: GoogleFonts.plusJakartaSans(fontSize: 14, color: Color(0xFF654a2d)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const RegisterPage()),
+                                );
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 14,
+                                  color: Color(0xFF3d200a),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Log in as a guest? ',
+                              style: GoogleFonts.plusJakartaSans(fontSize: 14, color: Color(0xFF654a2d)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // Handle guest login
+                              },
+                              child: Text(
+                                'Log in',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 14,
+                                  color: Color(0xFF3d200a),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -259,5 +228,67 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  // Login function to send HTTP request
+  void _login() async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    final response = await http.post(
+      Uri.parse("http://127.0.0.1:8000/auth/login_flutter/"),
+      headers: {"Content-Type": "application/json"},
+      body: json.encode({
+        'username': username,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      if (data['status'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Welcome, ${data['username']}!")),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Homepage()),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Login Failed'),
+            content: Text(data['message']),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('Server error: ${response.statusCode}'),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

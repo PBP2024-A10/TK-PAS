@@ -40,11 +40,19 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
+<<<<<<< HEAD
     gtk_header_bar_set_title(header_bar, "ajengan_halal_mobile");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
     gtk_window_set_title(window, "ajengan_halal_mobile");
+=======
+    gtk_header_bar_set_title(header_bar, "cards_makanan");
+    gtk_header_bar_set_show_close_button(header_bar, TRUE);
+    gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
+  } else {
+    gtk_window_set_title(window, "cards_makanan");
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
   }
 
   gtk_window_set_default_size(window, 1280, 720);

@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "ajengan_halal_mobile",
     "short_name": "ajengan_halal_mobile",
+=======
+    "name": "cards_makanan",
+    "short_name": "cards_makanan",
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
