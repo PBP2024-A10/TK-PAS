@@ -315,12 +315,12 @@ class _HomepageState extends State<Homepage> {
                                         borderRadius: BorderRadius.circular(8.0),
                                         child: Image.network(
                                           restaurant.fields.imageUrl,
-                                          height: 100,
+                                          height: 200,
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) {
                                             return Container(
                                               color: Colors.grey,
-                                              height: 80,
+                                              height: 200,
                                               child: const Center(
                                                 child: Icon(Icons.broken_image, color: Colors.white),
                                               ),

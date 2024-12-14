@@ -13,7 +13,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
@@ -21,7 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String successMessage = '';
   String errorMessage = '';
   String displayedUsername = '';
-  String displayedEmail = '';
 
   @override
   void initState() {
@@ -29,23 +27,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // Ambil username dari data yang tersimpan di CookieRequest
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var request = context.read<pbp.CookieRequest>();
-      // Pastikan data user sudah disimpan setelah login
-      // Misalnya request.jsonData['username'] tersedia
+
       if (request.jsonData.containsKey('username')) {
         setState(() {
           displayedUsername = request.jsonData['username'];
         });
-      } else {
-        // Jika tidak ada, mungkin Anda perlu memanggil endpoint user detail
-        // atau melakukan mekanisme lain untuk mendapatkan username.
-      }
-      if (request.jsonData.containsKey('email')) {
-        setState(() {
-          displayedEmail = request.jsonData['email'];
-        });
-      } else {
-        // Jika tidak ada, mungkin Anda perlu memanggil endpoint user detail
-        // atau melakukan mekanisme lain untuk mendapatkan username.
       }
     });
   }
@@ -130,18 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         errorMessage,
                         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                       ),
-                    ),
-
-                  // TextField(
-                  //   controller: _usernameController..text = displayedUsername,
-                  //   decoration: InputDecoration(labelText: 'Username'),
-                  //   enabled: false, // Make username field non-editable
-                  // ),
-                  TextField(
-                    controller: _emailController..text = displayedEmail,
-                    decoration: InputDecoration(labelText: 'Email'),
-                    enabled: false,
-                  ),
+                    ),            
                   TextField(
                     controller: _firstNameController,
                     decoration: InputDecoration(labelText: 'First Name'),
@@ -171,34 +146,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // Set active index based on your app logic
-        onTap: (index) {
-          // Handle bottom navigation item tap
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
     );
   }
 
   // Submit form logic
   void _submitForm() {
     setState(() {
-      if (_emailController.text.isEmpty) {
-        errorMessage = 'Please fill in your email';
+      if (_bioController.text.isEmpty && _firstNameController.text.isEmpty && _lastNameController.text.isEmpty) {
+        errorMessage = 'Please fill in one of the below fields';
         successMessage = '';
       } else {
         successMessage = 'Profile updated successfully!';
