@@ -186,7 +186,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Handle guest login
+                               Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Homepage()),
+                                );
                               },
                               child: Text(
                                 'Log in',

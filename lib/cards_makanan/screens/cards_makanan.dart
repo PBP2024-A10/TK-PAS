@@ -1,19 +1,13 @@
+import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
+import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart';
+import 'package:ajengan_halal_mobile/wishlist/models/wishlists.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart'; // Import model MenuItem
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'dart:convert';
 
-void main() {
-  runApp(MaterialApp(
-    // MaterialApp berada di sini untuk memulai aplikasi
-    title: '[Nama Restaurant]',
-    theme: ThemeData(
-      primarySwatch: Colors.orange, // Gunakan warna utama yang valid
-    ),
-    home: const CardsMakanan(), // Langsung menuju CardsMakanan
-  ));
-}
+import 'package:provider/provider.dart';
 
 class CardsMakanan extends StatefulWidget {
   const CardsMakanan({Key? key}) : super(key: key);
@@ -27,6 +21,8 @@ class _CardsMakananState extends State<CardsMakanan> {
       TextEditingController(); // Controller untuk search bar
   String _searchQuery = ""; // Variabel untuk kata kunci pencarian
   List<MenuItem> _menuItems = []; // Daftar menu yang diambil dari API atau JSON
+  List<Wishlist> _wishLists = [];
+  late CookieRequest request; // for Wishlist
 
   // Fungsi untuk memuat data JSON
   Future<void> fetchMenuItems() async {
@@ -60,6 +56,9 @@ class _CardsMakananState extends State<CardsMakanan> {
 
   @override
   Widget build(BuildContext context) {
+    request = context.watch<CookieRequest>(); // for WishList
+    fetchWishLists(request); // for WishList
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('[Nama Restaurant]'),
@@ -73,6 +72,7 @@ class _CardsMakananState extends State<CardsMakanan> {
           ),
         ],
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -112,11 +112,20 @@ class _CardsMakananState extends State<CardsMakanan> {
                       itemCount: _filterMenuItems().length,
                       itemBuilder: (context, index) {
                         final item = _filterMenuItems()[index];
+
+                        bool isWishListed = false;
+                        for (var i in _wishLists) {
+                          if (item.fields.name == i.name) {
+                            isWishListed = true;
+                            break;
+                          }
+                        }
                         return _buildMenuCard(
                           imageUrl:
                               item.fields.imageUrlMenu, // Gambar dari JSON
                           name: item.fields.name, // Nama makanan
                           price: 'Rp${item.fields.price}', // Harga makanan
+                          isWishListed: isWishListed,
                         );
                       },
                     ),
@@ -132,6 +141,7 @@ class _CardsMakananState extends State<CardsMakanan> {
     required String imageUrl,
     required String name,
     required String price,
+    required bool isWishListed,
   }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -181,9 +191,15 @@ class _CardsMakananState extends State<CardsMakanan> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.favorite, color: Colors.red),
+                        icon: Icon(
+                          Icons.favorite, 
+                          color: isWishListed == true 
+                            ? Colors.red
+                            : Colors.grey
+                        ),
                         onPressed: () {
                           // Tambahkan logika untuk ikon hati di sini
+                          onWishList(request, name);
                         },
                       ),
                       IconButton(
@@ -202,4 +218,51 @@ class _CardsMakananState extends State<CardsMakanan> {
       ),
     );
   }
+
+
+
+  // OLAV'S METHODS
+  // =================================================================================
+  Future<void> fetchWishLists(CookieRequest request) async {
+    final response = await request.get('http://127.0.0.1:8000/wishlist/get-wishlists/');
+    WishLists wishLists = WishLists.fromJson(response);
+    setState(() {
+      _wishLists = wishLists.wishlists!;
+    });
+  }
+
+  Future<void> onWishList(CookieRequest request, String name) async {
+    final response = await request.postJson(
+        "http://127.0.0.1:8000/wishlist/toggle-wishlist/",
+        jsonEncode(<String, String>{
+            'menu_item_name' : name
+        }),
+    );
+    if (context.mounted) {
+        if (response['error'] == null) {
+          String message = "";
+          if (response['message'] == 'Removed from wishlist') {
+            message = "Remove ${name} to wish list!";
+          } else if (response['message'] == 'Added to wishlist') {
+            message = "Added ${name} to wish list!";
+          }
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(
+            content: Text(message),
+            ));
+            Navigator.of(context).pop();
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CardsMakanan()),
+            );
+        } else {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(
+                content:
+                    Text("Terdapat kesalahan, silakan coba lagi."),
+            ));
+        }
+    }
+  }
+  // =================================================================================
 }
