@@ -26,7 +26,7 @@ class LoginApp extends StatelessWidget {
       title: 'Login',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Warna.background,
+        scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Warna.backgroundlight,
           secondary: Warna.backgrounddark,

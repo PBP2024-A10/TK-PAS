@@ -8,6 +8,7 @@ import 'package:ajengan_halal_mobile/profile/profile.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
+import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -61,6 +62,34 @@ class LeftDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.favorite_outlined),
+            title: const Text('Editor\'s Choice'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditorsChoiceMain(),
+                ),
+              );
+            },
+          ),
+          // Add other list tile here
+          const SizedBox(height: 20), // if fixed, we can change this to place the logout button at the bottom
+          ListTile(
+            textColor: const Color.fromARGB(255, 255, 0, 0),
+            iconColor: const Color.fromARGB(255, 255, 0, 0), // might change
+            leading: const Icon(Icons.logout),
+            title: const Text('Keluar'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginApp(),
                 ),
               );
             },
