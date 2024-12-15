@@ -27,7 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
+<<<<<<< HEAD
   if (!window.Create(L"ajengan_halal_mobile", origin, size)) {
+=======
+  if (!window.Create(L"cards_makanan", origin, size)) {
+>>>>>>> 326d593210c4db9072dbdab571f418d98c8c422e
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

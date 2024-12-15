@@ -1,32 +1,10 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/homepage.dart';
 import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
-void main() {
-  runApp(const LoginApp());
-}
-
-class LoginApp extends StatelessWidget {
-  const LoginApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(),
-    );
-  }
-}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,6 +20,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -154,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15.0),  // Mengurangi jarak vertical
                           child: ElevatedButton(
-                            onPressed: _login,
+                            onPressed: () => _login(request),
                             child: Text(
                               'Log In',
                               style: GoogleFonts.plusJakartaSans(
@@ -206,7 +186,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Handle guest login
+                               Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Homepage()),
+                                );
                               },
                               child: Text(
                                 'Log in',
@@ -231,64 +215,51 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Login function to send HTTP request
-  void _login() async {
+  void _login(CookieRequest request) async {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    final response = await http.post(
-      Uri.parse("http://127.0.0.1:8000/auth/login_flutter/"),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        'username': username,
-        'password': password,
-      }),
-    );
+    final response = await request
+        .login("http://127.0.0.1:8000/auth/login_flutter/", {
+      'username': username,
+      'password': password,
+    });
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-
-      if (data['status'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Welcome, ${data['username']}!")),
-        );
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Homepage()),
-        );
+    if (request.loggedIn) {
+      String message = response['message'];
+      String uname = response['username'];
+      if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Homepage()),
+          );
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                  content:
+                      Text("$message Selamat datang, $uname.")),
+            );
+        }
       } else {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Login Failed'),
-            content: Text(data['message']),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text('Server error: ${response.statusCode}'),
-          actions: [
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+        if (context.mounted) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Login Gagal'),
+              content: Text(response['message']),
+              actions: [
+                TextButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+          );
+        }
+      }
     }
-  }
 }

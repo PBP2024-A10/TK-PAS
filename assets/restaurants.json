@@ -1,0 +1,1635 @@
+[
+    {
+    "model": "cards_makanan.menuitem",
+    "pk": "55a77fe3-ed8a-4f52-9da7-1e80bf8f5b29",
+    "fields": {
+        "restaurant": "39c5e061-ba23-47ac-83df-55dae7705ece",
+        "name": "Ayam Betutu Khas Ibu Nia",
+        "description": "Ayam dengan bumbu khas Bali",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS758vrF5A_4wXwpfzjAtWAGInvQf1BpSCdRA&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "34b299f2-4b53-4e24-ba64-8e88531273ec",
+    "fields": {
+        "restaurant": "39c5e061-ba23-47ac-83df-55dae7705ece",
+        "name": "Lontong Kuah Ayam",
+        "description": "Lontong disajikan dengan kuah ayam betutu",
+        "price": "35.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://asset.kompas.com/crops/lQVgzwcgSrZko5pz_o3C2uGZfO0=/0x0:1000x667/1200x800/data/photo/2021/07/19/60f4eadd0ea10.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "6a44902b-e827-4144-be33-27fafd84629e",
+    "fields": {
+        "restaurant": "39c5e061-ba23-47ac-83df-55dae7705ece",
+        "name": "Nasi Gurih Bakar",
+        "description": "Nasi gurih bakar dengan ayam betutu",
+        "price": "40.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfTQTE5hggtbqp5xfzat4UmgVohhLFWOpkCg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "457be216-ed69-4555-927a-b8414a4a2852",
+    "fields": {
+        "restaurant": "39c5e061-ba23-47ac-83df-55dae7705ece",
+        "name": "Nasi Campur Ayam",
+        "description": "Nasi campur dengan ayam betutu",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://awsimages.detik.net.id/community/media/visual/2021/12/28/5-nasi-campur-bali-halal-isi-ayam-yang-terkenal-enak-cobain-yuk-3.jpeg?w=1080"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "8f9755cc-aab2-4164-9142-a4519d46c69f",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Ikan Kerapu",
+        "description": "Ikan kerapu bakar dengan bumbu spesial",
+        "price": "90.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://cdn.idntimes.com/content-images/post/20220919/284364571-1028908518054676-3340504264973597147-n-13402d4de4aefaaca46289fc7bc2d561.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "eb865a65-ceb7-42a5-9ce1-1146e10c70c5",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Ikan Barramundi",
+        "description": "Ikan barramundi dengan saus madu",
+        "price": "85.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://assets.promediateknologi.id/crop/0x0:0x0/750x0/webp/photo/kulinear/2021/07/andryadrianus_20210705_10-1024x637.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "42697196-3509-4142-92d7-6860a207cfd2",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Udang Galah",
+        "description": "Udang galah bakar dengan sambal matah",
+        "price": "120.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://media-cdn.tripadvisor.com/media/photo-s/09/e1/28/e9/bale-udang-mang-engking.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4cd3b862-c273-4434-aa71-1104986f90b6",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Lobster",
+        "description": "Lobster bakar dengan bumbu spesial",
+        "price": "200.00", 
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThU0_ZJXcd-Css95jmh2n-A8YMDv1oikuTvQ&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4e314615-b13d-45dd-8285-95e39f6f2b08",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Kepiting",
+        "description": "Kepiting saus tiram",
+        "price": "180.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg1SeW0v1cOFSCH8KtVA6IJz2ttXfovZtvFQ&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "b2a026ce-9373-465e-8433-83e52f77670d",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Kerang",
+        "description": "Kerang bakar dengan saus sambal",
+        "price": "80.000", 
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5RdM6e7V9cM4kKTlR2nqNB2DlitEfi9lhwg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "df26d9c3-f585-4f15-b22d-8271c4b78866",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Cumi Bakar",
+        "description": "Cumi bakar dengan bumbu rempah",
+        "price": "75.000", 
+        "meal_type": "Dinner",
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1005/2024/03/30/Screenshot_20240330-183138_Instagram1-2294437544.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4ecbd344-efc4-44bb-ba00-0975ad97f714",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Udang Bakar",
+        "description": "Udang bakar dengan saus mentega",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/V3D0ZoxpMiTPgDEQScjKECYeRPU=/30x10:998x655/1200x800/data/photo/2022/07/25/62de72082ed89.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "849fa5ad-3ab7-477b-9a5e-1cf97c8c91f5",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Udang Telur Asin",
+        "description": "Udang dengan telur asin",
+        "price": "110.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://media-cdn.tripadvisor.com/media/photo-s/17/bc/7b/5e/udang-telor-asin.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "dd4c8b31-0baa-4bae-a689-fa7d8dcd17a7",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Oyster",
+        "description": "Oyster bakar dengan saus",
+        "price": "95.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://res.cloudinary.com/dk0z4ums3/image/upload/v1657633880/attached_image/5-manfaat-tiram-bagi-kesehatan-dan-tips-aman-mengolahnya.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "039f0c94-b853-42ff-9288-d890231c3678",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Kerang Dara",
+        "description": "Kerang dara dengan bumbu spesial",
+        "price": "85.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUHiahhMwCDabPUapU0Cf_qwXLmS8BeLX9cw&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bdc33439-16ed-4ed7-bceb-8794484e3059",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Kerang Totok",
+        "description": "Kerang totok dengan sambal",
+        "price": "75.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLsVSAKZXpG2BLToq_k0KeYHwsh-pRd7Jw2w&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "71d1afe3-8698-4eaa-8bac-a0a9552de918",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Kerang Asari",
+        "description": "Kerang asari dengan bumbu sederhana",
+        "price": "70.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://media.istockphoto.com/id/1353354694/photo/asari-clams-on-a-black-background.jpg?s=612x612&w=is&k=20&c=nSYovpdv82ACKYYcUWyRY0hf6HpVEquRQ98LnvJLA5w="
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "6923a45f-fed9-47db-ac04-b3c327e86941",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Plecing Kangkung",
+        "description": "Sayuran kangkung dengan sambal",
+        "price": "30.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/zA62CPTaXx1R3jfJju6Brz9Q2F0=/0x67:1000x733/1200x800/data/photo/2024/04/12/6618ce41cacb6.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "9980b7a0-664e-4a5c-8179-3024326f05aa",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Urap Gonde",
+        "description": "Salad sayuran dengan kelapa parut",
+        "price": "25.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/ojmYFUkt8ax9pkLOmFP8ZZbLQUc=/0x0:1000x667/375x240/data/photo/2020/06/21/5eeebf47e867b.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7e4728e5-c7d7-4e4d-9858-aee6555891b9",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Bakwan Jagung",
+        "description": "Bakwan jagung yang renyah",
+        "price": "20.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://awsimages.detik.net.id/community/media/visual/2022/08/11/resep-bakwan-jagung-manado_43.jpeg?w=600&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "89cc927f-faaf-4625-b876-32fd2eb882b6",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Bebek Goreng",
+        "description": "Bebek goreng renyah dengan sambal",
+        "price": "60.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://cdn.idntimes.com/content-images/community/2024/04/img-20240404-230601-c6264419ba9f81a50c4668c483eb2e21.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "a20b3c62-2fe0-4197-8147-fa84b157d5ca",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Bebek Bakar",
+        "description": "Bebek bakar dengan bumbu spesial",
+        "price": "65.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/WI6qriHr6bHwWR8MtCl8GarvKfA=/69x65:869x598/1200x800/data/photo/2021/11/25/619f7dc86e939.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "e6c468bb-9df1-4832-b328-4173bc1b7a0a",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Nasi Bebek",
+        "description": "Nasi dengan bebek goreng dan sambal",
+        "price": "70.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://images.tokopedia.net/img/KRMmCm/2023/2/22/653cda7e-65f5-4c90-9e80-130f4704b43b.png"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "089e969f-260f-4446-b200-2ad85ef61833",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Bebek Penyet",
+        "description": "Bebek yang dipenyet dengan sambal",
+        "price": "65.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIjNhsuKGLnuDZ5Q68j9bWhJTTdSEl6OvPFQ&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7f6b6d4f-a3b7-4cde-938e-0d9cdc51b8d9",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Ayam Betutu Daun Pisang",
+        "description": "Ayam yang dibungkus daun pisang dan dibakar",
+        "price": "55.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/364/2023/10/07/ayam-betutu-384791665.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7b774f24-2e96-4b5c-9eca-d45d91458c71",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Nasi Ayam",
+        "description": "Nasi dengan ayam bakar dan sambal",
+        "price": "50.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG-wqKgX3qRSiCKr_h_n_Ou1JP5sG_jcq4QA&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c3e9e7ab-c979-488f-a976-f7c4e31e88cd",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Sate Ayam",
+        "description": "Sate ayam dengan bumbu kacang",
+        "price": "45.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://media-cdn.tripadvisor.com/media/photo-s/0b/60/28/00/sate-ayam-lilit.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "6b93a585-92b8-4b19-a864-8db84a3f2222",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Nasi Campur",
+        "description": "Nasi campur dengan pilihan lauk",
+        "price": "60.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/181dc0a2-97f5-4fc4-8b57-7a030f90acf5_Go-Biz_20210520_194037.jpeg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "fb9319b5-48b8-4264-8365-d4d5b850515c",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Ayam Goreng",
+        "description": "Ayam goreng crispy dengan sambal",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/364/2023/08/23/resep-ayam-goreng-ungkep-sambal-blender-3795370326.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "da2d51fe-750c-4260-ba56-e2f3a298f165",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Nasi Goreng Seafood",
+        "description": "Nasi goreng dengan berbagai hidangan laut",
+        "price": "75.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://berasmaknyuss.com/wp-content/uploads/2016/09/nasi-goreng-seafood.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "68d3e366-9607-4d11-b59a-e0345823eb94",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Sop Ikan",
+        "description": "Sop ikan segar dengan rempah",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://media-cdn.tripadvisor.com/media/photo-s/17/bc/7d/3e/sop-gurame.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4d4ad9d3-a2df-4498-b46e-6f5814a21ba3",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Ikan Bakar Taliwang",
+        "description": "Ikan bakar dengan bumbu taliwang",
+        "price": "70.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://foto.kontan.co.id/7soVsJvEKgqu0QAGMeaGoRyGNWc=/smart/filters:format(webp)/2022/05/12/1115618795p.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "410b3621-0bc4-4c8c-ad71-4c16793be4a9",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Udang Saus Padang",
+        "description": "Udang dengan saus pedas khas Padang",
+        "price": "80.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://images.tokopedia.net/img/KRMmCm/2022/8/16/fb237cb7-091d-494e-8d86-fdc1a5c3d69f.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "afaffd5d-4544-49ce-ac55-4763990e0d1e",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Cumi Saus Mentega",
+        "description": "Cumi dengan saus mentega yang lezat",
+        "price": "70.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVBelS4MsbxkiUvI3GzVHZ6Qs4rV8IQ4qcFg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "e3054bc5-7d0b-41a5-a7d8-55e8b6c3c5b6",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Ayam Penyet",
+        "description": "Ayam yang dipenyet dengan sambal dan nasi",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/1QwZQW5sU3WuZa2tjyUCPXBd164=/0x0:1000x667/1200x800/data/photo/2023/05/07/6457763e0470a.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4d3fc9fe-b772-458b-a38c-aca2fa5e4a47",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Tahu Tempe",
+        "description": "Tahu dan tempe goreng dengan sambal",
+        "price": "20.00",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiss8VdtUz9caCxA0FZ28lqeK6O6R50qjdsA&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "837ac3ce-e67f-4c2f-8593-32f7d2733c97",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Nasi Goreng",
+        "description": "Nasi goreng dengan pilihan lauk",
+        "price": "40.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/c19754a2-6d81-4422-8dd6-5b52bb03e41e_Go-Biz_20220512_212616.jpeg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "3fc13358-0291-4a6d-aae5-3ce3e723ec77",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Sate Kambing",
+        "description": "Sate kambing dengan bumbu khas",
+        "price": "55.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://akcdn.detik.net.id/visual/2018/08/13/c54b0c9b-6f64-40c1-8c6d-5ab3dab75b73_43.jpeg?w=720&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "db9919dc-cf01-4c5d-afcf-3d0bc1683955",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Roti Bakar",
+        "description": "Roti bakar dengan selai",
+        "price": "15.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/08/2023/09/04/FotoJet-2023-09-04T111732077-3681000399.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "8716b50a-2da5-4d08-9834-b3ff5d53ac23",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Nasi Ayam Jimbaran",
+        "description": "Nasi dengan ayam bakar khas Jimbaran",
+        "price": "50.00",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/56f1a134-d575-4374-9002-cc5b8ab23ba9_2c767e3b-cdc8-4cf5-adcd-25b5d0124183_master-menu-item-image_1588059148047.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "3b392df3-9776-4857-acd5-5915b39eb987",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Paket Nasi Ayam",
+        "description": "Paket nasi dengan ayam, sayur, dan sambal",
+        "price": "60.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2022/7/8/f16d3e9e-fba7-4e79-af82-8c1dae91bcab.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "23dcdecc-a0c2-475f-88fb-d07511b29b36",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Ayam Penyet",
+        "description": "Ayam penyet dengan sambal dan nasi",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/80f50855-85f5-4c9a-bc98-b34365679ef6_dfd570b2-7c65-4d9e-9ee5-df3de5a04ae3_Go-Biz_20200213_072835.jpeg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4bf9cd1a-d9d7-4bd4-8278-3447a5f09e10",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Sate Ayam",
+        "description": "Sate ayam dengan bumbu kacang",
+        "price": "50.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2021/11/12/1827332922.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "8b37fd6f-6548-415e-84a3-a29224eb8ee0",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Nasi Campur Bali",
+        "description": "Nasi campur dengan pilihan lauk khas Bali",
+        "price": "70.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://awsimages.detik.net.id/community/media/visual/2021/12/28/5-nasi-campur-bali-halal-isi-ayam-yang-terkenal-enak-cobain-yuk-3.jpeg?w=1080"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "da4ec26c-0e33-4e6c-93f8-481ea92e02a2",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Ayam Taliwang",
+        "description": "Ayam bakar dengan bumbu taliwang",
+        "price": "65.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://awsimages.detik.net.id/community/media/visual/2023/02/01/resep-ayam-taliwang-khas-lombok_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bd940e34-3445-495b-a194-0143d3668f8f",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Ikan Bakar",
+        "description": "Ikan bakar dengan sambal",
+        "price": "75.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Gurame_bakar_kecap_2.JPG/1200px-Gurame_bakar_kecap_2.JPG"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "58300f3d-53b8-47b3-a918-22ec8eb2ca1d",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Sop Buntut",
+        "description": "Sop buntut dengan rempah khas",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf_JvADc-sabiY3FJxgdJ7pcz09FXwfzPKbg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "ecebe0e8-1742-469b-97c2-4b6be2ced8fd",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Sate Kambing",
+        "description": "Sate kambing dengan bumbu rempah",
+        "price": "60.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://asset.kompas.com/crops/FJo93UUqzTSPtLEN3dx57nczLlE=/122x0:966x563/750x500/data/photo/2023/06/29/649d02beb32d7.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "625253f7-2724-45c5-8813-4262e89aa26e",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Pizza Margherita",
+        "description": "Pizza dengan saus tomat dan keju",
+        "price": "90.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://cdn.shopify.com/s/files/1/0274/9503/9079/files/20220211142754-margherita-9920_5a73220e-4a1a-4d33-b38f-26e98e3cd986.jpg?v=1723650067"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c97fd324-3601-443c-9d11-1206f0c9241e",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Pizza Pepperoni",
+        "description": "Pizza dengan irisan pepperoni dan keju",
+        "price": "100.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRyP35ewXjn7Sw56sBT9_yBoFdBxn7WwFlw&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "748ed367-2952-4306-9389-bfaa81fb59f5",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Pasta Carbonara",
+        "description": "Pasta dengan saus krim dan bacon",
+        "price": "85.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://as2.ftcdn.net/v2/jpg/02/60/30/15/1000_F_260301530_BHupKXFZB6MEQbOgYnzAVoSDd6UpsUau.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "b3a8a55f-d3ca-4d38-8916-c40cde0c8466",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Lasagna",
+        "description": "Lasagna lapis dengan daging dan saus tomat",
+        "price": "95.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://scarlatifamilykitchen.com/wp-content/uploads/2021/02/classic-italian-lasagna-with-ricotta-cheese-1200x1200-1.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c5ce06d3-7817-443b-9273-9ee25406980c",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Salad Caesar",
+        "description": "Salad dengan saus caesar dan crouton",
+        "price": "45.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://savortheflavour.com/wp-content/uploads/2021/05/Chick-fil-A-Lemon-Kale-Caesar-Tasty.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "db67d147-d4d2-4ed5-80ae-82f926a01b8c",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Sushi Salmon",
+        "description": "Sushi dengan irisan salmon segar",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://s2.bukalapak.com/bukalapak-kontenz-production/content_attachments/websites/10/99097/original/Sushi_Roll_Salmon.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4529a530-2b23-4ae0-b25d-14c4d5e2a00b",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Sushi Tuna",
+        "description": "Sushi dengan irisan tuna segar",
+        "price": "110.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://ocwildseafood.com/cdn/shop/articles/Ahi_Tuna_Sashimi_Seafood_Recipe_1024x.jpg?v=1591853624"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "da424dd4-a85a-4783-89c4-72dac2a45200",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Maki Uramaki",
+        "description": "Maki dengan isi sayuran dan daging",
+        "price": "90.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5XxFXLC53pGacQMvVL_e_3RgHiVRG4cW3Xw&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7630cb17-6353-4a1c-9302-e5bff5a48c69",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Ramen Miso",
+        "description": "Ramen dengan kaldu miso yang gurih",
+        "price": "75.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://images.squarespace-cdn.com/content/v1/5e185ce3e56525704fdae715/285175dc-3dda-4f26-8136-397d8d61dad6/DSC02846.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "f69e56f0-9cc7-406d-b8c2-ddfb3842e2a3",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Tempura",
+        "description": "Sayuran dan udang yang digoreng tepung",
+        "price": "70.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://thehappyfoodie.co.uk/wp-content/uploads/2021/08/tempura_s900x0_c1723x1003_l0x904.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "b3e57888-db42-44e0-9dd5-145eea1bc13c",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Jamur Goreng",
+        "description": "Jamur Enoki Goreng Krispi",
+        "price": "30.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://media.suara.com/pictures/653x366/2021/08/08/22105-jamur-krispi-youtube-devina-hermawan.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "72d032f1-14a4-4df4-b9df-a781093a41d3",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Lumpia Sayur",
+        "description": "Lumpia dengan kulit renyah dan isian sayur",
+        "price": "25.000",
+        "meal_type": "Breakfast",
+        "image_url_menu": "https://asset.kompas.com/crops/8wLH6JD1rn8tXBPT-IcNhtm-F0M=/167x89:828x529/750x500/data/photo/2022/05/07/6275f8279acda.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "5c6e6768-c274-4e68-8bce-e0db3c6c40ed",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Terong Gurih",
+        "description": "Terong yang digoreng dengan cita rasa asin",
+        "price": "40.000",
+        "meal_type": "Lunch",
+        "image_url_menu": "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/07/22/sayur-lodeh-terong-975972651.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "34610f5a-e342-426d-bbdc-fcd9365fd01d",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Tape Gulung Keju",
+        "description": "Tape dibaluri keju manis",
+        "price": "15.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://cdn.idntimes.com/content-images/post/20200210/untitled3-198d7a4ddadaa7189ff2d6c242d2b154_600x400.png"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "e61e8c3a-3e44-4daa-bbca-1bbfdf664845",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Ice Cream Goreng",
+        "description": "Es krim dengan cita rasa unik",
+        "price": "55.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://akcdn.detik.net.id/visual/2023/04/17/ilustrasi-es-krim_169.jpeg?w=650&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "38d82bab-6355-4f92-b53c-c1c51b361d91",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Klepon Cake",
+        "description": "Kue tart rasa klepon khas jajanan tradisional",
+        "price": "40.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwpyc6DB0sVPTEDyd7mFa0ZzrO8SYR9l7DTA&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bac65ab3-b3de-4be9-b5ca-92ce21bf8d4b",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Es Teler",
+        "description": "Es serut dengan topping buah-buahan dan sirup",
+        "price": "40.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/850/2024/03/19/IMG_20240319_142250-372398131.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "fb061484-ed5e-4f9e-a929-ef002a479089",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Es Doger",
+        "description": "Es serut dengan topping cokelat meses dan susu kental manis",
+        "price": "40.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://cdn.idntimes.com/content-images/community/2024/10/screenshot-20241019-2021042-dc1224f31ff238dcdb099bf4e29c6b52-d29b9b801b697d4f9d83e87af3133bf5_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bc709395-f92e-4dcd-a51c-9e40d4f55e32",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Es Campur",
+        "description": "Es serut dengan topping cincau serta buah",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1005/2024/03/01/es-campur-berkah-ramadhan-1393578378.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c9a6ab4b-20e4-4f1b-990c-7eee87b2171f",
+    "fields": {
+        "restaurant": "f4a123de-2349-4f34-81d6-14e135d820bc",
+        "name": "Es Puter",
+        "description": "Es serut dengan susu kental manis rasa cokelat",
+        "price": "25.000",
+        "meal_type": "Dinner",
+        "image_url_menu": "https://asset.kompas.com/crops/CxcaGKBOI3g6pS-PyefrMULJoE4=/45x64:845x598/750x500/data/photo/2022/12/11/6395ba1fb6514.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c176549c-9d96-4af9-b8e7-dc3241417ae0",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Bebek Goreng",
+        "description": "Bebek garing khas restoran",
+        "price": "95.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/231/2024/05/06/bebek_goreng_sinjay-4269944142.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "005546d5-56dd-438e-b1ab-20c893a17189",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Bebek Bakar",
+        "description": "Bebek dibaluri kecap yang dibakar hingga wangi",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://media.suara.com/pictures/653x366/2021/11/23/95862-bebek-goreng-h-slamet-by-waroeng-group.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7e0ae828-0101-4848-bb2c-abc4f41853e8",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Ayam Kampung Goreng",
+        "description": "Ayam kampung renyah dan garing",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2022/03/13/resep-ayam-goreng-jawa_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bb19711a-dfb0-41cd-b470-113611da5706",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Ayam Kampung Bakar",
+        "description": "Ayam kampung bakar dengan baluran kecap",
+        "price": "120.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/gkIp6_DNkYJSg3tNfJHyo9xhv8g=/7x245:859x813/750x500/data/photo/2021/02/22/60337a258134d.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "faaf94d4-42ae-475d-8092-780c1c10eadd",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Gurame Goreng",
+        "description": "Ikan gurame goreng garing spesial",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p3/94/2024/05/25/1716633539680-2585259390.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "ac554ada-9d0e-46f7-a41f-8f0440f36fba",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Soto Ayam",
+        "description": "Soto berisikan ayam dengan kuah kuning dan tauge",
+        "price": "55.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2017/03/22/d3cb3b7a-aa3a-4e0a-a0d4-83828a40b5d5_43.jpg?w=600&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "7a198033-e41b-4b8a-bb4b-80c71952a2d4",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Sate Lilit",
+        "description": "Sate ayam dengan daging yang telah dihaluskan dan dibakar",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2020/09/17/sate-lilit-ayam-khas-bali-1.jpeg?w=600&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "1f7706fb-2054-4735-8ab3-ea200285a865",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Tempe/Tahu Goreng",
+        "description": "Tempe dan tahu goreng renyah",
+        "price": "25.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://live.staticflickr.com/7060/6776276904_9226769210_b.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "425f3382-feab-4484-b0e5-7e1466e9bc19",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Pisang Aroma",
+        "description": "Pisang goreng manis dan sedap",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV6hQsJsfr-7kIF4ZlUXAd1FI5v4dVrik6ig&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "f7cadd8f-cf53-42bd-a12b-23c8ea469fa6",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Nastar Cake",
+        "description": "Kue dengan isian nanas",
+        "price": "55.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2021/03/fromandroid-78c7d9d0c3a3acda7593f32f72a98780_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "231a5c88-f6a8-4908-be91-0acd58c73f5d",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Mocca Cake",
+        "description": "Kue dengan varian rasa mocca",
+        "price": "60.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2022/11/fromandroid-fd1f228d47e07e929a57a2ecac85f9b6.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "acf951cd-2812-4684-a565-c527cba246de",
+    "fields": {
+        "restaurant": "383d07aa-303d-4be5-b150-9cfc815a74da",
+        "name": "Tiramisu Cup",
+        "description": "Kue tiramisu yang disajikan dalam bentuk cup",
+        "price": "85.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://img.bdjkt.com/img/1200/brsl57yybrtgtybnnm_1/hloHB8oM3W7ELeJhlo1nOrbS3kpBusQyOaS37zKul2SA.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "9d2bcce4-5442-41a1-8558-0c2279b6fc60",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Ayam Betutu",
+        "description": "Ayam khas Bali yang dimasak dengan rempah",
+        "price": "90.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/43x280:719x974/0x0/webp/photo/p3/102/2024/10/22/Screenshot_2024-10-22-05-27-36-05-3659587196.png"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "45c5818e-77c0-4efd-851e-e66ace9615fa",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Ayam Taliwang",
+        "description": "Ayam pedas berbumbu khas Lombok",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2023/02/01/resep-ayam-taliwang-khas-lombok_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "36c971c2-7a1e-4fe4-aeb5-3add5acfd68f",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Ayam Bukakak",
+        "description": "Ayam panggang Sunda yang dibumbui kecap",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2021/06/29/resep-ayam-bekakak-sunda-1_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "a52b8b52-6514-4aa9-9cab-a31913952f9f",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Sate Ayam",
+        "description": "Sate ayam empuk dengan bumbu kacang",
+        "price": "55.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/QgfVXuMhL5tHLqnJKfGPs9Yx5xY=/100x67:900x600/750x500/data/photo/2023/10/24/6537126d64f8b.jpeg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "21ae9e67-f152-4386-8f50-192d07ab619c",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Sate Sapi",
+        "description": "Sate daging sapi dengan saus kacang",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/post/20230613/inspirasi-olahan-daging-sapi-khas-indonesia-kreasi-daging-sapi-dari-daging-kurban-resep-masakan-daging-sapi-sate-maranggi-resep-sate-maranggi-khas-purwakarta-9cde86371d7fc78c91ae80a6ffab250e-5613396d002e570f3ec5191-1083a87fba42247ef1fae18d65e2d2b2_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "2d3a2b12-116d-4f86-b60d-4bcac858335f",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Sate Languan",
+        "description": "Sate ikan khas Bali dengan bumbu rempah",
+        "price": "110.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/Kfx_1EoD9iosPLN1AjKlEmC9Kms=/0x16:1000x683/750x500/data/photo/2021/03/09/6046d1c9bb796.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bf94aeb1-8ee4-4124-909f-d8139b7671b6",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Fish and Chips",
+        "description": "Hidangan ikan dengan kentang goreng dan saus tartar",
+        "price": "80.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMiyNz_wQxLArwIuhZO_qWRULAGL8IlV0DA&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "d5553316-bdd5-4b42-a64f-71c93b976ceb",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Kare Ayam",
+        "description": "Kari ayam berkuah santan dengan cita rasa rempah",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2021/11/02/resep-kare-ayam-surabaya_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "34f08521-8207-45b8-b0e8-0ec1c72ceafa",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Kare Sapi",
+        "description": "Kari daging sapi yang gurih dengan bumbu rempah dan kuah santan",
+        "price": "55.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/NISn_UGJtXtmPqYFgtKJ2BAx85A=/19x0:1000x654/750x500/data/photo/2022/04/28/6269f24c81763.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "841de682-c0ad-4668-aa9d-c9191d6e1bd3",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Kare Seafood",
+        "description": "Kari seafood dengan campuran ikan, udang, dan cumi",
+        "price": "55.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2022/01/20220126-195023-329ae2b286ff7799fbbec7d4597d307a-f1922865439df26a52b49bddd6451ca5.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "15e8086d-0f13-437e-9188-1de1c5a3d5db",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Nachos",
+        "description": "Camilan tortilla chips renyah dengan topping keju, salsa, dan jalapeno",
+        "price": "20.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/7695121e-8b9a-4d00-ab96-4430e47266ba/Derivates/445ffdd9-9a8e-48fa-9e86-84c1e94469ca.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4e280c03-0186-48e4-9d62-df05137d6d57",
+    "fields": {
+        "restaurant": "d23b9cb6-ad63-4dd3-afb8-98ed62a40cbc",
+        "name": "Rujak Bali",
+        "description": "Salad buah khas Bali dengan saus kacang pedas",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-3c2cdb3d833e0fcf4e5e646f85c95b3c_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "ba1da517-fd32-492e-95fc-2b8ffb0776d4",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Lobster Asam Manis",
+        "description": "Lobster segar dengan saus asam manis yang menggugah selera",
+        "price": "120.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2023/08/screenshot-20230828-063557-instagram-21d30a6f7758faf4dadc71b5bf58f4be_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "fe26fcb8-961e-4d17-8e0a-47a9bf2045f2",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Pepes Ikan Nila",
+        "description": "Ikan nila berbumbu rempah yang dibungkus daun pisang dan dikukus",
+        "price": "10.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/ozFo2iC64M8broK17LZy7nnCu0c=/0x0:1000x667/750x500/data/photo/2020/10/19/5f8d07e578ecf.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "043d769e-8b34-44d7-a8d0-6ad5b70c8975",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Kari Kambing",
+        "description": "Kari kambing dengan bumbu rempah",
+        "price": "90.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2024/05/img-20240528-194353-07c617c37e412bfa9b3cc7344bc4b17b.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "82da586b-a2e8-4f7a-bbbb-63906ac47141",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Gurame Goreng Ibu Mina",
+        "description": "Gurame yang digoreng renyah dengan sambal",
+        "price": "75.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://akcdn.detik.net.id/visual/2020/02/03/75f1a88c-fe92-4f3e-be5e-d91b2f7132e6_43.jpeg?w=720&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "40046188-6da0-420e-90dc-3f7d24a39565",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Kerang Asam Manis",
+        "description": "Kerang segar yang dimasak dengan saus asam manis lezat",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://i0.wp.com/resepkoki.id/wp-content/uploads/2017/06/Resep-Kerang-goreng.jpg?fit=1615%2C1920&ssl=1"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "e74c1846-3031-4087-8639-38807853cbe9",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Mujair Nyat-Nyat",
+        "description": "Mujair khas Bali dengan bumbu nyat-nyat yang gurih dan pedas",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn-brilio-net.akamaized.net/webp/news/2020/12/08/196874/1200xauto-mencicipi-ikan-mujair-nyat-nyat-khas-kintamani-nikmatnya-tiada-dua-2012084.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "b1a48c69-e867-4b93-80fb-f20d854654b3",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Kakap Nyat-Nyat",
+        "description": "Ikan kakap berbumbu nyat-nyat khas Bali yang kaya rempah",
+        "price": "100.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/kulinear/2021/09/IMG_20210913_072419.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "71ce40ae-a820-4c1b-97d5-6393fdfc35e0",
+    "fields": {
+        "restaurant": "1a324fcd-2960-4d68-b42c-e1d5fffa4b82",
+        "name": "Kepiting Asam Manis",
+        "description": "Kepiting dengan saus asam manis",
+        "price": "120.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2020/10/13/kepiting-asam-manis_43.jpeg?w=600&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "236d8920-71a9-4e5b-b76d-d0bff18e6eb7",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Ayam Goreng Mentega",
+        "description": "Ayam goreng dengan saus mentega gurih dan sedikit manis",
+        "price": "40.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2024/06/419711180-1053925212507092-2249362065419768010-n-41a302c91b7318fdc0e2e1cd25e1eb61_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "1a873f42-ac9d-470d-9959-0ee9fc9e0124",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Udang Bakar Madu",
+        "description": "Udang panggang dengan lapisan madu yang manis dan lezat",
+        "price": "70.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2021/08/210603637-1056898528176270-7399415663209571491-n-2-e17cde2aae3a17b867f3ed05ade60a41-60f479d9f49eb1690d4fdce73d653433_600x400.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4aad8e3e-4409-40c3-a04b-aeb60d7204ed",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Gurame Kecap",
+        "description": "Gurame panggang dengan olesan kecap manis dan bumbu rempah",
+        "price": "90.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2022/04/20/resep-gurame-bakar-bumbu-kecap-cabe.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "5d163594-51af-4280-bdfc-042a9758a026",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Kacang Panjang",
+        "description": "Kacang panjang dimasak dengan bumbu khas Kalasan yang gurih",
+        "price": "20.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/community/2021/02/fromandroid-99c24ccca3138e0cc29fae95bc710a10.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "5f0c78a1-b4de-40b7-aa75-9f161b2175d6",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Capcay Ayam",
+        "description": "Tumisan sayuran segar dengan potongan ayam dalam saus gurih",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2022/06/07/resep-capcay-kuah-ayam_43.jpeg?w=1200"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "8a0ce6b3-db2b-4162-a382-bda91270d2f3",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Cah Kangkung",
+        "description": "Kangkung segar ditumis dengan bawang putih dan sedikit sambal",
+        "price": "25.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/131/2023/11/10/Resep-Cah-Kangkung-Terasi-2602874229.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "0f84d9bc-2d54-4a88-9640-3960be1d0079",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Kerang Bakar",
+        "description": "Kerang bakar dengan bumbu pedas manis khas laut",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://cdn.idntimes.com/content-images/post/20220301/13706909-367819790009055-1236598665-n-4131c3ce9916102349b0ff1b203c649c.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "1564f824-b59f-4893-b836-81637f4730fa",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Sayur Urap",
+        "description": "Sayuran segar dengan taburan kelapa parut berbumbu khas",
+        "price": "20.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2022/06/15/2141760751.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "2ff00fcc-342f-4900-a9ef-c1d3c86d9279",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Tumis Baby Buncis",
+        "description": "Baby buncis yang ditumis dengan bawang putih untuk cita rasa gurih",
+        "price": "30.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/294/2024/05/09/Artikel-7-2152780916.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "8087c30b-964a-4905-89ae-68b23d0e647f",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Sayur Asam",
+        "description": "Sup sayur dengan rasa asam segar dari asam jawa",
+        "price": "25.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p3/52/2024/06/22/Screenshot_20240622_123619_Gallery-1950419821.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "0f07ed50-6099-4b59-8fa4-5fa1e39d8960",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Karedok",
+        "description": "Salad sayuran mentah khas Sunda dengan saus kacang yang segar",
+        "price": "35.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/M75arOCE_pPfaZHsnzhMPT4q6Gw=/0x5:1000x672/750x500/data/photo/2021/05/15/609f4eb405950.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "1afda86a-2d0a-4510-9a9e-f6a7291340e2",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Sapo Tahu",
+        "description": "Tahu lembut dengan sayuran dalam saus kental yang gurih",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1067/2024/05/09/IMG_8430PNG-2560233983.png"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "bf3839f4-8cfc-40e4-834c-29356537976c",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Pisang Goreng Keju",
+        "description": "Pisang goreng renyah dengan taburan keju parut",
+        "price": "25.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://media-cdn.tripadvisor.com/media/photo-s/19/b9/59/35/kentang-goreng-keju.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4e4eecb2-5ea4-46d7-9a56-15e645dda9fe",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Es Pisang Ijo",
+        "description": "Pisang dibalut kulit hijau, disajikan dengan sirup dan santan dingin",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://foto.kontan.co.id/kMF2J55Xj0NnT4n5njmVA03TDDo=/smart/filters:format(webp)/2022/04/07/1320966672p.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4670a023-a87a-447c-b213-3ad04ff449af",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Dadar Gulung",
+        "description": "Kue dadar berisi kelapa parut manis, berwarna hijau dari pandan",
+        "price": "15.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://asset.kompas.com/crops/5-FXu0rkpP6nxD9vgw0-lIzggjs=/0x0:1000x667/750x500/data/photo/2021/08/04/610a2b1f96f46.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "051a675d-fe75-4dee-be36-26937fb72a9b",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Tape Goreng",
+        "description": "Tape singkong digoreng dengan lapisan tepung renyah",
+        "price": "15.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://asset.kompas.com/crops/Bk23Xcwx2oIeXbgvjw0EZAek24s=/100x67:900x600/375x240/data/photo/2021/02/16/602b72277c17e.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "a1a77f42-8991-43c1-a4ea-a0e06771baf1",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Rujak",
+        "description": "Buah-buahan segar dengan saus kacang pedas",
+        "price": "20.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Rujak_Buah_%28Indonesian_Fruit_Salad%29.JPG/640px-Rujak_Buah_%28Indonesian_Fruit_Salad%29.JPG"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "36db8eb0-5561-4ebc-95f4-47c7c1b4a0bf",
+    "fields": {
+        "restaurant": "97789d11-3deb-4c37-a4ab-b559345fee50",
+        "name": "Pancake Durian",
+        "description": "Kue pancake lembut dengan topping buah durian",
+        "price": "40.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://asset.kompas.com/crops/TIe3Rg4sqZfcK-pUInxuGWHdxUM=/163x67:963x600/750x500/data/photo/2021/03/01/603cc75725d66.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "1be1d222-4a26-4327-b620-72a5f24ebd57",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Ayam Betutu Bu Oki",
+        "description": "Ayam khas Bali yang dimasak dengan rempah khas Bu Oki",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/15x21:689x426/750x500/webp/photo/2023/07/16/ayam-betutu-Instagram-banususanto-1501908497.png"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "c4947612-4381-4330-87c6-b33276dc79ac",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Ayam Suwir",
+        "description": "Ayam suwir yang dimasak dengan bumbu pedas manis, khas Bali",
+        "price": "40.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://images.tokopedia.net/img/KRMmCm/2023/3/1/abc4fb31-1a78-4c9c-8511-aa0be787ae1f.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "850cedd9-b060-4b03-a921-30ccf32cfe56",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Telur Pindang",
+        "description": "Telur rebus dengan warna coklat dan rasa gurih dari bumbu khas",
+        "price": "8.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/01/2024/05/03/Telur-Pindang-2-729256862.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "77ecb0f9-f248-41d3-a546-2ab2ec9feb8b",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Soto Ayam Bu Oki",
+        "description": "Sup ayam berkuah kuning dengan rempah-rempah khas Bu Oki",
+        "price": "35.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/23f62312738135ab286e78812093c46b/Derivates/2e373c2ef0bf36c9e8475cbf93347db5a3496309.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "96fa5eeb-7567-456b-8fe2-e4248224a986",
+    "fields": {
+        "restaurant": "8f43b441-bd79-4337-9af8-71426f2fdfea",
+        "name": "Pisang Madu",
+        "description": "Pisang yang digoreng hingga renyah dengan madu",
+        "price": "20.000",
+        "meal_type": "Breakfast",
+        "image_url_menu":"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/6e/f3/22/photo3jpg.jpg?w=1200&h=-1&s=1"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "6f60283e-1b62-41cb-b7e2-3643d763b0d4",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Ayam Pelalah",
+        "description": "Ayam suwir khas Bali dengan bumbu pedas dan sambal yang segar",
+        "price": "40.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://media-cdn.tripadvisor.com/media/photo-s/14/7f/2c/36/ayam-pelalah.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4a4a09aa-7686-40e8-98e9-9e45008214f2",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Tuna Sambal Matah",
+        "description": "Tuna panggang disajikan dengan sambal matah khas Bali",
+        "price": "45.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOKhV6LD6oEiEEVbt6sslZ7tuR4z9AUkJRbw&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "94a5feb4-da6e-4d46-9898-8cc69c7e157f",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Sayur Pecel",
+        "description": "Sayuran segar dengan siraman bumbu kacang yang gurih",
+        "price": "30.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa5T8MmyvihzO4sGHGLGKUtaWVnMAhZPmV0w&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "4323445f-11f8-4371-bca4-5782b1ed62ad",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Sup Ayam",
+        "description": "Sup ayam hangat dengan potongan sayuran",
+        "price": "45.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-O8bQ6QFmYskG0FSR9lX8lcv4kSmA4klkwg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "97267281-5787-4c37-bbf1-84802fb13e70",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Kare Sayur",
+        "description": "Kari sayuran dengan kuah santan dan rempah yang lezat",
+        "price": "20.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://awsimages.detik.net.id/community/media/visual/2021/08/05/resep-sayur-kari-tahu_43.jpeg?w=600&q=90"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "fcc8a9a1-b105-4982-8b02-e148df74cf9a",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Bihun Goreng",
+        "description": "Bihun goreng dengan topping telur",
+        "price": "80.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p3/105/2024/09/26/bihun-goreng-3284809251.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "29c29328-8df3-4a1b-83c0-8a35f08e536a",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Mie Goreng",
+        "description": "Mie goreng dengan bumbu gurih, dilengkapi sayuran dan pilihan lauk",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://static.promediateknologi.id/crop/0x154:1080x1714/750x500/webp/photo/p1/1005/2024/01/12/Screenshot_20240108_175324_Instagram-374963985.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "38992660-56d7-4a1b-9173-67feb46329f8",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Nasi Goreng",
+        "description": "Nasi goreng khas Indonesia, disajikan dengan acar dan telur",
+        "price": "50.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://vjcooks.com/wp-content/uploads/2023/12/VJ_Cooks_Nasi_Goreng-Pork-12-720x540.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "f3994320-905f-427d-a0b0-232aef7b2793",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Lawar Ayam",
+        "description": "Campuran ayam cincang dengan kelapa parut dan rempah khas Bali",
+        "price": "55.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/H9l3R08jxArMcurFdz6wXbBVo-s=/0x0:739x493/750x500/data/photo/2020/02/18/5e4bb729d4b69.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "3e70ca3c-4e26-489e-af6b-1b55f0a7b3cc",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Rendang Sapi",
+        "description": "Daging sapi yang dimasak lama dengan bumbu rendang kental dan pedas",
+        "price": "60.000",
+        "meal_type": "Lunch",
+        "image_url_menu":"https://asset.kompas.com/crops/HDe5rLDP0dEOLb6MC_UPvRTwFg8=/0x141:500x474/750x500/data/photo/2021/05/11/609a08809259f.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "6fd28425-3c4e-4832-b4b3-efb3cae92366",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Bubur Injin",
+        "description": "Bubur ketan hitam manis khas Bali, disajikan dengan santan",
+        "price": "30.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaKRl-bhw3J6PW0nGrGTI_rGUyM25L6B8Gdg&s"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "284e21db-84dd-49d6-a417-864678dee699",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Banana Split",
+        "description": "Pisang dengan es krim dan saus cokelat, topping buah dan kacang",
+        "price": "25.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://media-cdn.tripadvisor.com/media/photo-s/09/d7/13/a5/fountain-ice-cream-cafe.jpg"
+    }
+},
+{
+    "model": "cards_makanan.menuitem",
+    "pk": "b25ae1ed-1898-4fd4-a026-dad0e9eaa94f",
+    "fields": {
+        "restaurant": "a3d7fda0-2f87-457b-af1f-ebcf36570c5b",
+        "name": "Buah-Buahan Segar",
+        "description": "Aneka buah segar",
+        "price": "35.000",
+        "meal_type": "Dinner",
+        "image_url_menu":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzfbxks_NSRtjPrLMBI8UmjYeRPCeN9vy1cQ&s"
+    }
+}
+
+]
