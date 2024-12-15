@@ -63,6 +63,7 @@ flutter:
       - assets/images/navbar-logo.png
       - assets/images/user.png
       - assets/restaurants.json
+      - assets/images/cross-mark-no-data.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

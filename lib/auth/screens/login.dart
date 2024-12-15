@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: GoogleFonts.rasa(
                             fontSize: 28,  // Mengurangi ukuran font
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFcbbcb5),
+                            color: const Color(0xFFcbbcb5),
                             height: 1.5,
                           ),
                         ),
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(16),
-                      boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                      boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

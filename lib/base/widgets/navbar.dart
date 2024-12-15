@@ -163,7 +163,7 @@ class LeftDrawer extends StatelessWidget {
               request.jsonData['username'] != null)
             ...loggedInMenuItems,
           ListTile(
-            leading: const Icon(Icons.favorite_outlined),
+            leading: const Icon(Icons.recommend_rounded),
             title: const Text('Editor\'s Choice'),
             onTap: () {
               Navigator.pushReplacement(

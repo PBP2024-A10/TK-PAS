@@ -1,3 +1,4 @@
+import 'package:ajengan_halal_mobile/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart'; // Add this import for CookieRequest
@@ -36,7 +37,8 @@ class LoginApp extends StatelessWidget {
           secondary: Warna.backgrounddark,
         )
       ),
-      home: const LoginPage(), // Your LoginPage is the starting page
+      // home: const LoginPage(), // Your LoginPage is the starting page
+      home: const Homepage(), // change to loginpage (uncomment line 40 for deployment)
     );
   }
 }
