@@ -23,25 +23,31 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
   // Future untuk menyimpan data EditorChoice dan FoodRecommendation
   late Future<Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>
       _futureEditorChoices;
-  int _totalFoodRec =
-      0; // Jumlah total FoodRecommendation yang akan dihitung nanti
-  String _defWeek = ''; // Minggu default
+  Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>> _editorChoices =
+      {}; // Data EditorChoice
+  Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>
+      _filteredEditorChoices = {}; // Data EditorChoice yang telah difilter
+  int _totalFoodRec = 0; // Jumlah total FoodRecommendation yang akan dihitung nanti
+  String _defWeek = ''; // Minggu default (misalnya minggu ini)
   String username = ''; // Nama pengguna
 
+  // Fungsi untuk mendapatkan minggu default (misalnya minggu sekarang)
   String getDefaultWeek() {
     final now = DateTime.now();
-    final firstDayOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    return firstDayOfWeek.toIso8601String().substring(0, 10);
+    final firstDayOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Hitung hari pertama minggu ini
+    return firstDayOfWeek.toIso8601String().substring(0, 10); // Format ke ISO 8601
   }
 
   @override
   void initState() {
     super.initState();
-    _futureEditorChoices = fetchEditorChoices(widget.week);
-    _defWeek = getDefaultWeek();
+    _futureEditorChoices = fetchEditorChoices(widget.week); // Memuat data dengan filter "week"
+    _defWeek = getDefaultWeek(); // Set minggu default
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var request = context.read<pbp.CookieRequest>();
       setState(() {
+        // Mengambil nama pengguna dari request JSON
         if (request.jsonData.containsKey('username')) {
           username = request.jsonData['username'];
         }
@@ -49,9 +55,11 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
     });
   }
 
-  // bool get isAdmin => username == 'admin'; // Cek apakah pengguna adalah admin
-  bool get isAdmin => username == 'admin1'; // Cek apakah pengguna adalah admin
-  bool get isLoggedIn => username.isNotEmpty; // Cek apakah pengguna sudah login
+  // Getter untuk mengecek apakah pengguna adalah admin
+  bool get isAdmin => username == 'admin1'; // Debug: admin dengan username "admin1"
+
+  // Getter untuk mengecek apakah pengguna sudah login
+  bool get isLoggedIn => username.isNotEmpty;
 
   // Fungsi untuk mengambil data EditorChoice dan FoodRecommendation dari API
   Future<Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>
@@ -66,15 +74,14 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
         .get(Uri.parse('http://localhost:8000/editors-choice/json/food/'));
     // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/food/
 
-    // HTTP GET request untuk mengambil data EditorChoice
+    // HTTP GET request untuk mengambil data EditorChoice berdasarkan minggu
     final responseEC = await http.get(Uri.parse(week == null
-        // ? 'http://localhost:8000/editors-choice/json/editor-choice/week/$_defWeek/' // used
+        // Endpoint lokal jika "week" tidak diberikan
         ? 'http://localhost:8000/editors-choice/json/editor-choice/week/2024-12-02/' // DEBUG
         : 'http://localhost:8000/editors-choice/json/editor-choice/week/$week/'));
-    // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/
     // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/week/$week/
 
-    // Jika kedua response berhasil (status code 200 / 301)
+    // Jika semua response berhasil (status code 200 atau 301)
     if ((responseEC.statusCode == 200 || responseEC.statusCode == 301) &&
         (responseFR.statusCode == 200 || responseFR.statusCode == 301) &&
         (responseMI.statusCode == 200 || responseMI.statusCode == 301)) {
@@ -127,6 +134,9 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
         result[editorChoice] = temp;
       }
 
+      // Mengembalikan hasil parsing: inisialisasi seluruh data EditorChoice
+      _editorChoices = result;
+      _filteredEditorChoices = result;
       return result;
     } else {
       // Jika gagal, lemparkan Exception
@@ -137,23 +147,34 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
   // Fungsi untuk memfilter EditorChoice berdasarkan tipe makanan
   void _filterEditorChoicesByFoodType(String? type) {
     setState(() {
-      _futureEditorChoices = _futureEditorChoices.then((data) {
-        if (type == null || type.isEmpty) {
-          return data;
-        } else {
-          final filteredData = <EditorChoice, List<Map<FoodRecommendation, MenuItem>>>{};
-          data.forEach((editorChoice, foodList) {
-            final filteredFoodList = foodList.where((foodMap) {
-              final foodItem = foodMap.values.first;
-              return foodItem.fields.mealType == type;
-            }).toList();
-            if (filteredFoodList.isNotEmpty) {
-              filteredData[editorChoice] = filteredFoodList;
+      if (type == 'all' || type == null || type.isEmpty) {
+        // Menampilkan semua data
+        _totalFoodRec = _editorChoices.values
+            .fold<int>(0, (previousValue, element) => previousValue + element.length);
+        _futureEditorChoices = Future<
+                Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>.value(
+            _editorChoices);
+        _filteredEditorChoices = _editorChoices;
+      } else {
+        // Memfilter data berdasarkan tipe makanan
+        _totalFoodRec = 0;
+        _filteredEditorChoices = {};
+        for (final editorChoice in _editorChoices.keys) {
+          final List<Map<FoodRecommendation, MenuItem>> temp = [];
+          for (final foodRec in _editorChoices[editorChoice]!) {
+            if (foodRec.values.toList()[0].fields.mealType == type) {
+              temp.add(foodRec);
+              _totalFoodRec++;
             }
-          });
-          return filteredData;
+          }
+          if (temp.isNotEmpty) {
+            _filteredEditorChoices[editorChoice] = temp;
+          }
         }
-      });
+        _futureEditorChoices = Future<
+                Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>.value(
+            _filteredEditorChoices);
+      }
     });
   }
 
@@ -169,199 +190,199 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
 
       drawer: const LeftDrawer(), // Drawer navigasi di sebelah kiri
 
-      body: FutureBuilder<
-          Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>(
-        future: _futureEditorChoices, // Future yang memuat data
+      body: Column(
+        children: [
+          // Dropdown untuk memilih filter berdasarkan tipe makanan
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButton<String>(
+              hint: const Text('Filter by food type'),
+              items: <String>['Breakfast', 'Lunch', 'Dinner', 'all']
+                  .map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: _filterEditorChoicesByFoodType,
+            ),
+          ),
+          // Menampilkan data EditorChoice berdasarkan filter
+          Expanded(
+            child: FutureBuilder<
+                Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>(
+              future: _futureEditorChoices, // Future yang memuat data
 
-        builder: (context, snapshot) {
-          // Menampilkan loading spinner saat data sedang dimuat
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          // Menangani error jika terjadi masalah saat mengambil data
-          else if (snapshot.hasError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('images/cross-mark-no-data.png',
-                      width: 100, height: 100),
-                  const SizedBox(height: 16),
-                  Text(
-                      'Error: Failed to load data. Error message: ${snapshot.error}'),
-                ],
-              ),
-            );
-          }
-          // Menampilkan pesan jika data kosong
-          else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('images/cross-mark-no-data.png',
-                      width: 100, height: 100),
-                  const SizedBox(height: 16),
-                  const Text('No data available'),
-                ],
-              ),
-            );
-          }
-          // Jika data berhasil dimuat
-          else {
-            final editorChoices =
-                snapshot.data!; // Data EditorChoice dan FoodRecommendation
+              builder: (context, snapshot) {
+                // Menampilkan loading spinner saat data sedang dimuat
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                // Menangani error jika terjadi masalah saat mengambil data
+                else if (snapshot.hasError) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('images/cross-mark-no-data.png',
+                            width: 100, height: 100),
+                        const SizedBox(height: 16),
+                        Text(
+                            'Error: Failed to load data. Error message: ${snapshot.error}'),
+                      ],
+                    ),
+                  );
+                }
+                // Menampilkan pesan jika data kosong
+                else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('images/cross-mark-no-data.png',
+                            width: 100, height: 100),
+                        const SizedBox(height: 16),
+                        const Text('No data available'),
+                      ],
+                    ),
+                  );
+                }
+                // Jika data berhasil dimuat
+                else {
+                  final editorChoices = snapshot.data!; // Data EditorChoice dan FoodRecommendation
 
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  // ListView untuk menampilkan EditorChoice dan jumlah FoodRecommendation
-                  ListView.builder(
-                    shrinkWrap:
-                        true, // Menyesuaikan tinggi ListView dengan konten
-                    physics:
-                        const NeverScrollableScrollPhysics(), // ListView tidak bisa discroll secara independen
-                    itemCount: _totalFoodRec, // Jumlah EditorChoice
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // ListView untuk menampilkan EditorChoice dan jumlah FoodRecommendation
+                        ListView.builder(
+                          shrinkWrap: true, // Menyesuaikan tinggi ListView dengan konten
+                          physics: const NeverScrollableScrollPhysics(), // ListView tidak bisa discroll secara independen
+                          itemCount: _totalFoodRec, // Jumlah EditorChoice
 
-                    itemBuilder: (context, index) {
-                      final week = editorChoices.keys
-                          .elementAt(0); // Minggu yang terpilih
-                      final editorChoice = editorChoices
-                          .values; // EditorChoice lists pada minggu yang terpilih
-                      final List<FoodRecommendation> foodRecommendations = [];
-                      final List<MenuItem> foodItems = [];
-                      for (var temp in editorChoice) {
-                        for (var foodRec in temp) {
-                          foodRecommendations.add(foodRec.keys.toList()[0]);
-                          foodItems.add(foodRec.values.toList()[0]);
-                        }
-                      }
+                          itemBuilder: (context, index) {
+                            final week = editorChoices.keys.elementAt(0); // Minggu yang terpilih
+                            final editorChoice = editorChoices
+                                .values; // EditorChoice lists pada minggu yang terpilih
+                            final List<FoodRecommendation> foodRecommendations =
+                                [];
+                            final List<MenuItem> foodItems = [];
+                            for (var temp in editorChoice) {
+                              for (var foodRec in temp) {
+                                foodRecommendations
+                                    .add(foodRec.keys.toList()[0]);
+                                foodItems.add(foodRec.values.toList()[0]);
+                              }
+                            }
 
-                      return Column(children: [
-                        // Card untuk menampilkan EditorChoice
-                        InkWell(
-                          onTap: () {
-                            // Navigasi ke halaman detail FoodRecommendation tertentu (rekomendasi makanan)
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FoodRecommendationPage(
-                                  id: foodItems[index].pk,
-                                  foodItem: foodItems[index].fields.name,
+                            return Column(children: [
+                              // Card untuk menampilkan EditorChoice
+                              InkWell(
+                                onTap: () {
+                                  // Navigasi ke halaman detail FoodRecommendation tertentu (rekomendasi makanan)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          FoodRecommendationPage(
+                                        id: foodItems[index].pk,
+                                        foodItem: foodItems[index].fields.name,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  margin: const EdgeInsets.all(16),
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(children: [
+                                    ListTile(
+                                      title: Text(
+                                        'Week ${week.fields.week}',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        'Food: ${foodItems[index].fields.name}',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
                                 ),
                               ),
-                            );
+                            ]);
                           },
-                          child: Card(
-                            margin: const EdgeInsets.all(16),
-                            elevation: 4,
+                        ),
+                        // Tombol untuk navigasi ke daftar mingguan EditorChoice
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WeekEdList(),
+                                ));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color(0xFF4A230A), // Warna cokelat
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius:
+                                  BorderRadius.circular(8), // Sudut melengkung
                             ),
-                            child: Column(children: [
-                              ListTile(
-                                title: Text(
-                                  'Week ${week.fields.week}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  'Food: ${foodItems[index].fields.name}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12, // Padding atas & bawah
+                              horizontal: 24, // Padding kiri & kanan
+                            ),
+                          ),
+                          child: const Text('View Weekly Editor Choices'),
+                        ),
+                        if (isAdmin) // Tombol untuk admin
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const WeekEdList(),
+                                  ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color(0xFF4A230A), // Warna cokelat
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8), // Sudut melengkung
                               ),
-                            ]),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12, // Padding atas & bawah
+                                horizontal: 24, // Padding kiri & kanan
+                              ),
+                            ),
+                            child: const Text('View Weekly Editor Choices'),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Total Food Recommendations: $_totalFoodRec',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ]);
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WeekEdList(),
-                          ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A230A), // Warna cokelat
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(8), // Sudut melengkung
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12, // Padding atas & bawah
-                        horizontal: 24, // Padding kiri & kanan
-                      ),
+                      ],
                     ),
-                    child: const Text('View Weekly Editor Choices'),
-                  ),
-                  if (isAdmin) // to be changed to "Add Food Recommendation"
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const WeekEdList(),
-                            ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFF4A230A), // Warna cokelat
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8), // Sudut melengkung
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12, // Padding atas & bawah
-                          horizontal: 24, // Padding kiri & kanan
-                        ),
-                      ),
-                      child: const Text('View Weekly Editor Choices'),
-                    ),
-                  if (isAdmin) // to be changed to "Delete Food Recommendation"
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const WeekEdList(),
-                            ));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFF4A230A), // Warna cokelat
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8), // Sudut melengkung
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12, // Padding atas & bawah
-                          horizontal: 24, // Padding kiri & kanan
-                        ),
-                      ),
-                      child: const Text('View Weekly Editor Choices'),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Total Food Recommendations: $_totalFoodRec',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
-        },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
