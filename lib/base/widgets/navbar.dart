@@ -134,7 +134,7 @@ class LeftDrawer extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/images/navbar-logo.png',
+                  'images/navbar-logo.png',
                   width: 50,
                   height: 50,
                 ),

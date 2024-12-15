@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart'; // Import widget navbar untuk drawer navigasi
 import 'package:ajengan_halal_mobile/editors_choice/models/editor_choice.dart'; // Model untuk EditorChoice
 import 'package:http/http.dart' as http; // Library untuk melakukan HTTP request
-
+import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.dart'; // Halaman utama Editor's Choice
 
 // Widget Stateful untuk halaman utama Editor's Choices list
 class WeekEdList extends StatefulWidget {
@@ -25,17 +25,20 @@ class _WeekEdListState extends State<WeekEdList> {
   // Fungsi untuk mengambil data EditorChoice dari API
   Future<List<EditorChoice>> fetchEditorChoices() async {
     // HTTP GET request untuk mengambil data EditorChoice
-    final responseEC = await http.get(Uri.parse(
-        'http://localhost:8000/editors-choice/json/editor-choice/'));
+    final responseEC = await http.get(
+        Uri.parse('http://localhost:8000/editors-choice/json/editor-choice/'));
     // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/
 
     // Jika response berhasil (status code 200)
     if (responseEC.statusCode == 200) {
       // Parsing JSON dari response untuk EditorChoice
-      final List<EditorChoice> fetchedEdChoice =
-          editorChoiceFromJson(responseEC.body);
+      final Map<String, EditorChoice> result = {};
 
-      return fetchedEdChoice;
+      for (var target in editorChoiceFromJson(responseEC.body)) {
+        result.putIfAbsent(target.fields.week.toIso8601String(), () => target);
+      }
+
+      return result.values.toList();
     } else {
       // Jika response gagal, lempar error
       throw Exception('Failed to load editor choice');
@@ -64,17 +67,29 @@ class _WeekEdListState extends State<WeekEdList> {
                 return ListTile(
                   title: Text(snapshot.data![index].fields.week.toString()),
                   subtitle: Text(snapshot.data![index].pk.toString()),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditorsChoiceMain(
+                          week: snapshot.data![index].fields.week
+                              .toIso8601String()
+                              .substring(0, 10),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );
-          } 
+          }
           // Menangani error jika terjadi masalah saat mengambil data
           else if (snapshot.hasError) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/cross-mark-no-data.png',
+                  Image.asset('images/cross-mark-no-data.png',
                       width: 100, height: 100),
                   const SizedBox(height: 16),
                   Text(
@@ -89,7 +104,7 @@ class _WeekEdListState extends State<WeekEdList> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/cross-mark-no-data.png',
+                  Image.asset('images/cross-mark-no-data.png',
                       width: 100, height: 100),
                   const SizedBox(height: 16),
                   const Text('No data available'),
