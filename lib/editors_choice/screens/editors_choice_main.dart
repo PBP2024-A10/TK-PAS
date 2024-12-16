@@ -236,13 +236,37 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                 // Menampilkan pesan jika data kosong
                 else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('images/cross-mark-no-data.png',
-                            width: 100, height: 100),
-                        const SizedBox(height: 16),
-                        const Text('No data available'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('images/cross-mark-no-data.png',
+                        width: 100, height: 100),
+                      const SizedBox(height: 16),
+                      const Text('No data available'),
+                      if (isAdmin) // Tombol untuk admin (to be changed to 'add new FoodRecommendation'), not ideal
+                        ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => const WeekEdList(),
+                            )
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                            const Color(0xFF4A230A), // Warna cokelat
+                          shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            8), // Sudut melengkung
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                          vertical: 12, // Padding atas & bawah
+                          horizontal: 24, // Padding kiri & kanan
+                          ),
+                        ),
+                        child: const Text('View Weekly Editor Choices'),
+                        ),
                       ],
                     ),
                   );
@@ -342,7 +366,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                           ),
                           child: const Text('View Weekly Editor Choices'),
                         ),
-                        if (isAdmin) // Tombol untuk admin
+                        if (isAdmin) // Tombol untuk admin (to be changed to 'add new FoodRecommendation & delete FoodRecommendation(s)'), not ideal
                           ElevatedButton(
                             onPressed: () {
                               Navigator.push(
