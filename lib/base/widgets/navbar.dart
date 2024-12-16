@@ -76,6 +76,7 @@ class LeftDrawer extends StatelessWidget {
           if (context.mounted) {
               if (responseData['status']) {
                   String uname = responseData["username"];
+                  request.jsonData['username'] = null;
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("$message Sampai jumpa, $uname."),
                   ));

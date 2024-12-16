@@ -1,3 +1,4 @@
+import 'dart:convert'; // Library untuk mengkonversi JSON
 import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart'; // Import widget navbar untuk drawer navigasi
 import 'package:ajengan_halal_mobile/editors_choice/models/food_recommendation.dart'; // Model untuk FoodRecommendation
@@ -24,6 +25,8 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
   late Future<Map<Map<FoodRecommendation, MenuItem>, List<FoodComment>>>
       _futureFoodRecommendation;
   final TextEditingController _commentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String _recID = '';
 
   @override
   void initState() {
@@ -56,6 +59,7 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
 
       // Parsing JSON dari response untuk FoodComment
       final recID = key.keys.elementAt(0).pk;
+      _recID = recID;
       final responseFC = await http.get(Uri.parse(
           'http://localhost:8000/editors-choice/json/comments/$recID/'));
       // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/comments/$recID/
@@ -76,6 +80,8 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<pbp.CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Food Recommendation'), // Judul di AppBar
@@ -110,8 +116,10 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                             child: Column(
                               children: [
                                 ListTile(
-                                  title: Text(
-                                      foodRec.keys.elementAt(0).fields.foodItem),
+                                  title: Text(foodRec.keys
+                                      .elementAt(0)
+                                      .fields
+                                      .foodItem),
                                   subtitle: Text(foodRec.keys
                                       .elementAt(0)
                                       .fields
@@ -132,19 +140,6 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                                     );
                                   }).toList(),
                                 ),
-                                // TextField(
-                                //   controller: _commentController,
-                                //   decoration: const InputDecoration(
-                                //     labelText: 'Add your personal comment',
-                                //     hintText: 'Give your thoughts about your best personal experience here',
-                                //     border: OutlineInputBorder(
-                                //     borderRadius: BorderRadius.all(Radius.circular(10)),
-                                //     ),
-                                //     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                                //   ),
-                                //   maxLines: null, // Allows for multi-line input
-                                //   keyboardType: TextInputType.multiline, // Sets the keyboard type to multiline
-                                // ),
                               ],
                             ),
                           ),
@@ -173,43 +168,77 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
               color: Colors.white,
               child: Column(
                 children: [
-                  TextField(
-                    controller: _commentController,
-                    decoration: const InputDecoration(
-                      labelText: 'Add your personal comment',
-                      hintText: 'Give your thoughts about your best personal experience here',
-                      border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _commentController,
+                          decoration: const InputDecoration(
+                            labelText: 'Add your personal comment',
+                            hintText:
+                                'Give your thoughts about your best personal experience here',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                            ),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                          ),
+                          maxLines: null, // Allows for multi-line input
+                          keyboardType: TextInputType
+                              .multiline, // Sets the keyboard type to multiline
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate() && request.jsonData['username'] != null) {
+                              final responseData = await http.post(
+                                Uri.parse('http://localhost:8000/editors-choice/add-comment/?rec_id=$_recID'),
+                                // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/add-comment/?rec_id=$_recID
+                                headers: <String, String>{
+                                  'Content-Type': 'application/json; charset=UTF-8',
+                                  'Cookie': request.headers['cookie'] ?? '',
+                                  'X-CSRFToken': request.cookies['csrftoken'].toString(),
+                                },
+                                body: jsonEncode(<String, String>{
+                                  "rec_id": _recID,
+                                  "comment": _commentController.text,
+                                  "username": request.jsonData['username'],
+                                }),
+                              );
+
+                              final response = jsonDecode(responseData.body);
+                              if (context.mounted) {
+                                if (response['status'] == 'success') {
+                                  setState(() {
+                                    _futureFoodRecommendation =
+                                        fetchFoodRecommendation(widget.foodItem, widget.id);
+                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Komentar berhasil dikirim. Komentar baru Anda sudah bisa dilihat!"),
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Terdapat kesalahan dalam mengirim komentar"),
+                                    ),
+                                  );
+                                }
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Komentar tidak boleh kosong"),
+                                ),
+                              );
+                            }
+                            _commentController.clear();
+                          },
+                          child: const Text('Post Comment'),
+                        ),
+                      ],
                     ),
-                    maxLines: null, // Allows for multi-line input
-                    keyboardType: TextInputType.multiline, // Sets the keyboard type to multiline
-                  ),
-                  ElevatedButton(
-                    onPressed: () async { // not quite rightfully implemented yet
-                      // final token = Provider.of<pbp.Auth>(context, listen: false).currToken;
-                      // final response = await http.post(
-                      //   Uri.parse('http://localhost:8000/editors-choice/json/comments/'),
-                      //   headers: <String, String>{
-                      //     'Content-Type': 'application/json; charset=UTF-8',
-                      //     'Authorization': 'Token $token',
-                      //   },
-                      //   body: jsonEncode(<String, dynamic>{
-                      //     'food_item': widget.id,
-                      //     'comment': _commentController.text,
-                      //   }),
-                      // );
-                      // if (response.statusCode == 201) {
-                      //   setState(() {
-                      //     _futureFoodRecommendation =
-                      //         fetchFoodRecommendation(widget.foodItem, widget.id);
-                      //   });
-                      // } else {
-                      //   throw Exception('Failed to post comment');
-                      // }
-                    },
-                    child: const Text('Post Comment'),
                   ),
                 ],
               )
