@@ -9,9 +9,9 @@ class MyHomePage extends StatelessWidget {
     final String className = 'PBP A'; // Kelas
 
     final List<ItemHomepage> items = [
-         ItemHomepage("Lihat Daftar Pesanan", Icons.mood),
-         ItemHomepage("Tambah Daftar Pesanan", Icons.add),
-         ItemHomepage("Logout", Icons.logout),
+         ItemHomepage("Lihat Daftar Pesanan", Icons.mood, '/list_pesanan'),
+         ItemHomepage("Tambah Daftar Pesanan", Icons.add, '/buat_pesanan'),
+         ItemHomepage("Logout", Icons.logout, '/logout'),
     ];
 
   @override
@@ -134,8 +134,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
     final String name;
     final IconData icon;
+    final String route;
 
-    ItemHomepage(this.name, this.icon);
+    ItemHomepage(this.name, this.icon, this.route);
 }
 
 class ItemCard extends StatelessWidget {
@@ -156,12 +157,7 @@ class ItemCard extends StatelessWidget {
       child: InkWell(
         // Aksi ketika kartu ditekan.
         onTap: () {
-          // Menampilkan pesan SnackBar saat kartu ditekan.
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
+          Navigator.pushNamed(context, item.route);
         },
         // Container untuk menyimpan Icon dan Text
         child: Container(
