@@ -13,29 +13,28 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
   String successMessage = '';
   String errorMessage = '';
+  String displayedUsername = '';
 
   @override
   void initState() {
     super.initState();
-    // _loadUserData();
-  }
+    // Ambil username dari data yang tersimpan di CookieRequest
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var request = context.read<pbp.CookieRequest>();
 
-  // Fetch user data after login
-  // void _loadUserData() {
-  //   final userData = Provider.of(context, listen: false).getUserData();
-    
-  //   if (userData != null) {
-  //     _usernameController.text = userData['username'] ?? ''; // Pre-fill the username
-  //     _emailController.text = userData['email'] ?? ''; // Pre-fill the email
-  //   }
-  // }
+      if (request.jsonData.containsKey('username')) {
+        setState(() {
+          displayedUsername = request.jsonData['username'];
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +68,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     radius: 50,
                     backgroundImage: AssetImage('assets/images/user.png'),
                   ),
+                  SizedBox(height: 8),
+                  // Tampilkan nama pengguna yang sedang login
+                  Text(
+                    displayedUsername.isNotEmpty ? displayedUsername : 'Loading username...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF3D200A),
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 20),
-            
+
             // Account Details Section
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -107,18 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         errorMessage,
                         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                       ),
-                    ),
-
-                  // Form Fields
-                  TextField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(labelText: 'Username'),
-                    enabled: false, // Make username field non-editable
-                  ),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(labelText: 'Email'),
-                  ),
+                    ),            
                   TextField(
                     controller: _firstNameController,
                     decoration: InputDecoration(labelText: 'First Name'),
@@ -148,34 +146,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // Set active index based on your app logic
-        onTap: (index) {
-          // Handle bottom navigation item tap
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
     );
   }
 
   // Submit form logic
   void _submitForm() {
     setState(() {
-      if (_emailController.text.isEmpty) {
-        errorMessage = 'Please fill in your email';
+      if (_bioController.text.isEmpty && _firstNameController.text.isEmpty && _lastNameController.text.isEmpty) {
+        errorMessage = 'Please fill in one of the below fields';
         successMessage = '';
       } else {
         successMessage = 'Profile updated successfully!';

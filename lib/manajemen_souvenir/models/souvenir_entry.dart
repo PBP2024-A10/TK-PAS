@@ -61,7 +61,7 @@ enum Model {
 }
 
 final modelValues = EnumValues({
-    "manajemen_souvenir.SouvenirEntry": Model.MANAJEMEN_SOUVENIR_SOUVENIR_ENTRY
+    "manajemen_souvenir.souvenirentry": Model.MANAJEMEN_SOUVENIR_SOUVENIR_ENTRY
 });
 
 class EnumValues<T> {
