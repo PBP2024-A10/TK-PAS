@@ -7,6 +7,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:ajengan_halal_mobile/manajemen_pesanan/screens/buat_pesanan_form.dart';
 
 class CardsMakanan extends StatefulWidget {
   final String restaurantName;
@@ -226,7 +227,11 @@ class _CardsMakananState extends State<CardsMakanan> {
                       IconButton(
                         icon: const Icon(Icons.add_circle, color: Colors.blue),
                         onPressed: () {
-                          // Tambahkan logika untuk tombol tambah ('+') di sini
+                          // Navigasi ke halaman BuatPesananForm
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const BuatPesananForm()),
+                          );
                         },
                       ),
                     ],

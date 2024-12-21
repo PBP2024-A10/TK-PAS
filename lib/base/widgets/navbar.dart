@@ -1,3 +1,4 @@
+import 'package:ajengan_halal_mobile/manajemen_pesanan/screens/list_pesanan.dart';
 import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir.dart';
 import 'package:ajengan_halal_mobile/wishlist/screens/wishlist_page.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,18 @@ class LeftDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SouvenirPage(),
+            ),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.add),
+        title: const Text('Pesanan'),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ListPesananPage(),
             ),
           );
         },

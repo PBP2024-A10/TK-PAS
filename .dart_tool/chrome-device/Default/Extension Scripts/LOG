@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 2024/12/21-15:26:11.660 4040 Creating DB C:\Users\pbm\AppData\Local\Temp\flutter_tools.63cf35be\flutter_tools_chrome_device.4901c1fa\Default\Extension Scripts since it was missing.
 2024/12/21-15:26:11.670 4040 Reusing MANIFEST C:\Users\pbm\AppData\Local\Temp\flutter_tools.63cf35be\flutter_tools_chrome_device.4901c1fa\Default\Extension Scripts/MANIFEST-000001
+=======
+2024/12/04-14:14:56.972 a507 Reusing MANIFEST /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.CEpTvt/flutter_tools_chrome_device.UdMMAX/Default/Extension Scripts/MANIFEST-000001
+2024/12/04-14:14:56.972 a507 Recovering log #3
+2024/12/04-14:14:56.972 a507 Reusing old log /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.CEpTvt/flutter_tools_chrome_device.UdMMAX/Default/Extension Scripts/000003.log 
+>>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92

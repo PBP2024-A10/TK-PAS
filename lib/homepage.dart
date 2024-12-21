@@ -269,7 +269,6 @@ class _HomepageState extends State<Homepage> {
               builder: (context, constraints) {
                 return Column(
                   children: [
-                    // If user is admin, show "Add Restaurant" button
                     if (isAdmin)
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),

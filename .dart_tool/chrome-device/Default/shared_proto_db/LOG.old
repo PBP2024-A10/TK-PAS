@@ -1,2 +1,19 @@
+<<<<<<< HEAD
 2024/12/21-15:26:11.843 11d8 Creating DB C:\Users\pbm\AppData\Local\Temp\flutter_tools.63cf35be\flutter_tools_chrome_device.4901c1fa\Default\shared_proto_db since it was missing.
 2024/12/21-15:26:11.855 11d8 Reusing MANIFEST C:\Users\pbm\AppData\Local\Temp\flutter_tools.63cf35be\flutter_tools_chrome_device.4901c1fa\Default\shared_proto_db/MANIFEST-000001
+=======
+2024/12/18-23:39:17.968 b303 Reusing MANIFEST /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.n1NHJw/flutter_tools_chrome_device.YiZhBR/Default/shared_proto_db/MANIFEST-000001
+2024/12/18-23:39:17.968 b303 Recovering log #15
+2024/12/18-23:39:17.968 b303 Reusing old log /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.n1NHJw/flutter_tools_chrome_device.YiZhBR/Default/shared_proto_db/000015.log 
+2024/12/18-23:39:17.969 b303 Delete type=0 #7
+2024/12/18-23:39:17.969 b303 Delete type=0 #4
+2024/12/18-23:39:17.969 b303 Delete type=0 #10
+2024/12/18-23:39:17.969 b303 Delete type=0 #11
+2024/12/18-23:39:17.969 b303 Delete type=0 #3
+2024/12/18-23:39:17.969 b303 Delete type=2 #5
+2024/12/18-23:39:17.969 b303 Delete type=2 #11
+2024/12/18-23:39:17.969 b303 Delete type=2 #8
+2024/12/18-23:39:27.918 a807 Level-0 table #19: started
+2024/12/18-23:39:27.948 a807 Level-0 table #19: 123961 bytes OK
+2024/12/18-23:39:27.962 a807 Delete type=0 #15
+>>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92

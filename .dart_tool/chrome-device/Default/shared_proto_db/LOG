@@ -1,3 +1,18 @@
+<<<<<<< HEAD
 2024/12/21-19:21:39.995 1c3c Reusing MANIFEST C:\Users\pbm\AppData\Local\Temp\flutter_tools.e663a617\flutter_tools_chrome_device.23d43b80\Default\shared_proto_db/MANIFEST-000001
 2024/12/21-19:21:39.995 1c3c Recovering log #3
 2024/12/21-19:21:39.996 1c3c Reusing old log C:\Users\pbm\AppData\Local\Temp\flutter_tools.e663a617\flutter_tools_chrome_device.23d43b80\Default\shared_proto_db/000003.log 
+=======
+2024/12/18-23:59:45.378 a103 Reusing MANIFEST /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.4JJd8J/flutter_tools_chrome_device.VsDEgu/Default/shared_proto_db/MANIFEST-000001
+2024/12/18-23:59:45.379 a103 Recovering log #18
+2024/12/18-23:59:45.379 a103 Reusing old log /private/var/folders/52/fdswn_h11tv54sjrm3q9915w0000gn/T/flutter_tools.4JJd8J/flutter_tools_chrome_device.VsDEgu/Default/shared_proto_db/000018.log 
+2024/12/18-23:59:45.379 a103 Delete type=0 #7
+2024/12/18-23:59:45.379 a103 Delete type=0 #4
+2024/12/18-23:59:45.379 a103 Delete type=0 #10
+2024/12/18-23:59:45.379 a103 Delete type=0 #11
+2024/12/18-23:59:45.379 a103 Delete type=0 #15
+2024/12/18-23:59:45.380 a103 Delete type=0 #3
+2024/12/18-23:59:45.380 a103 Delete type=2 #5
+2024/12/18-23:59:45.380 a103 Delete type=2 #11
+2024/12/18-23:59:45.380 a103 Delete type=2 #8
+>>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92
