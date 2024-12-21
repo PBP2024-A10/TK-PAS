@@ -123,7 +123,7 @@ class _SouvenirListPageState extends State<SouvenirPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFE8DCD4),
       drawer: const LeftDrawer(),
       appBar: AppBar(
         title: const Text(
@@ -234,7 +234,7 @@ class _SouvenirListPageState extends State<SouvenirPage> {
                       }
                     },
                     child: const Text(
-                      'Tambah Souvenir',
+                      'Tambah Oleh-Oleh',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,

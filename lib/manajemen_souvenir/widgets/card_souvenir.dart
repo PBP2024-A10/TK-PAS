@@ -25,13 +25,13 @@ class _CardSouvenirState extends State<CardSouvenir> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: const BorderSide(color: Color(0xFF462009)),
+        // side: const BorderSide(color: Color(0xFF462009)),
       ),
       elevation: 4.0,
-      shadowColor: Colors.black.withOpacity(0.25),
+      shadowColor: Colors.black.withOpacity(0.75),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -43,11 +43,11 @@ class _CardSouvenirState extends State<CardSouvenir> {
               child: Image.network(
                 widget.souvenir.fields.image,
                 width: double.infinity,
-                height: 150,
+                height: 200,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    height: 150,
+                    height: 200,
                     color: Colors.white,
                     child: const Icon(Icons.image, size: 50, color: Colors.grey),
                   );
@@ -61,7 +61,7 @@ class _CardSouvenirState extends State<CardSouvenir> {
               widget.souvenir.fields.name,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF462009),
                 fontFamily: 'Poppins',
@@ -76,7 +76,7 @@ class _CardSouvenirState extends State<CardSouvenir> {
               maxLines: isExpanded ? null : 3, // Jika isExpanded, tampilkan semua
               overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: FontWeight.w300,
                 color: Color(0xFF462009),
                 fontFamily: 'Poppins',
@@ -100,7 +100,7 @@ class _CardSouvenirState extends State<CardSouvenir> {
                   child: Text(
                     isExpanded ? "Read Less" : "Read More",
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins',
                       color: Color(0xFF462009),
@@ -122,7 +122,7 @@ class _CardSouvenirState extends State<CardSouvenir> {
                         child: const Text(
                           "Edit",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Poppins',
                             color: Color(0xFF462009),
@@ -141,9 +141,9 @@ class _CardSouvenirState extends State<CardSouvenir> {
                           ),
                         ),
                         child: const Text(
-                          "Delete",
+                          "Hapus",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Poppins',
                             color: Color(0xFFD10F0F),

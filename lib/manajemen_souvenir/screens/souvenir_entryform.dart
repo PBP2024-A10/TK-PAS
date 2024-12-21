@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/manajemen_souvenir/models/souvenir_entry.dart';
-import 'package:http/http.dart' as http;
 
 class SouvenirEntryFormPage extends StatefulWidget {
   final SouvenirEntry? initialSouvenirEntry;
@@ -29,46 +27,6 @@ class _SouvenirEntryFormPageState extends State<SouvenirEntryFormPage> {
   }
 
   Future<void> _submitToDjango() async {
-    // final url = (widget.initialSouvenirEntry == null)
-    //     ? Uri.parse('http://localhost:8000/souvenir/flutter/add-souvenir_entry/')
-    //     : Uri.parse('http://localhost:8000/souvenir/flutter/edit-souvenir/${widget.initialSouvenirEntry!.pk}/');
-
-    // http.Response response;
-    // final body = jsonEncode({
-    //   'name': _souvenir,
-    //   'description': _description,
-    //   'image': _imageURL,
-    // });
-
-    // if (widget.initialSouvenirEntry == null) {
-    //   response = await http.post(
-    //     url,
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: body,
-    //   );
-    // } else {
-    //   response = await http.put(
-    //     url,
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: body,
-    //   );
-    // }
-
-    // if ((widget.initialSouvenirEntry == null && response.statusCode == 201) ||
-    //     (widget.initialSouvenirEntry != null && response.statusCode == 200)) {
-    //   final newEntry = SouvenirEntry(
-    //     pk: widget.initialSouvenirEntry?.pk ?? DateTime.now().millisecondsSinceEpoch.toString(),
-    //     model: Model.MANAJEMEN_SOUVENIR_SOUVENIR_ENTRY,
-    //     fields: Fields(
-    //       name: _souvenir,
-    //       description: _description,
-    //       image: _imageURL,
-    //     ),
-    //   );
-
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(content: Text('Souvenir berhasil disimpan ke server!')),
-    //   );
     // Buat objek SouvenirEntry tanpa melakukan POST
     final newEntry = SouvenirEntry(
       pk: widget.initialSouvenirEntry?.pk ?? DateTime.now().millisecondsSinceEpoch.toString(),
@@ -82,13 +40,6 @@ class _SouvenirEntryFormPageState extends State<SouvenirEntryFormPage> {
 
     // Kembalikan newEntry ke parent
     Navigator.pop(context, newEntry);
-    //   Navigator.pop(context, newEntry);
-    // } else {
-    //   final data = jsonDecode(response.body);
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text('Gagal menyimpan: ${data["message"]}')),
-    //   );
-    // }
   }
 
   @override
@@ -131,6 +82,12 @@ class _SouvenirEntryFormPageState extends State<SouvenirEntryFormPage> {
                   const SizedBox(height: 5),
                   TextFormField(
                     initialValue: _souvenir,
+                    style: const TextStyle( // Menentukan font untuk teks yang diketik
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF3D200A), // Warna teks yang diketik
+                    ),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFE8DCD4),
@@ -175,6 +132,12 @@ class _SouvenirEntryFormPageState extends State<SouvenirEntryFormPage> {
                   const SizedBox(height: 5),
                   TextFormField(
                     initialValue: _description,
+                    style: const TextStyle( // Menentukan font untuk teks yang diketik
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF3D200A), // Warna teks yang diketik
+                    ),
                     maxLines: 4,
                     decoration: InputDecoration(
                       filled: true,
@@ -220,6 +183,12 @@ class _SouvenirEntryFormPageState extends State<SouvenirEntryFormPage> {
                   const SizedBox(height: 5),
                   TextFormField(
                     initialValue: _imageURL,
+                    style: const TextStyle( // Menentukan font untuk teks yang diketik
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF3D200A), // Warna teks yang diketik
+                    ),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFE8DCD4),

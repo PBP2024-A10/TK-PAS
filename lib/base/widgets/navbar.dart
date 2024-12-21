@@ -66,7 +66,7 @@ class LeftDrawer extends StatelessWidget {
         },
       ),
       ListTile(
-        leading: const Icon(Icons.list),
+        leading: const Icon(Icons.shopping_bag_outlined),
         title: const Text('Oleh-Oleh'),
         onTap: () {
           Navigator.pushReplacement(
