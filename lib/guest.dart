@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:ajengan_halal_mobile/auth/screens/login.dart';
-import 'package:ajengan_halal_mobile/cards_makanan/screens/cards_makanan.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ajengan_halal_mobile/cards_makanan/models/restaurant_list.dart';
@@ -9,39 +7,24 @@ import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+class Guest extends StatefulWidget {
+  const Guest({Key? key}) : super(key: key);
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Guest> createState() => _GuestState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _GuestState extends State<Guest> {
   late Future<List<RestaurantList>> futureRestaurants;
   List<RestaurantList> allRestaurants = [];
   List<RestaurantList> filteredRestaurants = [];
 
   final TextEditingController _searchController = TextEditingController();
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descController = TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _imageUrlController = TextEditingController();
-
-  String username = '';
-
   @override
   void initState() {
     super.initState();
     futureRestaurants = fetchRestaurants();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var request = context.read<pbp.CookieRequest>();
-      setState(() {
-        if (request.jsonData.containsKey('username')) {
-          username = request.jsonData['username'];
-        }
-      });
-    });
   }
 
   Future<List<RestaurantList>> fetchRestaurants() async {
@@ -75,161 +58,6 @@ class _HomepageState extends State<Homepage> {
       });
     }
   }
-
-  bool get isAdmin => username == 'admin';
-
-  Future<void> _showAddRestaurantDialog() async {
-    _nameController.clear();
-    _descController.clear();
-    _locationController.clear();
-    _imageUrlController.clear();
-
-    await showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text("Add Restaurant"),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Name'),
-                ),
-                TextField(
-                  controller: _descController,
-                  decoration: const InputDecoration(labelText: 'Description'),
-                ),
-                TextField(
-                  controller: _locationController,
-                  decoration: const InputDecoration(labelText: 'Location'),
-                ),
-                TextField(
-                  controller: _imageUrlController,
-                  decoration: const InputDecoration(labelText: 'Image URL'),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text("Cancel"),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _addRestaurant(
-                  _nameController.text,
-                  _descController.text,
-                  _locationController.text,
-                  _imageUrlController.text,
-                );
-                Navigator.pop(ctx);
-              },
-              child: const Text("Submit"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _addRestaurant(String name, String description, String location, String imageUrl) async {
-    try {
-      var request = context.read<pbp.CookieRequest>();
-      final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/makanan/add-restaurant-flutter/"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Cookie': request.headers['Cookie'] ?? '',
-        },
-        body: json.encode({
-          'name': name,
-          'description': description,
-          'location': location,
-          'image_url': imageUrl,
-        }),
-      );
-
-      final responseData = json.decode(response.body);
-
-      if (response.statusCode == 200 && responseData['status'] == 'success') {
-        setState(() {
-          futureRestaurants = fetchRestaurants();
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Restaurant added successfully!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to add restaurant: ${responseData['message']}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
-  }
-
-  Future<void> _deleteRestaurantPopup(String id) async {
-    bool? confirmDelete = await showDialog<bool>(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text("Delete Restaurant"),
-          content: const Text("Are you sure you want to delete this restaurant?"),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: const Text("Cancel"),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(ctx, true),
-              child: const Text("Delete"),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (confirmDelete == true) {
-      await _deleteRestaurant(id);
-    }
-  }
-
-  Future<void> _deleteRestaurant(String id) async {
-    try {
-      final response = await http.delete(
-        Uri.parse("http://127.0.0.1:8000/makanan/delete-restaurant-flutter/$id/"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Cookie': context.read<pbp.CookieRequest>().headers['Cookie'] ?? '',
-        },
-      );
-
-      final responseData = json.decode(response.body);
-
-      if (response.statusCode == 200 && responseData['status'] == 'success') {
-        setState(() {
-          futureRestaurants = fetchRestaurants();
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Restaurant deleted successfully!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to delete restaurant: ${responseData['message']}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
-  }
-
 
   int _calculateCrossAxisCount(double width) {
     if (width >= 1200) {
@@ -268,18 +96,6 @@ class _HomepageState extends State<Homepage> {
               builder: (context, constraints) {
                 return Column(
                   children: [
-                    if (isAdmin)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: ElevatedButton(
-                            onPressed: _showAddRestaurantDialog,
-                            child: const Text('Add Restaurant'),
-                          ),
-                        ),
-                      ),
-
                     // Search bar
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -377,25 +193,14 @@ class _HomepageState extends State<Homepage> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               TextButton(
-                                                onPressed: () {   
-                                                    Navigator.push(
+                                                onPressed: () {
+                                                    Navigator.pushReplacement(
                                                       context,
-                                                      MaterialPageRoute(builder: (context) => CardsMakanan(  
-                                                        restaurantName: restaurant.fields.name,
-                                                        restaurantDescription: restaurant.fields.description,
-                                                        restaurantImage: restaurant.fields.imageUrl,
-                                                        restaurantId: restaurant.pk, )),
+                                                      MaterialPageRoute(builder: (context) => const LoginPage()),
                                                     );
                                                 },
                                                 child: const Text("Show more →", style: TextStyle(fontSize: 12)),
                                               ),
-                                              if (isAdmin)
-                                                IconButton(
-                                                  icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                                                  onPressed: () {
-                                                    _deleteRestaurantPopup(restaurant.pk);
-                                                  },
-                                                ),
                                             ],
                                           ),
                                         ],

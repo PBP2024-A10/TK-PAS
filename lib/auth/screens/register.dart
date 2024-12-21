@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const Text(
-                      'Register Here',
+                      'Register Yourself',
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -203,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         backgroundColor: Warna.backgrounddark,
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                       ),
-                      child: const Text('Register Yourself'),
+                      child: const Text('Register Here'),
                     ),
                   ],
                 ),

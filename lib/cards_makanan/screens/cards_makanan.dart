@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:ajengan_halal_mobile/manajemen_pesanan/screens/buat_pesanan_form.dart';
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 class CardsMakanan extends StatefulWidget {
   final String restaurantName;
@@ -91,9 +92,10 @@ class _CardsMakananState extends State<CardsMakanan> {
   Widget build(BuildContext context) {
     request = context.watch<CookieRequest>();
     return Scaffold(
+      backgroundColor: Warna.white,
       appBar: AppBar(
         title: Text(widget.restaurantName),
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Warna.backgroundcream,
       ),
       drawer: const LeftDrawer(),
       body: _isLoading 
