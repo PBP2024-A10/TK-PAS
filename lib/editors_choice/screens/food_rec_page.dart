@@ -131,12 +131,14 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                                       .toString()),
                                 ),
                                 ExpansionTile(
-                                  title: const Text('Comments'),
-                                  children: comments!.map((comment) {
+                                  title: Text('Comments (${comments!.length})'),
+                                  children: comments.map((comment) {
                                     return ListTile(
                                       title: Text(comment.fields.comment),
                                       subtitle: Text(
                                           'Commented at: ${comment.fields.timestamp}'),
+                                      trailing: Text(
+                                          'by ${comment.fields.authorUname}'),
                                     );
                                   }).toList(),
                                 ),
@@ -180,9 +182,26 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                                 'Give your thoughts about your best personal experience here',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
                             ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                           ),
                           maxLines: null, // Allows for multi-line input
                           keyboardType: TextInputType
@@ -190,14 +209,18 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate() && request.jsonData['username'] != null) {
+                            if (_formKey.currentState!.validate() &&
+                                request.jsonData['username'] != null) {
                               final responseData = await http.post(
-                                Uri.parse('http://localhost:8000/editors-choice/add-comment/?rec_id=$_recID'),
+                                Uri.parse(
+                                    'http://localhost:8000/editors-choice/add-comment/?rec_id=$_recID'),
                                 // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/add-comment/?rec_id=$_recID
                                 headers: <String, String>{
-                                  'Content-Type': 'application/json; charset=UTF-8',
+                                  'Content-Type':
+                                      'application/json; charset=UTF-8',
                                   'Cookie': request.headers['cookie'] ?? '',
-                                  'X-CSRFToken': request.cookies['csrftoken'].toString(),
+                                  'X-CSRFToken':
+                                      request.cookies['csrftoken'].toString(),
                                 },
                                 body: jsonEncode(<String, String>{
                                   "rec_id": _recID,
@@ -211,17 +234,20 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                                 if (response['status'] == 'success') {
                                   setState(() {
                                     _futureFoodRecommendation =
-                                        fetchFoodRecommendation(widget.foodItem, widget.id);
+                                        fetchFoodRecommendation(
+                                            widget.foodItem, widget.id);
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text("Komentar berhasil dikirim. Komentar baru Anda sudah bisa dilihat!"),
+                                      content: Text(
+                                          "Komentar berhasil dikirim. Komentar baru Anda sudah bisa dilihat!"),
                                     ),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text("Terdapat kesalahan dalam mengirim komentar"),
+                                      content: Text(
+                                          "Terdapat kesalahan dalam mengirim komentar"),
                                     ),
                                   );
                                 }
@@ -229,7 +255,8 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Komentar tidak boleh kosong"),
+                                  content:
+                                      Text("Komentar tidak boleh kosong"),
                                 ),
                               );
                             }

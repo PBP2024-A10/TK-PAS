@@ -9,7 +9,6 @@ import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:ajengan_halal_mobile/profile/profile.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
-import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
@@ -33,6 +32,18 @@ class LeftDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => const Homepage(),
+            ),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.recommend_rounded),
+        title: const Text('Editor\'s Choice'),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EditorsChoiceMain(),
             ),
           );
         },
@@ -65,7 +76,10 @@ class LeftDrawer extends StatelessWidget {
           );
         },
       ),
+      const SizedBox(height: 20),
       ListTile(
+        textColor: const Color.fromARGB(255, 255, 0, 0),
+        iconColor: const Color.fromARGB(255, 255, 0, 0), // might change
         leading: const Icon(Icons.logout),
         title: const Text('Logout'),
         onTap: () async {
@@ -163,34 +177,6 @@ class LeftDrawer extends StatelessWidget {
           if (request.jsonData.containsKey('username') && 
               request.jsonData['username'] != null)
             ...loggedInMenuItems,
-          ListTile(
-            leading: const Icon(Icons.recommend_rounded),
-            title: const Text('Editor\'s Choice'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EditorsChoiceMain(),
-                ),
-              );
-            },
-          ),
-          // Add other list tile here
-          const SizedBox(height: 20), // if fixed, we can change this to place the logout button at the bottom
-          ListTile(
-            textColor: const Color.fromARGB(255, 255, 0, 0),
-            iconColor: const Color.fromARGB(255, 255, 0, 0), // might change
-            leading: const Icon(Icons.logout),
-            title: const Text('Keluar'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
-            },
-          ),
         ],
       ),
     );

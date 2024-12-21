@@ -35,12 +35,14 @@ class FoodComment {
 class Fields {
     String foodItem;
     int author;
+    String authorUname;
     String comment;
     DateTime timestamp;
 
     Fields({
         required this.foodItem,
         required this.author,
+        required this.authorUname,
         required this.comment,
         required this.timestamp,
     });
@@ -48,6 +50,7 @@ class Fields {
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         foodItem: json["food_item"],
         author: json["author"],
+        authorUname: json["author_uname"],
         comment: json["comment"],
         timestamp: DateTime.parse(json["timestamp"]),
     );
@@ -55,6 +58,7 @@ class Fields {
     Map<String, dynamic> toJson() => {
         "food_item": foodItem,
         "author": author,
+        "author_uname": authorUname,
         "comment": comment,
         "timestamp": timestamp.toIso8601String(),
     };

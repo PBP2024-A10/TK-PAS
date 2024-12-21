@@ -36,6 +36,7 @@ class Fields {
     String foodItem;
     double rating;
     int author;
+    String authorUname;
     String ratedDescription;
     int commentCount;
 
@@ -43,6 +44,7 @@ class Fields {
         required this.foodItem,
         required this.rating,
         required this.author,
+        required this.authorUname,
         required this.ratedDescription,
         required this.commentCount,
     });
@@ -51,6 +53,7 @@ class Fields {
         foodItem: json["food_item"],
         rating: json["rating"]?.toDouble(),
         author: json["author"],
+        authorUname: json["author_uname"],
         ratedDescription: json["rated_description"],
         commentCount: json["comment_count"],
     );
@@ -59,6 +62,7 @@ class Fields {
         "food_item": foodItem,
         "rating": rating,
         "author": author,
+        "author_uname": authorUname,
         "rated_description": ratedDescription,
         "comment_count": commentCount,
     };

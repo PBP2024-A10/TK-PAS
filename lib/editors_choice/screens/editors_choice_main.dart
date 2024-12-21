@@ -5,6 +5,7 @@ import 'package:ajengan_halal_mobile/editors_choice/models/editor_choice.dart'; 
 import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart'; // Model untuk MenuItem
 import 'package:ajengan_halal_mobile/editors_choice/screens/week_edlist.dart'; // Halaman untuk menampilkan daftar EditorChoice
 import 'package:ajengan_halal_mobile/editors_choice/screens/food_rec_page.dart'; // Halaman untuk menampilkan detail FoodRecommendation
+import 'package:ajengan_halal_mobile/editors_choice/screens/add_food_rec.dart'; // Halaman untuk menambahkan FoodRecommendation
 import 'package:http/http.dart' as http; // Library untuk melakukan HTTP request
 import 'package:pbp_django_auth/pbp_django_auth.dart'
     as pbp; // Library untuk melakukan HTTP request
@@ -27,39 +28,28 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
       {}; // Data EditorChoice
   Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>
       _filteredEditorChoices = {}; // Data EditorChoice yang telah difilter
-  int _totalFoodRec = 0; // Jumlah total FoodRecommendation yang akan dihitung nanti
+  int _totalFoodRec =
+      0; // Jumlah total FoodRecommendation yang akan dihitung nanti
   String _defWeek = ''; // Minggu default (misalnya minggu ini)
-  String username = ''; // Nama pengguna
+  bool _isDeleteMode = false; // Mode hapus data
 
   // Fungsi untuk mendapatkan minggu default (misalnya minggu sekarang)
   String getDefaultWeek() {
     final now = DateTime.now();
-    final firstDayOfWeek = now.subtract(Duration(days: now.weekday - 1)); // Hitung hari pertama minggu ini
-    return firstDayOfWeek.toIso8601String().substring(0, 10); // Format ke ISO 8601
+    final firstDayOfWeek = now.subtract(
+        Duration(days: now.weekday - 1)); // Hitung hari pertama minggu ini
+    return firstDayOfWeek
+        .toIso8601String()
+        .substring(0, 10); // Format ke ISO 8601
   }
 
   @override
   void initState() {
     super.initState();
-    _futureEditorChoices = fetchEditorChoices(widget.week); // Memuat data dengan filter "week"
+    _futureEditorChoices =
+        fetchEditorChoices(widget.week); // Memuat data dengan filter "week"
     _defWeek = getDefaultWeek(); // Set minggu default
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var request = context.read<pbp.CookieRequest>();
-      setState(() {
-        // Mengambil nama pengguna dari request JSON
-        if (request.jsonData.containsKey('username')) {
-          username = request.jsonData['username'];
-        }
-      });
-    });
   }
-
-  // Getter untuk mengecek apakah pengguna adalah admin
-  bool get isAdmin => username == 'admin1'; // Debug: admin dengan username "admin1"
-
-  // Getter untuk mengecek apakah pengguna sudah login
-  bool get isLoggedIn => username.isNotEmpty;
 
   // Fungsi untuk mengambil data EditorChoice dan FoodRecommendation dari API
   Future<Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>
@@ -77,9 +67,10 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
     // HTTP GET request untuk mengambil data EditorChoice berdasarkan minggu
     final responseEC = await http.get(Uri.parse(week == null
         // Endpoint lokal jika "week" tidak diberikan
-        ? 'http://localhost:8000/editors-choice/json/editor-choice/week/2024-12-02/' // DEBUG
+        ? 'http://localhost:8000/editors-choice/json/editor-choice/week/$_defWeek/'
+        // ? 'https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/week/$_defWeek/'
         : 'http://localhost:8000/editors-choice/json/editor-choice/week/$week/'));
-    // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/week/$week/
+    // : 'https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/json/editor-choice/week/$week/'
 
     // Jika semua response berhasil (status code 200 atau 301)
     if ((responseEC.statusCode == 200 || responseEC.statusCode == 301) &&
@@ -149,11 +140,11 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
     setState(() {
       if (type == 'all' || type == null || type.isEmpty) {
         // Menampilkan semua data
-        _totalFoodRec = _editorChoices.values
-            .fold<int>(0, (previousValue, element) => previousValue + element.length);
+        _totalFoodRec = _editorChoices.values.fold<int>(
+            0, (previousValue, element) => previousValue + element.length);
         _futureEditorChoices = Future<
-                Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>.value(
-            _editorChoices);
+            Map<EditorChoice,
+                List<Map<FoodRecommendation, MenuItem>>>>.value(_editorChoices);
         _filteredEditorChoices = _editorChoices;
       } else {
         // Memfilter data berdasarkan tipe makanan
@@ -172,7 +163,8 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
           }
         }
         _futureEditorChoices = Future<
-                Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>.value(
+                Map<EditorChoice,
+                    List<Map<FoodRecommendation, MenuItem>>>>.value(
             _filteredEditorChoices);
       }
     });
@@ -180,6 +172,87 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context
+        .watch<pbp.CookieRequest>(); // Mendapatkan data user yang sedang login
+    final isLoggedIn =
+        request.jsonData["username"] != null; // Cek apakah user sudah login
+    final isAdmin = isLoggedIn
+        ? (request.jsonData["username"] == "admin1" ? true : false)
+        : false; // Cek apakah user adalah admin
+
+    List<Widget> commonMenuItems = [
+      // Button untuk menampilkan daftar EditorChoice per week
+      ElevatedButton(
+        onPressed: () {
+          // Navigasi ke halaman daftar EditorChoice per week
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const WeekEdList(),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF4A230A), // Warna cokelat
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // Sudut melengkung
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 12, // Padding atas & bawah
+            horizontal: 24, // Padding kiri & kanan
+          ),
+        ),
+        child: const Text(
+          'View All Weeks',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      const SizedBox(height: 12),
+      if (isAdmin) ...[
+        ElevatedButton(
+          onPressed: () {
+            // Navigate to add new recommendation page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddRecommendationPage(),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF4A230A), // Warna cokelat
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8), // Sudut melengkung
+            ),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12, // Padding atas & bawah
+              horizontal: 24, // Padding kiri & kanan
+            ),
+          ),
+          child: const Text(
+            'Add New Recommendation',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    ];
+
+    List<Widget> info = [
+      // Text untuk menampilkan jumlah total FoodRecommendation
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          'Total Food Recommendations: $_totalFoodRec',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ];
+
+    List<String> selectedItems = [];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Editors Choice'), // Judul di AppBar
@@ -187,9 +260,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
         iconTheme:
             const IconThemeData(color: Colors.white), // Warna ikon di AppBar
       ),
-
       drawer: const LeftDrawer(), // Drawer navigasi di sebelah kiri
-
       body: Column(
         children: [
           // Dropdown untuk memilih filter berdasarkan tipe makanan
@@ -212,7 +283,6 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
             child: FutureBuilder<
                 Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>(
               future: _futureEditorChoices, // Future yang memuat data
-
               builder: (context, snapshot) {
                 // Menampilkan loading spinner saat data sedang dimuat
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -228,7 +298,10 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                             width: 100, height: 100),
                         const SizedBox(height: 16),
                         Text(
-                            'Error: Failed to load data. Error message: ${snapshot.error}'),
+                          'Error: Failed to load data. Error message: ${snapshot.error}'),
+                        const SizedBox(height: 16),
+                        ...commonMenuItems,
+                        ...info,
                       ],
                     ),
                   );
@@ -236,56 +309,37 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                 // Menampilkan pesan jika data kosong
                 else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('images/cross-mark-no-data.png',
-                        width: 100, height: 100),
-                      const SizedBox(height: 16),
-                      const Text('No data available'),
-                      if (isAdmin) // Tombol untuk admin (to be changed to 'add new FoodRecommendation'), not ideal
-                        ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) => const WeekEdList(),
-                            )
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                            const Color(0xFF4A230A), // Warna cokelat
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            8), // Sudut melengkung
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                          vertical: 12, // Padding atas & bawah
-                          horizontal: 24, // Padding kiri & kanan
-                          ),
-                        ),
-                        child: const Text('View Weekly Editor Choices'),
-                        ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('images/cross-mark-no-data.png',
+                            width: 100, height: 100),
+                        const SizedBox(height: 16),
+                        const Text('No data available'),
+                        const SizedBox(height: 16),
+                        ...commonMenuItems,
+                        ...info,
                       ],
                     ),
                   );
                 }
                 // Jika data berhasil dimuat
                 else {
-                  final editorChoices = snapshot.data!; // Data EditorChoice dan FoodRecommendation
-
+                  final editorChoices = snapshot
+                      .data!; // Data EditorChoice dan FoodRecommendation
                   return SingleChildScrollView(
                     child: Column(
                       children: [
                         // ListView untuk menampilkan EditorChoice dan jumlah FoodRecommendation
                         ListView.builder(
-                          shrinkWrap: true, // Menyesuaikan tinggi ListView dengan konten
-                          physics: const NeverScrollableScrollPhysics(), // ListView tidak bisa discroll secara independen
+                          shrinkWrap:
+                              true, // Menyesuaikan tinggi ListView dengan konten
+                          physics:
+                              const NeverScrollableScrollPhysics(), // ListView tidak bisa discroll secara independen
                           itemCount: _totalFoodRec, // Jumlah EditorChoice
-
                           itemBuilder: (context, index) {
-                            final week = editorChoices.keys.elementAt(0); // Minggu yang terpilih
+                            final week = editorChoices.keys
+                                .elementAt(0); // Minggu yang terpilih
                             final editorChoice = editorChoices
                                 .values; // EditorChoice lists pada minggu yang terpilih
                             final List<FoodRecommendation> foodRecommendations =
@@ -298,7 +352,6 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                                 foodItems.add(foodRec.values.toList()[0]);
                               }
                             }
-
                             return Column(children: [
                               // Card untuk menampilkan EditorChoice
                               InkWell(
@@ -336,6 +389,32 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                                           fontSize: 16,
                                         ),
                                       ),
+                                      trailing: _isDeleteMode
+                                          ? Theme(
+                                              data: Theme.of(context).copyWith(
+                                                unselectedWidgetColor:
+                                                    Colors.white,
+                                              ),
+                                              child: Checkbox(
+                                                value: selectedItems.contains(
+                                                    foodItems[index].pk),
+                                                checkColor: Colors.red,
+                                                activeColor:
+                                                    const Color.fromARGB(
+                                                        255, 190, 190, 190),
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    if (value == true) {
+                                                      selectedItems.add(
+                                                          foodItems[index].pk);
+                                                    } else {
+                                                      selectedItems.remove(
+                                                          foodItems[index].pk);
+                                                    }
+                                                  });
+                                                },
+                                              ))
+                                          : null,
                                     ),
                                   ]),
                                 ),
@@ -343,62 +422,68 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                             ]);
                           },
                         ),
-                        // Tombol untuk navigasi ke daftar mingguan EditorChoice
+                        ...commonMenuItems,
+                        // Button untuk menghapus rekomendasi makanan yang dipilih
+                        const SizedBox(height: 12),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const WeekEdList(),
-                                ));
+                            setState(() {
+                              _isDeleteMode = !_isDeleteMode;
+                            });
+                            // Show confirmation dialog
+                            if (!_isDeleteMode) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Confirm Deletions'),
+                                    content: const Text('Are you sure you want to delete the selected items?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Cancel'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          // Perform deletions
+                                          setState(() {
+                                            // Remove selected items from the list
+                                            for (var item in selectedItems) {
+                                              // Perform deletion logic here
+                                            }
+                                            selectedItems.clear();
+                                            _isDeleteMode = false;
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Confirm'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color(0xFF4A230A), // Warna cokelat
+                            backgroundColor: const Color(0xFF4A230A), // Warna cokelat
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(8), // Sudut melengkung
+                              borderRadius: BorderRadius.circular(8), // Sudut melengkung
                             ),
                             padding: const EdgeInsets.symmetric(
                               vertical: 12, // Padding atas & bawah
                               horizontal: 24, // Padding kiri & kanan
                             ),
                           ),
-                          child: const Text('View Weekly Editor Choices'),
-                        ),
-                        if (isAdmin) // Tombol untuk admin (to be changed to 'add new FoodRecommendation & delete FoodRecommendation(s)'), not ideal
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const WeekEdList(),
-                                  ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color(0xFF4A230A), // Warna cokelat
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    8), // Sudut melengkung
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12, // Padding atas & bawah
-                                horizontal: 24, // Padding kiri & kanan
-                              ),
-                            ),
-                            child: const Text('View Weekly Editor Choices'),
-                          ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            'Total Food Recommendations: $_totalFoodRec',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: Text(_isDeleteMode ? 
+                            'Confirm Deletions' : 
+                            'Delete Recommendations',
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
+                        // Menampilkan info jumlah total FoodRecommendation
+                        ...info,
                       ],
                     ),
                   );

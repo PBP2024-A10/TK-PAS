@@ -49,7 +49,13 @@ class _WeekEdListState extends State<WeekEdList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editors Choice'), // Judul di AppBar
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text('Add Food Recommendation Form'), // Judul di AppBar
         backgroundColor: const Color(0xFF3D200A), // Warna latar belakang AppBar
         iconTheme:
             const IconThemeData(color: Colors.white), // Warna ikon di AppBar
@@ -68,7 +74,8 @@ class _WeekEdListState extends State<WeekEdList> {
                   title: Text(snapshot.data![index].fields.week.toString()),
                   subtitle: Text(snapshot.data![index].pk.toString()),
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => EditorsChoiceMain(

@@ -37,8 +37,8 @@ class LoginApp extends StatelessWidget {
           secondary: Warna.backgrounddark,
         )
       ),
-      // home: const LoginPage(), // Your LoginPage is the starting page
-      home: const Homepage(), // change to loginpage (uncomment line 40 for deployment)
+      home: const LoginPage(), // Your LoginPage is the starting page
+      // home: const Homepage(), // change to loginpage (uncomment line 40 for deployment)
     );
   }
 }
