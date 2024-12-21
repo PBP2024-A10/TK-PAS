@@ -1,4 +1,3 @@
-<<<<<<< HEAD:lib/base/widgets/navbar.dart
 import 'package:ajengan_halal_mobile/wishlist/screens/wishlist_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -13,13 +12,6 @@ import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.
 import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
 
-=======
-import 'package:cards_makanan/cards_makanan/screens/cards_makanan.dart';
-import 'package:cards_makanan/manajemen_pesanan/screens/list_pesanan.dart';
-import 'package:flutter/material.dart';
-//import 'package:cards_makanan/manajemen_pesanan/screens/menu.dart';
-import 'package:cards_makanan/manajemen_pesanan/screens/buat_pesanan_form.dart';
->>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92:lib/manajemen_pesanan/widgets/left_drawer.dart
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -163,15 +155,9 @@ class LeftDrawer extends StatelessWidget {
                   width: 50,
                   height: 50,
                 ),
-<<<<<<< HEAD:lib/base/widgets/navbar.dart
                 const Text(
                   "Cari makanan halal di Ajengan Halal!",
                   textAlign: TextAlign.center,
-=======
-                Padding(padding: EdgeInsets.all(8)),
-                Text(
-                  "Ayo kenyangkan perutmu!",
->>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92:lib/manajemen_pesanan/widgets/left_drawer.dart
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,
@@ -181,7 +167,6 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
-<<<<<<< HEAD:lib/base/widgets/navbar.dart
           // Menu utama selalu ditampilkan
           ...commonMenuItems,
           
@@ -194,44 +179,6 @@ class LeftDrawer extends StatelessWidget {
           if (request.jsonData.containsKey('username') && 
               request.jsonData['username'] != null)
             ...loggedInMenuItems,
-=======
-          ListTile(
-            leading: const Icon(Icons.home_outlined),
-            title: const Text('Halaman Utama'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CardsMakanan(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text('Tambah Pesanan'),
-            onTap: () {
-              // Routing ke halaman BuatPesananForm
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BuatPesananForm(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-              leading: const Icon(Icons.add_reaction_rounded),
-              title: const Text('Daftar Pesanan'),
-              onTap: () {
-                  // Route menu ke halaman pesanan
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ListPesananPage()),
-                  );
-              },
-          ),
->>>>>>> 4c34e670078529c0a158bbf33f95b3b3d8ec8c92:lib/manajemen_pesanan/widgets/left_drawer.dart
         ],
       ),
     );

@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ajengan_halal_mobile/homepage.dart';
 import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,7 +27,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           Center(
-            child: SingleChildScrollView( // Add SingleChildScrollView here
+            child: SingleChildScrollView(
+              // Add SingleChildScrollView here
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -36,14 +38,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         Image.asset(
-                          'assets/images/web-logo.png', 
-                          height: 180,  // Mengurangi tinggi logo agar ada ruang
+                          'assets/images/web-logo.png',
+                          height: 180, // Mengurangi tinggi logo agar ada ruang
                         ),
-                        const SizedBox(height: 15),  // Mengurangi jarak antara logo dan heading
+                        const SizedBox(
+                            height:
+                                15), // Mengurangi jarak antara logo dan heading
                         Text(
                           'Temukan Kuliner Halal di Bali!',
                           style: GoogleFonts.rasa(
-                            fontSize: 28,  // Mengurangi ukuran font
+                            fontSize: 28, // Mengurangi ukuran font
                             fontWeight: FontWeight.bold,
                             color: const Color(0xFFcbbcb5),
                             height: 1.5,
@@ -54,19 +58,22 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   // Login Form Section
                   Container(
-                    margin: const EdgeInsets.all(16.0),  // Mengurangi margin
+                    margin: const EdgeInsets.all(16.0), // Mengurangi margin
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(16),
-                      boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black26, blurRadius: 10)
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Username field
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),  // Mengurangi padding vertikal
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0), // Mengurangi padding vertikal
                           child: TextField(
                             controller: _usernameController,
                             style: GoogleFonts.plusJakartaSans(
@@ -79,21 +86,24 @@ class _LoginPageState extends State<LoginPage> {
                               labelStyle: TextStyle(color: Color(0xFF654a2d)),
                               filled: true,
                               fillColor: Color(0xFFcbbcb5),
-                              prefixIcon: Icon(Icons.person, color: Color(0xFF654a2d)),
+                              prefixIcon:
+                                  Icon(Icons.person, color: Color(0xFF654a2d)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25),
                                 borderSide: BorderSide.none,
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide(color: Color(0xFF654a2d)),
+                                borderSide:
+                                    BorderSide(color: Color(0xFF654a2d)),
                               ),
                             ),
                           ),
                         ),
                         // Password field
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),  // Mengurangi padding vertikal
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0), // Mengurangi padding vertikal
                           child: TextField(
                             controller: _passwordController,
                             style: GoogleFonts.plusJakartaSans(
@@ -107,10 +117,13 @@ class _LoginPageState extends State<LoginPage> {
                               labelStyle: TextStyle(color: Color(0xFF654a2d)),
                               filled: true,
                               fillColor: Color(0xFFcbbcb5),
-                              prefixIcon: Icon(Icons.lock, color: Color(0xFF654a2d)),
+                              prefixIcon:
+                                  Icon(Icons.lock, color: Color(0xFF654a2d)),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Color(0xFF654a2d),
                                 ),
                                 onPressed: () {
@@ -125,14 +138,16 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide(color: Color(0xFF654a2d)),
+                                borderSide:
+                                    BorderSide(color: Color(0xFF654a2d)),
                               ),
                             ),
                           ),
                         ),
                         // Login button
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),  // Mengurangi jarak vertical
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0), // Mengurangi jarak vertical
                           child: ElevatedButton(
                             onPressed: () => _login(request),
                             child: Text(
@@ -157,14 +172,16 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Text(
                               "Don't have an account? ",
-                              style: GoogleFonts.plusJakartaSans(fontSize: 14, color: Color(0xFF654a2d)),
+                              style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 14, color: Color(0xFF654a2d)),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const RegisterPage()),
+                                      builder: (context) =>
+                                          const RegisterPage()),
                                 );
                               },
                               child: Text(
@@ -182,11 +199,13 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Text(
                               'Log in as a guest? ',
-                              style: GoogleFonts.plusJakartaSans(fontSize: 14, color: Color(0xFF654a2d)),
+                              style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 14, color: Color(0xFF654a2d)),
                             ),
                             TextButton(
                               onPressed: () {
-                               Navigator.pushReplacement(
+                                request.jsonData['role'] = 'guest';
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const Homepage()),
@@ -219,8 +238,8 @@ class _LoginPageState extends State<LoginPage> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    final response = await request
-        .login("http://127.0.0.1:8000/auth/login_flutter/", {
+    final response =
+        await request.login("http://127.0.0.1:8000/auth/login_flutter/", {
       'username': username,
       'password': password,
     });
@@ -229,21 +248,25 @@ class _LoginPageState extends State<LoginPage> {
       String message = response['message'];
       String uname = response['username'];
       if (context.mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Homepage()),
-          );
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                  content:
-                      Text("$message Selamat datang, $uname.")),
+        final fetchedRoleJSON = await http
+            .post(
+              Uri.parse('http://localhost:8000/auth/api/user-role/'),
+              // Uri.parse('https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/auth/api/user-role/'),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Cookie': request.headers['cookie'] ?? '',
+                'X-CSRFToken': request.cookies['csrftoken'].toString(),
+              },
+              body: jsonEncode(<String, String>{
+                "username": request.jsonData['username'],
+              }),
+            )
+            .then(
+              (value) => jsonDecode(value.body),
             );
-        }
-      } else {
-        if (context.mounted) {
+        if (fetchedRoleJSON['role'] != null && fetchedRoleJSON['status'] == true) {
+          request.jsonData['role'] = fetchedRoleJSON['role'];
+        } else {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -260,6 +283,34 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Homepage()),
+        );
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(content: Text("$message Selamat datang, $uname.")),
+          );
+      }
+    } else {
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Login Gagal'),
+            content: Text(response['message']),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
       }
     }
+  }
 }

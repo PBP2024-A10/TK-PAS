@@ -12,7 +12,6 @@ import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.
 import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
 
-
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
@@ -20,7 +19,7 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // Ambil instance CookieRequest
     var request = context.read<pbp.CookieRequest>();
-    
+
     // List tile yang akan selalu ditampilkan
     List<Widget> commonMenuItems = [
       ListTile(
@@ -84,28 +83,31 @@ class LeftDrawer extends StatelessWidget {
         leading: const Icon(Icons.logout),
         title: const Text('Logout'),
         onTap: () async {
-          final response = await http.post(
-              Uri.parse("http://127.0.0.1:8000/auth/logout_flutter/"));
+          final response = await http
+              .post(Uri.parse("http://127.0.0.1:8000/auth/logout_flutter/"));
           final Map<String, dynamic> responseData = jsonDecode(response.body);
           String message = responseData["message"];
           if (context.mounted) {
-              if (responseData['status']) {
-                  final String uname = utf8.decode(request.jsonData["username"].codeUnits);
-                  request.jsonData['username'] = null;
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("$message Sampai jumpa, $uname."),
-                  ));
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-              } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(message),
-                      ),
-                  );
-              }
+            if (responseData['status']) {
+              final String uname =
+                  utf8.decode(request.jsonData["username"].codeUnits);
+              request.jsonData['username'] = null;
+              request.jsonData['email'] = null;
+              request.jsonData['role'] = "guest";
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message Sampai jumpa, $uname."),
+              ));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                ),
+              );
+            }
           }
         },
       ),
@@ -169,14 +171,14 @@ class LeftDrawer extends StatelessWidget {
           ),
           // Menu utama selalu ditampilkan
           ...commonMenuItems,
-          
+
           // Tampilkan menu login/register jika belum login
-          if (!(request.jsonData.containsKey('username') && 
-                request.jsonData['username'] != null))
+          if (!(request.jsonData.containsKey('username') &&
+              request.jsonData['username'] != null))
             ...notLoggedInMenuItems,
-          
+
           // Tampilkan menu khusus jika sudah login
-          if (request.jsonData.containsKey('username') && 
+          if (request.jsonData.containsKey('username') &&
               request.jsonData['username'] != null)
             ...loggedInMenuItems,
         ],

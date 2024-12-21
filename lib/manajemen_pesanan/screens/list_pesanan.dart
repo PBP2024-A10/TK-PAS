@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:cards_makanan/manajemen_pesanan/widgets/left_drawer.dart';
-import 'package:cards_makanan/manajemen_pesanan/screens/lihat_detail.dart';
+import 'package:ajengan_halal_mobile/manajemen_pesanan/widgets/left_drawer.dart';
+import 'package:ajengan_halal_mobile/manajemen_pesanan/screens/lihat_detail.dart';
 
 class FoodOrder {
   final String pk;
