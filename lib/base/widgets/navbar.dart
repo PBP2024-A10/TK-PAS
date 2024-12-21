@@ -1,3 +1,4 @@
+import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir.dart';
 import 'package:ajengan_halal_mobile/wishlist/screens/wishlist_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -60,6 +61,18 @@ class LeftDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => WishlistPage(),
+            ),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.list),
+        title: const Text('Oleh-Oleh'),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SouvenirPage(),
             ),
           );
         },

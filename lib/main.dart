@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart'; // Add this import for CookieRequest
 import 'package:ajengan_halal_mobile/auth/screens/login.dart'; // Your login page
 import 'package:ajengan_halal_mobile/auth/screens/register.dart'; // Your register page
+import 'package:ajengan_halal_mobile/homepage.dart';
 
 void main() {
   runApp(
@@ -34,7 +35,7 @@ class LoginApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Warna.backgroundlight,
           secondary: Warna.backgrounddark,
-        )
+        ),
       ),
       home: const LoginPage(), // Your LoginPage is the starting page
     );

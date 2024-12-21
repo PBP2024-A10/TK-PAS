@@ -1,3 +1,2 @@
-2024/12/21-21:11:33.293 73dc Reusing MANIFEST C:\Users\anggu\AppData\Local\Temp\flutter_tools.bc08db7\flutter_tools_chrome_device.9ff74518\Default\Session Storage/MANIFEST-000001
-2024/12/21-21:11:33.294 73dc Recovering log #3
-2024/12/21-21:11:33.298 73dc Reusing old log C:\Users\anggu\AppData\Local\Temp\flutter_tools.bc08db7\flutter_tools_chrome_device.9ff74518\Default\Session Storage/000003.log 
+2024/12/21-21:50:46.308 7784 Creating DB C:\Users\anggu\AppData\Local\Temp\flutter_tools.e619f0c7\flutter_tools_chrome_device.318c7885\Default\Session Storage since it was missing.
+2024/12/21-21:50:46.323 7784 Reusing MANIFEST C:\Users\anggu\AppData\Local\Temp\flutter_tools.e619f0c7\flutter_tools_chrome_device.318c7885\Default\Session Storage/MANIFEST-000001
