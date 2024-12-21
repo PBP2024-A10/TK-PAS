@@ -8,7 +8,6 @@ import 'package:ajengan_halal_mobile/auth/screens/login.dart';
 import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:ajengan_halal_mobile/profile/profile.dart';
 import 'package:ajengan_halal_mobile/base/style/colors.dart';
-import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
 import 'package:ajengan_halal_mobile/editors_choice/screens/editors_choice_main.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
@@ -48,6 +47,7 @@ class LeftDrawer extends StatelessWidget {
           );
         },
       ),
+      // Tambahin di sini kalau mau nambahin menu common
     ];
 
     // List tile khusus untuk user yang sudah login
@@ -76,6 +76,7 @@ class LeftDrawer extends StatelessWidget {
           );
         },
       ),
+      // Tambahin di sini kalau mau nambahin menu loggedin
       const SizedBox(height: 20),
       ListTile(
         textColor: const Color.fromARGB(255, 255, 0, 0),
@@ -89,7 +90,7 @@ class LeftDrawer extends StatelessWidget {
           String message = responseData["message"];
           if (context.mounted) {
               if (responseData['status']) {
-                  String uname = responseData["username"];
+                  final String uname = utf8.decode(request.jsonData["username"].codeUnits);
                   request.jsonData['username'] = null;
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("$message Sampai jumpa, $uname."),
@@ -136,6 +137,7 @@ class LeftDrawer extends StatelessWidget {
           );
         },
       ),
+      // Tambahin di sini kalau mau nambahin menu notloggedin
     ];
 
     return Drawer(

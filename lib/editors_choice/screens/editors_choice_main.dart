@@ -251,6 +251,32 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
       ),
     ];
 
+    List<Widget> cancelDeleteButton = [
+      // Button untuk membatalkan mode hapus data
+      const SizedBox(height: 12),
+      ElevatedButton(
+        onPressed: () {
+          setState(() {
+            _isDeleteMode = false;
+          });
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF4A230A), // Warna cokelat
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // Sudut melengkung
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 12, // Padding atas & bawah
+            horizontal: 24, // Padding kiri & kanan
+          ),
+        ),
+        child: const Text(
+          'Cancel Deletion',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    ];
+
     List<String> selectedItems = [];
 
     return Scaffold(
@@ -298,7 +324,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                             width: 100, height: 100),
                         const SizedBox(height: 16),
                         Text(
-                          'Error: Failed to load data. Error message: ${snapshot.error}'),
+                            'Error: Failed to load data. Error message: ${snapshot.error}'),
                         const SizedBox(height: 16),
                         ...commonMenuItems,
                         ...info,
@@ -400,8 +426,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                                                     foodItems[index].pk),
                                                 checkColor: Colors.red,
                                                 activeColor:
-                                                    const Color.fromARGB(
-                                                        255, 190, 190, 190),
+                                                    const Color.fromARGB(255, 255, 0, 0),
                                                 onChanged: (bool? value) {
                                                   setState(() {
                                                     if (value == true) {
@@ -424,64 +449,71 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                         ),
                         ...commonMenuItems,
                         // Button untuk menghapus rekomendasi makanan yang dipilih
-                        const SizedBox(height: 12),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _isDeleteMode = !_isDeleteMode;
-                            });
-                            // Show confirmation dialog
-                            if (!_isDeleteMode) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Confirm Deletions'),
-                                    content: const Text('Are you sure you want to delete the selected items?'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          // Perform deletions
-                                          setState(() {
-                                            // Remove selected items from the list
-                                            for (var item in selectedItems) {
-                                              // Perform deletion logic here
-                                            }
-                                            selectedItems.clear();
-                                            _isDeleteMode = false;
-                                          });
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('Confirm'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4A230A), // Warna cokelat
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8), // Sudut melengkung
+                        if (isAdmin) ...[
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _isDeleteMode = !_isDeleteMode;
+                              });
+                              // Show confirmation dialog
+                              if (!_isDeleteMode) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirm Deletions'),
+                                      content: const Text(
+                                          'Are you sure you want to delete the selected items?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Perform deletions
+                                            setState(() {
+                                              // Remove selected items from the list
+                                              for (var item in selectedItems) {
+                                                // Perform deletion logic here
+                                              }
+                                              selectedItems.clear();
+                                              _isDeleteMode = false;
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Confirm'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color(0xFF4A230A), // Warna cokelat
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8), // Sudut melengkung
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12, // Padding atas & bawah
+                                horizontal: 24, // Padding kiri & kanan
+                              ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12, // Padding atas & bawah
-                              horizontal: 24, // Padding kiri & kanan
+                            child: Text(
+                              _isDeleteMode
+                                  ? 'Confirm Deletions'
+                                  : 'Delete Recommendations',
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                          child: Text(_isDeleteMode ? 
-                            'Confirm Deletions' : 
-                            'Delete Recommendations',
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
+                          if (_isDeleteMode) ...cancelDeleteButton,
+                        ],
                         // Menampilkan info jumlah total FoodRecommendation
                         ...info,
                       ],

@@ -1,5 +1,6 @@
 import 'dart:convert'; // Library untuk mengkonversi JSON
 import 'package:flutter/material.dart';
+import 'package:ajengan_halal_mobile/auth/screens/login.dart'; // Import halaman login
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart'; // Import widget navbar untuk drawer navigasi
 import 'package:ajengan_halal_mobile/editors_choice/models/food_recommendation.dart'; // Model untuk FoodRecommendation
 import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart'; // Model untuk MenuItem
@@ -82,6 +83,142 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
   Widget build(BuildContext context) {
     final request = context.watch<pbp.CookieRequest>();
 
+    List<Widget> bottomMenuItems = [
+      Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+            padding: const EdgeInsets.all(8),
+            color: Colors.white,
+            child: Column(
+              children: [
+                if (request.jsonData['username'] != null) ...[
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _commentController,
+                          decoration: const InputDecoration(
+                            labelText: 'Add your personal comment',
+                            hintText:
+                                'Give your thoughts about your best personal experience here',
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 15),
+                          ),
+                          maxLines: null, // Allows for multi-line input
+                          keyboardType: TextInputType
+                              .multiline, // Sets the keyboard type to multiline
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate() &&
+                                request.jsonData['username'] != null) {
+                              final responseData = await http.post(
+                                Uri.parse(
+                                    'http://localhost:8000/editors-choice/add-comment/?rec_id=$_recID'),
+                                // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/add-comment/?rec_id=$_recID
+                                headers: <String, String>{
+                                  'Content-Type':
+                                      'application/json; charset=UTF-8',
+                                  'Cookie': request.headers['cookie'] ?? '',
+                                  'X-CSRFToken':
+                                      request.cookies['csrftoken'].toString(),
+                                },
+                                body: jsonEncode(<String, String>{
+                                  "rec_id": _recID,
+                                  "comment": _commentController.text,
+                                  "username": request.jsonData['username'],
+                                }),
+                              );
+
+                              final response = jsonDecode(responseData.body);
+                              if (context.mounted) {
+                                if (response['status'] == 'success') {
+                                  setState(() {
+                                    _futureFoodRecommendation =
+                                        fetchFoodRecommendation(
+                                            widget.foodItem, widget.id);
+                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          "Komentar berhasil dikirim. Komentar baru Anda sudah bisa dilihat!"),
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          "Terdapat kesalahan dalam mengirim komentar"),
+                                    ),
+                                  );
+                                }
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("Komentar tidak boleh kosong"),
+                                ),
+                              );
+                            }
+                            _commentController.clear();
+                          },
+                          child: const Text('Post Comment'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]
+                else ...[
+                  // List tile untuk login/register jika belum login
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Login to post comment and make order',
+                      // style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+            ],
+          )
+        ),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Food Recommendation'), // Judul di AppBar
@@ -161,116 +298,7 @@ class _FoodRecommendationPageState extends State<FoodRecommendationPage> {
               },
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: _commentController,
-                          decoration: const InputDecoration(
-                            labelText: 'Add your personal comment',
-                            hintText:
-                                'Give your thoughts about your best personal experience here',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 2.0,
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                          ),
-                          maxLines: null, // Allows for multi-line input
-                          keyboardType: TextInputType
-                              .multiline, // Sets the keyboard type to multiline
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate() &&
-                                request.jsonData['username'] != null) {
-                              final responseData = await http.post(
-                                Uri.parse(
-                                    'http://localhost:8000/editors-choice/add-comment/?rec_id=$_recID'),
-                                // Endpoint asli: https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/add-comment/?rec_id=$_recID
-                                headers: <String, String>{
-                                  'Content-Type':
-                                      'application/json; charset=UTF-8',
-                                  'Cookie': request.headers['cookie'] ?? '',
-                                  'X-CSRFToken':
-                                      request.cookies['csrftoken'].toString(),
-                                },
-                                body: jsonEncode(<String, String>{
-                                  "rec_id": _recID,
-                                  "comment": _commentController.text,
-                                  "username": request.jsonData['username'],
-                                }),
-                              );
-
-                              final response = jsonDecode(responseData.body);
-                              if (context.mounted) {
-                                if (response['status'] == 'success') {
-                                  setState(() {
-                                    _futureFoodRecommendation =
-                                        fetchFoodRecommendation(
-                                            widget.foodItem, widget.id);
-                                  });
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          "Komentar berhasil dikirim. Komentar baru Anda sudah bisa dilihat!"),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          "Terdapat kesalahan dalam mengirim komentar"),
-                                    ),
-                                  );
-                                }
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("Komentar tidak boleh kosong"),
-                                ),
-                              );
-                            }
-                            _commentController.clear();
-                          },
-                          child: const Text('Post Comment'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            ),
-          ),
+          ...bottomMenuItems,
         ],
       ),
     );
