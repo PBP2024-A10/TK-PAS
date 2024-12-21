@@ -48,12 +48,14 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        restaurant: json["restaurant"] ?? "Unknown Restaurant",  // Nilai default jika null
-        name: json["name"] ?? "No Name",  // Nilai default jika null
-        description: json["description"] ?? "No Description",  // Nilai default jika null
-        price: json["price"] ?? "0",  // Nilai default jika null
-        mealType: json["meal_type"] ?? "Unknown",  // Nilai default jika null
-        imageUrlMenu: json["image_url_menu"] ?? "",  // Nilai default jika null
+        restaurant: json["restaurant"] ??
+            "Unknown Restaurant", // Nilai default jika null
+        name: json["name"] ?? "No Name", // Nilai default jika null
+        description:
+            json["description"] ?? "No Description", // Nilai default jika null
+        price: json["price"] ?? "0", // Nilai default jika null
+        mealType: json["meal_type"] ?? "Unknown", // Nilai default jika null
+        imageUrlMenu: json["image_url_menu"] ?? "", // Nilai default jika null
       );
 
   Map<String, dynamic> toJson() => {

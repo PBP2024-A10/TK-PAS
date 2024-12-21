@@ -21,7 +21,6 @@ void main() {
   );
 }
 
-
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
 
@@ -30,13 +29,12 @@ class LoginApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Warna.backgroundlight,
-          secondary: Warna.backgrounddark,
-        )
-      ),
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Warna.backgroundlight,
+            secondary: Warna.backgrounddark,
+          )),
       home: const LoginPage(), // Your LoginPage is the starting page
       // home: const Homepage(), // change to loginpage (uncomment line 40 for deployment)
     );
