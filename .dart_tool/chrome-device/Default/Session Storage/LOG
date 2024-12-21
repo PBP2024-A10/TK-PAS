@@ -1,15 +1,6 @@
-2024/12/21-00:34:04.095 4494 Reusing MANIFEST C:\Users\pbm\AppData\Local\Temp\flutter_tools.54bc2de4\flutter_tools_chrome_device.4ab34815\Default\Session Storage/MANIFEST-000001
-2024/12/21-00:34:04.104 4494 Recovering log #3
-2024/12/21-00:34:04.106 4494 Reusing old log C:\Users\pbm\AppData\Local\Temp\flutter_tools.54bc2de4\flutter_tools_chrome_device.4ab34815\Default\Session Storage/000003.log 
-2024/12/21-00:36:03.309 4494 Level-0 table #5: started
-2024/12/21-00:36:03.317 4494 Level-0 table #5: 33404 bytes OK
-2024/12/21-00:36:03.321 4494 Delete type=0 #3
-2024/12/21-01:37:05.272 22d0 Level-0 table #7: started
-2024/12/21-01:37:05.285 22d0 Level-0 table #7: 326861 bytes OK
-2024/12/21-01:37:05.290 22d0 Delete type=0 #4
-2024/12/21-01:37:11.189 22d0 Level-0 table #9: started
-2024/12/21-01:37:11.216 22d0 Level-0 table #9: 79878 bytes OK
-2024/12/21-01:37:11.220 22d0 Delete type=0 #6
-2024/12/21-02:30:45.264 4494 Level-0 table #11: started
-2024/12/21-02:30:45.277 4494 Level-0 table #11: 79844 bytes OK
-2024/12/21-02:30:45.283 4494 Delete type=0 #8
+2024/12/21-19:21:39.992 265c Reusing MANIFEST C:\Users\pbm\AppData\Local\Temp\flutter_tools.e663a617\flutter_tools_chrome_device.23d43b80\Default\Session Storage/MANIFEST-000001
+2024/12/21-19:21:40.006 265c Recovering log #3
+2024/12/21-19:21:40.008 265c Reusing old log C:\Users\pbm\AppData\Local\Temp\flutter_tools.e663a617\flutter_tools_chrome_device.23d43b80\Default\Session Storage/000003.log 
+2024/12/21-20:04:03.718 265c Level-0 table #5: started
+2024/12/21-20:04:03.739 265c Level-0 table #5: 71812 bytes OK
+2024/12/21-20:04:03.746 265c Delete type=0 #3

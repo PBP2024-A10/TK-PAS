@@ -1,8 +1,6 @@
-// souvenir.dart
 import 'package:flutter/material.dart';
-import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
-import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir_entryform.dart';
 import 'package:ajengan_halal_mobile/manajemen_souvenir/widgets/card_souvenir.dart';
+import 'package:ajengan_halal_mobile/manajemen_souvenir/screens/souvenir_entryform.dart';
 import 'package:ajengan_halal_mobile/manajemen_souvenir/models/souvenir_entry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -25,9 +23,7 @@ class _SouvenirListPageState extends State<SouvenirPage> {
   }
 
   Future<List<SouvenirEntry>> fetchSouvenirs() async {
-    // Pastikan URL ini sesuai dengan endpoint show_json di Django
-    final response = await http.get(Uri.parse('http://localhost:8000/souvenir/json/')); 
-    // print('Response Body: ${response.body}');
+    final response = await http.get(Uri.parse('http://localhost:8000/souvenir/json/'));
 
     if (response.statusCode == 200) {
       return souvenirEntryFromJson(response.body);
@@ -36,7 +32,6 @@ class _SouvenirListPageState extends State<SouvenirPage> {
     }
   }
 
-  // Fungsi untuk menambah souvenir baru (POST)
   Future<void> addSouvenir(String name, String description, String imageUrl) async {
     final url = Uri.parse('http://localhost:8000/souvenir/flutter/add-souvenir_entry/');
     final response = await http.post(
@@ -49,12 +44,7 @@ class _SouvenirListPageState extends State<SouvenirPage> {
       }),
     );
 
-    print('Submit Response Status: ${response.statusCode}');
-    print('Submit Response Body: ${response.body}');
-
     if (response.statusCode == 201) {
-      // Berhasil menambah, reload data
-      print('Souvenir berhasil ditambahkan!');
       setState(() {
         futureSouvenirs = fetchSouvenirs();
       });
@@ -62,7 +52,6 @@ class _SouvenirListPageState extends State<SouvenirPage> {
         const SnackBar(content: Text('Souvenir berhasil ditambahkan!')),
       );
     } else {
-      print('Gagal menambah souvenir: ${response.body}');
       final data = jsonDecode(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Gagal menambah souvenir: ${data["message"]}')),
@@ -70,7 +59,6 @@ class _SouvenirListPageState extends State<SouvenirPage> {
     }
   }
 
-  // Fungsi untuk mengedit souvenir (PUT)
   Future<void> editSouvenir(String pk, String name, String description, String imageUrl) async {
     final url = Uri.parse('http://localhost:8000/souvenir/flutter/edit-souvenir/$pk/');
     final response = await http.put(
@@ -83,20 +71,14 @@ class _SouvenirListPageState extends State<SouvenirPage> {
       }),
     );
 
-    print('Edit Response Status: ${response.statusCode}');
-    print('Edit Response Body: ${response.body}');
-
     if (response.statusCode == 200) {
-      // Berhasil mengedit, reload data
       setState(() {
-        print('Souvenir berhasil diubah!');
         futureSouvenirs = fetchSouvenirs();
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Souvenir berhasil diubah!')),
       );
     } else {
-      print('Gagal edit souvenir: ${response.body}');
       final data = jsonDecode(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Gagal mengedit souvenir: ${data["message"]}')),
@@ -104,14 +86,11 @@ class _SouvenirListPageState extends State<SouvenirPage> {
     }
   }
 
-  // Fungsi untuk menghapus souvenir (DELETE)
-  // Contoh fungsi untuk menghapus souvenir
   Future<void> deleteSouvenir(String pk) async {
     final url = Uri.parse('http://localhost:8000/souvenir/flutter/delete/$pk/');
     final response = await http.delete(url);
 
     if (response.statusCode == 200) {
-      print('Souvenir berhasil dihapus!');
       setState(() {
         futureSouvenirs = fetchSouvenirs();
       });
@@ -119,7 +98,6 @@ class _SouvenirListPageState extends State<SouvenirPage> {
         const SnackBar(content: Text('Souvenir berhasil dihapus!')),
       );
     } else {
-      print('Gagal menghapus souvenir: ${response.body}');
       final data = jsonDecode(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Gagal menghapus souvenir: ${data["message"]}')),
@@ -127,41 +105,23 @@ class _SouvenirListPageState extends State<SouvenirPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Manajemen Souvenir'),
-        backgroundColor: const Color(0xFF3D200A),
-        foregroundColor: Colors.white,
-        actions: [
-          if (isAdmin)
-            TextButton(
-              onPressed: () async {
-                final newEntry = await Navigator.push<SouvenirEntry>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SouvenirEntryFormPage(),
-                  ),
-                );
-
-                if (newEntry != null) {
-                  await addSouvenir(
-                    newEntry.fields.name,
-                    newEntry.fields.description,
-                    newEntry.fields.image,
-                  );
-                }
-              },
-              child: const Text(
-                'Tambah Souvenir',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-        ],
+        title: const Text(
+          'Daftar Oleh-Oleh',
+          style: TextStyle(
+            color: Color(0xFF462009),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: const Color(0xFF462009),
+        elevation: 0,
       ),
-      drawer: const LeftDrawer(),
       body: FutureBuilder<List<SouvenirEntry>>(
         future: futureSouvenirs,
         builder: (context, snapshot) {
@@ -170,62 +130,103 @@ class _SouvenirListPageState extends State<SouvenirPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No souvenirs found.'));
+            return const Center(child: Text('Tidak ada data souvenir.'));
           } else {
             final souvenirs = snapshot.data!;
-            return ListView.builder(
-              itemCount: souvenirs.length,
-              itemBuilder: (context, index) {
-                final entry = souvenirs[index];
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: souvenirs.length,
+                    itemBuilder: (context, index) {
+                      final souvenir = souvenirs[index];
+                      return CardSouvenir(
+                        souvenir: souvenir,
+                        isAdmin: isAdmin,
+                        onEdit: () async {
+                          final updatedEntry = await Navigator.push<SouvenirEntry>(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SouvenirEntryFormPage(
+                                initialSouvenirEntry: souvenir,
+                              ),
+                            ),
+                          );
 
-                return CardSouvenir(
-                  souvenir: entry,
-                  isAdmin: isAdmin,
-                  onEdit: () async {
-                    final updatedEntry = await Navigator.push<SouvenirEntry>(
+                          if (updatedEntry != null) {
+                            await editSouvenir(
+                              souvenir.pk,
+                              updatedEntry.fields.name,
+                              updatedEntry.fields.description,
+                              updatedEntry.fields.image,
+                            );
+                          }
+                        },
+                        onDelete: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Hapus Souvenir'),
+                                content: Text('Apakah Anda yakin ingin menghapus "${souvenir.fields.name}"?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('Batal'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.pop(context);
+                                      await deleteSouvenir(souvenir.pk);
+                                    },
+                                    child: const Text('Hapus'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF462009),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                  ),
+                  onPressed: () async {
+                    final newEntry = await Navigator.push<SouvenirEntry>(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SouvenirEntryFormPage(
-                          initialSouvenirEntry: entry,
-                        ),
+                        builder: (context) => const SouvenirEntryFormPage(),
                       ),
                     );
 
-                    if (updatedEntry != null) {
-                      await editSouvenir(
-                        entry.pk,
-                        updatedEntry.fields.name,
-                        updatedEntry.fields.description,
-                        updatedEntry.fields.image,
+                    if (newEntry != null) {
+                      await addSouvenir(
+                        newEntry.fields.name,
+                        newEntry.fields.description,
+                        newEntry.fields.image,
                       );
                     }
                   },
-                  onDelete: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Hapus Souvenir'),
-                          content: Text('Apakah Anda yakin ingin menghapus "${entry.fields.name}"?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('Batal'),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.pop(context);
-                                await deleteSouvenir(entry.pk);
-                              },
-                              child: const Text('Hapus'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                );
-              },
+                  child: const Text(
+                    'Tambah Souvenir',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
             );
           }
         },

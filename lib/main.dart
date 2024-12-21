@@ -35,7 +35,7 @@ class LoginApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Warna.backgroundlight,
           secondary: Warna.backgrounddark,
-        )
+        ),
       ),
       home: const LoginPage(), // Your LoginPage is the starting page
     );
