@@ -383,7 +383,11 @@ class _HomepageState extends State<Homepage> {
                                                   if (isLoggedIn) {
                                                     Navigator.push(
                                                       context,
-                                                      MaterialPageRoute(builder: (context) => const CardsMakanan()),
+                                                      MaterialPageRoute(builder: (context) => CardsMakanan(  
+                                                        restaurantName: restaurant.fields.name,
+                                                        restaurantDescription: restaurant.fields.description,
+                                                        restaurantImage: restaurant.fields.imageUrl,
+                                                        restaurantId: restaurant.pk, )),
                                                     );
                                                   } else {
                                                     Navigator.push(

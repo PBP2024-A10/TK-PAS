@@ -3,136 +3,157 @@ import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart';
 import 'package:ajengan_halal_mobile/wishlist/models/wishlists.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'dart:convert';
-
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class CardsMakanan extends StatefulWidget {
-  const CardsMakanan({Key? key}) : super(key: key);
+  final String restaurantName;
+  final String restaurantDescription;
+  final String restaurantImage;
+  final String restaurantId;  // Tambah parameter restaurant ID
+
+  const CardsMakanan({
+    Key? key, 
+    required this.restaurantName,
+    required this.restaurantDescription,
+    required this.restaurantImage,
+    required this.restaurantId,
+  }) : super(key: key);
 
   @override
   _CardsMakananState createState() => _CardsMakananState();
 }
 
 class _CardsMakananState extends State<CardsMakanan> {
-  TextEditingController _searchController =
-      TextEditingController(); // Controller untuk search bar
-  String _searchQuery = ""; // Variabel untuk kata kunci pencarian
-  List<MenuItem> _menuItems = []; // Daftar menu yang diambil dari API atau JSON
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = "";
+  List<MenuItem> _menuItems = [];
+  List<MenuItem> _filteredMenuItems = [];
   List<Wishlist> _wishLists = [];
-  late CookieRequest request; // for Wishlist
+  late CookieRequest request;
+  bool _isLoading = true;  // Tambah loading state
 
-  // Fungsi untuk memuat data JSON
   Future<void> fetchMenuItems() async {
-    final String jsonString =
-        await rootBundle.loadString('assets/restaurants.json');
-    final List<dynamic> data = json.decode(jsonString); // Dekode JSON
-    setState(() {
-      _menuItems = data
-          .map((item) => MenuItem.fromJson(item))
-          .toList(); // Konversi JSON ke list MenuItem
-    });
+    try {
+      final response = await http.get(
+        Uri.parse('http://127.0.0.1:8000/makanan/menu-items-json/${widget.restaurantId}/'),
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          _menuItems = data.map((item) => MenuItem.fromJson(item)).toList();
+          _filteredMenuItems = _menuItems;
+          _isLoading = false;  // Set loading ke false setelah data dimuat
+        });
+      } else {
+        throw Exception('Failed to load menu items');
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;  // Set loading ke false jika terjadi error
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading menu items: $e')),
+      );
+    }
   }
 
-  // Fungsi untuk memfilter menu berdasarkan pencarian nama
-  List<MenuItem> _filterMenuItems() {
+  void _filterMenuItems() {
     if (_searchQuery.isEmpty) {
-      return _menuItems; // Jika pencarian kosong, kembalikan semua item
+      setState(() {
+        _filteredMenuItems = _menuItems;
+      });
+    } else {
+      setState(() {
+        _filteredMenuItems = _menuItems.where((item) {
+          return item.fields.name
+              .toLowerCase()
+              .contains(_searchQuery.toLowerCase());
+        }).toList();
+      });
     }
-    return _menuItems.where((item) {
-      return item.fields.name
-          .toLowerCase()
-          .contains(_searchQuery.toLowerCase());
-    }).toList(); // Filter berdasarkan nama menu
   }
 
   @override
   void initState() {
     super.initState();
-    fetchMenuItems(); // Memuat data menu saat aplikasi dimulai
+    fetchMenuItems();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+        fetchWishLists(context.read<CookieRequest>());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    request = context.watch<CookieRequest>(); // for WishList
-    fetchWishLists(request); // for WishList
-
+    request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('[Nama Restaurant]'),
+        title: Text(widget.restaurantName),
         backgroundColor: Colors.orangeAccent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Pencarian sudah ditangani dengan onChanged pada TextField
-            },
-          ),
-        ],
       ),
       drawer: const LeftDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              '[Deskripsi Restaurant]',
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search by menu name',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value; // Update kata kunci pencarian
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: _menuItems.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Dua kolom per baris
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.8, // Proporsi kartu
+      body: _isLoading 
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    widget.restaurantDescription,
+                    style: const TextStyle(fontSize: 16, color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search menu items',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      itemCount: _filterMenuItems().length,
-                      itemBuilder: (context, index) {
-                        final item = _filterMenuItems()[index];
-
-                        bool isWishListed = false;
-                        for (var i in _wishLists) {
-                          if (item.fields.name == i.name) {
-                            isWishListed = true;
-                            break;
-                          }
-                        }
-                        return _buildMenuCard(
-                          imageUrl:
-                              item.fields.imageUrlMenu, // Gambar dari JSON
-                          name: item.fields.name, // Nama makanan
-                          price: 'Rp${item.fields.price}', // Harga makanan
-                          isWishListed: isWishListed,
-                        );
-                      },
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                        _filterMenuItems();
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: _filteredMenuItems.isEmpty
+                        ? const Center(child: Text('No menu items found'))
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 0.8,
+                            ),
+                            itemCount: _filteredMenuItems.length,
+                            itemBuilder: (context, index) {
+                              final item = _filteredMenuItems[index];
+                              bool isWishListed = _wishLists
+                                  .any((wish) => wish.name == item.fields.name);
+                              
+                              return _buildMenuCard(
+                                imageUrl: item.fields.imageUrlMenu,
+                                name: item.fields.name,
+                                price: 'Rp${item.fields.price}',
+                                isWishListed: isWishListed,
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -242,27 +263,25 @@ class _CardsMakananState extends State<CardsMakanan> {
         if (response['error'] == null) {
           String message = "";
           if (response['message'] == 'Removed from wishlist') {
-            message = "Remove ${name} to wish list!";
+            message = "Removed $name from wishlist!";
           } else if (response['message'] == 'Added to wishlist') {
-            message = "Added ${name} to wish list!";
+            message = "Added $name to wishlist!";
           }
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(
-            content: Text(message),
-            ));
-            Navigator.of(context).pop();
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CardsMakanan()),
-            );
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(
+              content: Text(message),
+          ));
+          // Refresh halaman tanpa navigasi ulang
+          setState(() {
+            fetchWishLists(request);
+          });
         } else {
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(
-                content:
-                    Text("Terdapat kesalahan, silakan coba lagi."),
+                content: Text("Terdapat kesalahan, silakan coba lagi."),
             ));
         }
     }
-  }
+}
   // =================================================================================
 }

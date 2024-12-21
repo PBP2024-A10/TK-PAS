@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 List<MenuItem> menuItemsFromJson(String str) =>
     List<MenuItem>.from(json.decode(str).map((x) => MenuItem.fromJson(x)));
@@ -64,4 +65,24 @@ class Fields {
         "meal_type": mealType,
         "image_url_menu": imageUrlMenu,
       };
+}
+
+Future<Map<String, List<MenuItem>>> fetchAndGroupMenuItems() async {
+  // Memuat file JSON dari assets
+  final String jsonString = await rootBundle.loadString('assets/restaurants.json');
+  
+  // Parsing data JSON menjadi List<MenuItem>
+  final List<MenuItem> menuItems = menuItemsFromJson(jsonString);
+
+  // Mengelompokkan data berdasarkan restaurant ID
+  Map<String, List<MenuItem>> groupedItems = {};
+  for (var menuItem in menuItems) {
+    final restaurantId = menuItem.fields.restaurant;
+    if (!groupedItems.containsKey(restaurantId)) {
+      groupedItems[restaurantId] = [];
+    }
+    groupedItems[restaurantId]!.add(menuItem);
+  }
+
+  return groupedItems;
 }
