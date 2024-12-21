@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert'; // Library untuk mengkonversi JSON
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart'; // Import widget navbar untuk drawer navigasi
 import 'package:ajengan_halal_mobile/editors_choice/models/food_recommendation.dart'; // Model untuk FoodRecommendation
 import 'package:ajengan_halal_mobile/editors_choice/models/editor_choice.dart'; // Model untuk EditorChoice
@@ -6,6 +8,7 @@ import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart'; // Mo
 import 'package:ajengan_halal_mobile/editors_choice/screens/week_edlist.dart'; // Halaman untuk menampilkan daftar EditorChoice
 import 'package:ajengan_halal_mobile/editors_choice/screens/food_rec_page.dart'; // Halaman untuk menampilkan detail FoodRecommendation
 import 'package:ajengan_halal_mobile/editors_choice/screens/add_food_rec.dart'; // Halaman untuk menambahkan FoodRecommendation
+import 'package:ajengan_halal_mobile/editors_choice/widgets/cross_checkbox.dart'; // Widget untuk checkbox
 import 'package:http/http.dart' as http; // Library untuk melakukan HTTP request
 import 'package:pbp_django_auth/pbp_django_auth.dart'
     as pbp; // Library untuk melakukan HTTP request
@@ -32,6 +35,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
       0; // Jumlah total FoodRecommendation yang akan dihitung nanti
   String _defWeek = ''; // Minggu default (misalnya minggu ini)
   bool _isDeleteMode = false; // Mode hapus data
+  final _selectedItems = <String>[]; // Data yang dipilih untuk dihapus
 
   // Fungsi untuk mendapatkan minggu default (misalnya minggu sekarang)
   String getDefaultWeek() {
@@ -54,6 +58,9 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
   // Fungsi untuk mengambil data EditorChoice dan FoodRecommendation dari API
   Future<Map<EditorChoice, List<Map<FoodRecommendation, MenuItem>>>>
       fetchEditorChoices(String? week) async {
+    // Reset jumlah total FoodRecommendation
+    _totalFoodRec = 0;
+
     // HTTP GET request untuk mengambil data FoodRecommendation
     final responseFR = await http
         .get(Uri.parse('http://localhost:8000/editors-choice/json/food-rec/'));
@@ -170,6 +177,41 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
     });
   }
 
+  // Fungsi untuk menghapus data food recommendation
+  void _deleteFoodRecommendation() async {
+    for (final item in _selectedItems) {
+      // Lakukan operasi hapus data di sini
+      if (kDebugMode) {
+        print('Deleting item with ID: $item');
+      }
+      final response = await http
+          .delete(
+            Uri.parse(
+                'http://localhost:8000/editors-choice/delete-food-mobile/?rec_id=$item'),
+            // Uri.parse('https://rafansyadaryltama-ajenganhalal.pbp.cs.ui.ac.id/editors-choice/delete-food-mobile/?rec_id=$item'),
+          )
+          .then((response) => (jsonDecode(response.body)));
+
+      if (context.mounted) {
+        if (response['status'] == "success") {
+          if (kDebugMode) {
+            print(
+                'Successfully deleted item with ID: $item, name: ${response['item_name']}, week: ${response['week']}');
+          }
+        } else {
+          if (kDebugMode) {
+            print('Failed to delete item with ID: $item');
+            print('Error message: ${response['detail']}');
+          }
+        }
+      }
+    }
+    // Refresh data setelah selesai menghapus
+    setState(() {
+      _futureEditorChoices = fetchEditorChoices(widget.week);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context
@@ -180,7 +222,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
         ? (request.jsonData["username"] == "admin1" ? true : false)
         : false; // Cek apakah user adalah admin
 
-    List<Widget> commonMenuItems = [
+    final List<Widget> commonMenuItems = [
       // Button untuk menampilkan daftar EditorChoice per week
       ElevatedButton(
         onPressed: () {
@@ -237,7 +279,7 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
       ],
     ];
 
-    List<Widget> info = [
+    final List<Widget> info = [
       // Text untuk menampilkan jumlah total FoodRecommendation
       Padding(
         padding: const EdgeInsets.all(16.0),
@@ -251,13 +293,14 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
       ),
     ];
 
-    List<Widget> cancelDeleteButton = [
+    final List<Widget> cancelDeleteButton = [
       // Button untuk membatalkan mode hapus data
       const SizedBox(height: 12),
       ElevatedButton(
         onPressed: () {
           setState(() {
             _isDeleteMode = false;
+            _selectedItems.clear();
           });
         },
         style: ElevatedButton.styleFrom(
@@ -276,8 +319,6 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
         ),
       ),
     ];
-
-    List<String> selectedItems = [];
 
     return Scaffold(
       appBar: AppBar(
@@ -416,30 +457,31 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                                         ),
                                       ),
                                       trailing: _isDeleteMode
-                                          ? Theme(
-                                              data: Theme.of(context).copyWith(
-                                                unselectedWidgetColor:
-                                                    Colors.white,
-                                              ),
-                                              child: Checkbox(
-                                                value: selectedItems.contains(
-                                                    foodItems[index].pk),
-                                                checkColor: Colors.red,
-                                                activeColor:
-                                                    const Color.fromARGB(255, 255, 0, 0),
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    if (value == true) {
-                                                      selectedItems.add(
-                                                          foodItems[index].pk);
-                                                    } else {
-                                                      selectedItems.remove(
-                                                          foodItems[index].pk);
-                                                    }
-                                                  });
-                                                },
-                                              ))
-                                          : null,
+                                        ? Theme(
+                                            data: Theme.of(context).copyWith(
+                                              unselectedWidgetColor:
+                                                  Colors.white,
+                                            ),
+                                            child: CrossCheckbox(
+                                              value: _selectedItems.contains(
+                                                  foodRecommendations[index].pk),
+                                              checkColor: Colors.white,
+                                              activeColor:
+                                                  const Color.fromARGB(
+                                                      255, 255, 0, 0),
+                                              onChanged: (bool? value) {
+                                                setState(() {
+                                                  if (value == true) {
+                                                    _selectedItems.add(
+                                                        foodRecommendations[index].pk);
+                                                  } else {
+                                                    _selectedItems.remove(
+                                                        foodRecommendations[index].pk);
+                                                  }
+                                                });
+                                              },
+                                            ))
+                                        : null,
                                     ),
                                   ]),
                                 ),
@@ -476,11 +518,8 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                                           onPressed: () {
                                             // Perform deletions
                                             setState(() {
-                                              // Remove selected items from the list
-                                              for (var item in selectedItems) {
-                                                // Perform deletion logic here
-                                              }
-                                              selectedItems.clear();
+                                              _deleteFoodRecommendation();
+                                              _selectedItems.clear();
                                               _isDeleteMode = false;
                                             });
                                             Navigator.of(context).pop();
@@ -515,7 +554,16 @@ class _EditorsChoiceMainState extends State<EditorsChoiceMain> {
                           if (_isDeleteMode) ...cancelDeleteButton,
                         ],
                         // Menampilkan info jumlah total FoodRecommendation
-                        ...info,
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Total Food Recommendations: $_totalFoodRec',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   );
