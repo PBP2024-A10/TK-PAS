@@ -4,7 +4,7 @@ import 'package:ajengan_halal_mobile/auth/screens/register.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     final request = context.watch<CookieRequest>();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Center(
@@ -39,13 +40,14 @@ class _LoginPageState extends State<LoginPage> {
                           'assets/images/web-logo.png', 
                           height: 180,  // Mengurangi tinggi logo agar ada ruang
                         ),
-                        const SizedBox(height: 15),  // Mengurangi jarak antara logo dan heading
+                        const SizedBox(height: 15), 
                         Text(
                           'Temukan Kuliner Halal di Bali!',
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.rasa(
-                            fontSize: 28,  // Mengurangi ukuran font
+                            fontSize: 28, 
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFcbbcb5),
+                            color: Warna.backgrounddark,
                             height: 1.5,
                           ),
                         ),
@@ -54,10 +56,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   // Login Form Section
                   Container(
-                    margin: const EdgeInsets.all(16.0),  // Mengurangi margin
+                    margin: const EdgeInsets.all(16.0), 
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Warna.backgroundcream.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
                     ),

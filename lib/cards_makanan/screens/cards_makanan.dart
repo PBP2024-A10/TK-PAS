@@ -234,7 +234,7 @@ class _CardsMakananState extends State<CardsMakanan> {
   Future<void> onWishList(CookieRequest request, String name) async {
     final response = await request.postJson(
         "http://127.0.0.1:8000/wishlist/toggle-wishlist/",
-        jsonEncode(<String, String>{
+        jsonEncode({
             'menu_item_name' : name
         }),
     );

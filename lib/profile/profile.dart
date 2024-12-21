@@ -5,6 +5,7 @@ import 'package:ajengan_halal_mobile/base/style/colors.dart';
 import 'package:ajengan_halal_mobile/auth/screens/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
+import 'dart:convert';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -20,28 +21,99 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String successMessage = '';
   String errorMessage = '';
   String displayedUsername = '';
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // Ambil username dari data yang tersimpan di CookieRequest
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var request = context.read<pbp.CookieRequest>();
-
       if (request.jsonData.containsKey('username')) {
         setState(() {
           displayedUsername = request.jsonData['username'];
+          // Pre-fill the form fields if you have the data
+          _usernameController.text = request.jsonData['username'];
+          _firstNameController.text = request.jsonData['first_name'] ?? '';
+          _lastNameController.text = request.jsonData['last_name'] ?? '';
+          _bioController.text = request.jsonData['bio'] ?? '';
         });
       }
     });
   }
 
+  // New method to handle API call
+  Future<void> _updateProfile() async {
+  setState(() {
+    isLoading = true;
+    errorMessage = '';
+    successMessage = '';
+  });
+
+  try {
+    var request = context.read<pbp.CookieRequest>();
+    
+    // Create a complete form data object
+    final formData = {
+      'username': _usernameController.text,  // Only if your UserUpdateForm expects username
+      'first_name': _firstNameController.text,
+      'last_name': _lastNameController.text,
+      'bio': _bioController.text,
+      // Add any other fields that your UserUpdateForm and ProfileUpdateForm require
+    };
+
+    final response = await request.postJson(
+      'http://127.0.0.1:8000/profile/update-profile-flutter/',
+      jsonEncode(formData),
+    );
+
+    if (response['status'] == 'success') {
+      setState(() {
+        successMessage = 'Profile updated successfully!';
+        // Update the stored user data
+        request.jsonData['first_name'] = _firstNameController.text;
+        request.jsonData['last_name'] = _lastNameController.text;
+        request.jsonData['bio'] = _bioController.text;
+      });
+    } else {
+      setState(() {
+        // Handle specific validation errors if they exist
+        if (response['errors'] != null) {
+          errorMessage = 'Validation errors: ${response['errors'].toString()}';
+        } else {
+          errorMessage = response['message'] ?? 'Failed to update profile';
+        }
+      });
+    }
+  } catch (e) {
+    setState(() {
+      errorMessage = 'Error updating profile: $e';
+    });
+  } finally {
+    setState(() {
+      isLoading = false;
+    });
+  }
+}
+
+  void _submitForm() {
+    if (_bioController.text.isEmpty && _firstNameController.text.isEmpty && _lastNameController.text.isEmpty) {
+      setState(() {
+        errorMessage = 'Please fill in one of the below fields';
+        successMessage = '';
+      });
+      return;
+    }
+    _updateProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Profile'),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       drawer: const LeftDrawer(),
       body: Padding(
@@ -147,18 +219,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-  }
-
-  // Submit form logic
-  void _submitForm() {
-    setState(() {
-      if (_bioController.text.isEmpty && _firstNameController.text.isEmpty && _lastNameController.text.isEmpty) {
-        errorMessage = 'Please fill in one of the below fields';
-        successMessage = '';
-      } else {
-        successMessage = 'Profile updated successfully!';
-        errorMessage = '';
-      }
-    });
   }
 }

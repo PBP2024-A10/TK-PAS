@@ -7,6 +7,7 @@ import 'package:ajengan_halal_mobile/cards_makanan/models/restaurant_list.dart';
 import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart' as pbp;
 import 'package:provider/provider.dart';
+import 'package:ajengan_halal_mobile/base/style/colors.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _HomepageState extends State<Homepage> {
       List<RestaurantList> data = restaurantListFromJson(response.body);
       setState(() {
         allRestaurants = data;
-        filteredRestaurants = data; // Awalnya sama dengan allRestaurants
+        filteredRestaurants = data; // Initially same as allRestaurants
       });
       return data;
     } else {
@@ -79,7 +80,6 @@ class _HomepageState extends State<Homepage> {
   bool get isLoggedIn => username.isNotEmpty;
 
   Future<void> _showAddRestaurantDialog() async {
-    // Kosongkan field sebelum menampilkan dialog
     _nameController.clear();
     _descController.clear();
     _locationController.clear();
@@ -137,47 +137,44 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<void> _addRestaurant(String name, String description, String location, String imageUrl) async {
-  try {
-    var request = context.read<pbp.CookieRequest>();
-    
-    // Change to direct HTTP post for more control
-    final response = await http.post(
-      Uri.parse("http://127.0.0.1:8000/makanan/add-restaurant-flutter/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': request.headers['Cookie'] ?? '', // Include session cookie
-      },
-      body: json.encode({
-        'name': name,
-        'description': description,
-        'location': location,
-        'image_url': imageUrl,
-      }),
-    );
-
-    final responseData = json.decode(response.body);
-
-    if (response.statusCode == 200 && responseData['status'] == 'success') {
-      setState(() {
-        futureRestaurants = fetchRestaurants();
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Restaurant added successfully!')),
+    try {
+      var request = context.read<pbp.CookieRequest>();
+      final response = await http.post(
+        Uri.parse("http://127.0.0.1:8000/makanan/add-restaurant-flutter/"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': request.headers['Cookie'] ?? '',
+        },
+        body: json.encode({
+          'name': name,
+          'description': description,
+          'location': location,
+          'image_url': imageUrl,
+        }),
       );
-    } else {
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200 && responseData['status'] == 'success') {
+        setState(() {
+          futureRestaurants = fetchRestaurants();
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Restaurant added successfully!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add restaurant: ${responseData['message']}')),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to add restaurant: ${responseData['message']}')),
+        SnackBar(content: Text('Error: $e')),
       );
     }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: $e')),
-    );
   }
-}
 
   Future<void> _deleteRestaurantPopup(String id) async {
-    // Tampilkan popup konfirmasi
     bool? confirmDelete = await showDialog<bool>(
       context: context,
       builder: (ctx) {
@@ -204,39 +201,55 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<void> _deleteRestaurant(String id) async {
-  try {
-    final response = await http.delete(
-      Uri.parse("http://127.0.0.1:8000/makanan/delete-restaurant-flutter/$id/"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': context.read<pbp.CookieRequest>().headers['Cookie'] ?? '',
-      },
-    );
-
-    final responseData = json.decode(response.body);
-
-    if (response.statusCode == 200 && responseData['status'] == 'success') {
-      setState(() {
-        futureRestaurants = fetchRestaurants();
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Restaurant deleted successfully!')),
+    try {
+      final response = await http.delete(
+        Uri.parse("http://127.0.0.1:8000/makanan/delete-restaurant-flutter/$id/"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': context.read<pbp.CookieRequest>().headers['Cookie'] ?? '',
+        },
       );
-    } else {
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200 && responseData['status'] == 'success') {
+        setState(() {
+          futureRestaurants = fetchRestaurants();
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Restaurant deleted successfully!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to delete restaurant: ${responseData['message']}')),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to delete restaurant: ${responseData['message']}')),
+        SnackBar(content: Text('Error: $e')),
       );
     }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: $e')),
-    );
   }
-}
+
+
+  int _calculateCrossAxisCount(double width) {
+    if (width >= 1200) {
+      return 5;
+    } else if (width >= 992) {
+      return 4;
+    } else if (width >= 768) {
+      return 3;
+    } else {
+      return 2;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: Warna.backgroundcream,
       appBar: AppBar(
         title: const Text('Daftar Restoran'),
       ),
@@ -245,153 +258,162 @@ class _HomepageState extends State<Homepage> {
         future: futureRestaurants,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Jika data sedang dimuat
+            // Data is loading
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            // Jika terjadi error
+            // An error occurred
             return Center(child: Text("Terjadi kesalahan: ${snapshot.error}"));
           } else {
-            // Jika data sudah tersedia
-            return Column(
-              children: [
-                // Jika user adalah admin, tampilkan tombol "Add Restaurant"
-                if (isAdmin)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: _showAddRestaurantDialog,
-                        child: const Text('Add Restaurant'),
-                      ),
-                    ),
-                  ),
-
-                // Search bar
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: TextField(
-                    controller: _searchController,
-                    onChanged: (value) {
-                      _filterRestaurants(value);
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Cari restoran...",
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Expanded(
-                  child: filteredRestaurants.isEmpty
-                      ? const Center(child: Text("Belum ada data restoran."))
-                      : Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: GridView.builder(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, // 2 card per row
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.8, 
-                            ),
-                            itemCount: filteredRestaurants.length,
-                            itemBuilder: (context, index) {
-                              final restaurant = filteredRestaurants[index];
-                              return Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      // Gambar restoran
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          restaurant.fields.imageUrl,
-                                          height: 200,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return Container(
-                                              color: Colors.grey,
-                                              height: 200,
-                                              child: const Center(
-                                                child: Icon(Icons.broken_image, color: Colors.white),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        restaurant.fields.name,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF927155),
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        restaurant.fields.description,
-                                        style: const TextStyle(fontSize: 12),
-                                        textAlign: TextAlign.left,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        "Lokasi: ${restaurant.fields.location}",
-                                        style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const Spacer(),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                            if (isLoggedIn) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const CardsMakanan()),
-                                                );
-                                              } else {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                                                );
-                                              }
-                                            },
-                                            child: const Text("Show more →", style: TextStyle(fontSize: 12)),
-                                          ),
-                                          if (isAdmin) 
-                                            IconButton(
-                                              icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                                              onPressed: () {
-                                                _deleteRestaurantPopup(restaurant.pk);
-                                              },
-                                            ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
+            // Data is available
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  children: [
+                    // If user is admin, show "Add Restaurant" button
+                    if (isAdmin)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: ElevatedButton(
+                            onPressed: _showAddRestaurantDialog,
+                            child: const Text('Add Restaurant'),
                           ),
                         ),
-                ),
-              ],
+                      ),
+
+                    // Search bar
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (value) {
+                          _filterRestaurants(value);
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Cari restoran...",
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                      child: filteredRestaurants.isEmpty
+                          ? const Center(child: Text("Belum ada data restoran."))
+                          : Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: GridView.builder(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: _calculateCrossAxisCount(screenWidth),
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 0.75, // Adjusted for better responsiveness
+                                ),
+                                itemCount: filteredRestaurants.length,
+                                itemBuilder: (context, index) {
+                                  final restaurant = filteredRestaurants[index];
+                                  return Card(
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          // Restaurant Image
+                                          Expanded(
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                restaurant.fields.imageUrl,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error, stackTrace) {
+                                                  return Container(
+                                                    color: Colors.grey,
+                                                    child: const Center(
+                                                      child: Icon(Icons.broken_image, color: Colors.white),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            restaurant.fields.name,
+                                            style: TextStyle(
+                                              fontSize: screenWidth * 0.04, // Responsive font size
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color(0xFF927155),
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            restaurant.fields.description,
+                                            style: TextStyle(
+                                              fontSize: screenWidth * 0.035, // Responsive font size
+                                            ),
+                                            textAlign: TextAlign.left,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            "Lokasi: ${restaurant.fields.location}",
+                                            style: TextStyle(
+                                              fontSize: screenWidth * 0.035, // Responsive font size
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  if (isLoggedIn) {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(builder: (context) => const CardsMakanan()),
+                                                    );
+                                                  } else {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                                                    );
+                                                  }
+                                                },
+                                                child: const Text("Show more →", style: TextStyle(fontSize: 12)),
+                                              ),
+                                              if (isAdmin)
+                                                IconButton(
+                                                  icon: const Icon(Icons.delete, color: Colors.red, size: 20),
+                                                  onPressed: () {
+                                                    _deleteRestaurantPopup(restaurant.pk);
+                                                  },
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                    ),
+                  ],
+                );
+              },
             );
           }
         },

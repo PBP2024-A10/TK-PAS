@@ -24,8 +24,9 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Warna.backgrounddark,
+        backgroundColor: Warna.backgroundlight,
         title: const Text('Register', style: TextStyle(fontFamily: 'Roboto', fontSize: 22.0)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -50,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const Text(
-                      'Register',
+                      'Register Here',
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -199,10 +200,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         minimumSize: Size(double.infinity, 50),
-                        backgroundColor: Warna.blue,
+                        backgroundColor: Warna.backgrounddark,
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                       ),
-                      child: const Text('Register'),
+                      child: const Text('Register Yourself'),
                     ),
                   ],
                 ),
