@@ -26,21 +26,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var request = context.read<pbp.CookieRequest>();
-      if (request.jsonData.containsKey('username')) {
-        setState(() {
-          displayedUsername = request.jsonData['username'];
-          // Pre-fill the form fields if you have the data
-          _usernameController.text = request.jsonData['username'];
-          _firstNameController.text = request.jsonData['first_name'] ?? '';
-          _lastNameController.text = request.jsonData['last_name'] ?? '';
-          _bioController.text = request.jsonData['bio'] ?? '';
-        });
-      }
+      _fetchProfileData();
     });
   }
+
+  Future<void> _fetchProfileData() async {
+    try {
+      var request = context.read<pbp.CookieRequest>();
+      
+      // Fetch fresh profile data from server
+      final response = await request.get(
+        'http://127.0.0.1:8000/profile/get-profile-flutter/'  // Tambahkan endpoint ini di Django
+      );
+
+      if (response != null) {
+        setState(() {
+          displayedUsername = response['username'] ?? '';
+          _usernameController.text = response['username'] ?? '';
+          _firstNameController.text = response['first_name'] ?? '';
+          _lastNameController.text = response['last_name'] ?? '';
+          _bioController.text = response['bio'] ?? '';
+          
+          // Update jsonData with latest values
+          request.jsonData['username'] = response['username'];
+          request.jsonData['first_name'] = response['first_name'];
+          request.jsonData['last_name'] = response['last_name'];
+          request.jsonData['bio'] = response['bio'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        errorMessage = 'Failed to fetch profile data: $e';
+      });
+    }
+  }
+
 
   // New method to handle API call
   Future<void> _updateProfile() async {
