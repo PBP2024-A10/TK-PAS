@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:ajengan_halal_mobile/auth/screens/login.dart';
 import 'package:ajengan_halal_mobile/cards_makanan/screens/cards_makanan.dart';
+import 'package:ajengan_halal_mobile/cards_makanan/screens/restaurant_detail_page.dart';
+// import 'package:ajengan_halal_mobile/cards_makanan/screens/restaurant_menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ajengan_halal_mobile/cards_makanan/models/restaurant_list.dart';
@@ -359,21 +361,17 @@ class _HomepageState extends State<Homepage> {
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           TextButton(
-                                            onPressed: () {
-                                            if (isLoggedIn) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const CardsMakanan()),
-                                                );
-                                              } else {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                                                );
-                                              }
-                                            },
-                                            child: const Text("Show more →", style: TextStyle(fontSize: 12)),
-                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => RestaurantMenuPage(restaurant: restaurant),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text("Show more →", style: TextStyle(fontSize: 12)),
+                                        ),
+
                                           if (isAdmin) 
                                             IconButton(
                                               icon: const Icon(Icons.delete, color: Colors.red, size: 20),

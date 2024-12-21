@@ -1,51 +1,69 @@
-import 'package:ajengan_halal_mobile/base/widgets/navbar.dart';
+import 'dart:convert'; // Untuk decoding JSON
 import 'package:ajengan_halal_mobile/cards_makanan/models/menu_item.dart';
-import 'package:ajengan_halal_mobile/wishlist/models/wishlists.dart';
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import '../models/restaurant_list.dart';
 
-import 'package:provider/provider.dart';
+class RestaurantMenuPage extends StatefulWidget {
+  final RestaurantList restaurant;
 
-class CardsMakanan extends StatefulWidget {
-  const CardsMakanan({Key? key}) : super(key: key);
+  const RestaurantMenuPage({Key? key, required this.restaurant})
+      : super(key: key);
 
   @override
-  _CardsMakananState createState() => _CardsMakananState();
+  _RestaurantMenuPageState createState() => _RestaurantMenuPageState();
 }
 
-class _CardsMakananState extends State<CardsMakanan> {
+class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
   TextEditingController _searchController =
       TextEditingController(); // Controller untuk search bar
   String _searchQuery = ""; // Variabel untuk kata kunci pencarian
   List<MenuItem> _menuItems = []; // Daftar menu yang diambil dari API atau JSON
-  List<Wishlist> _wishLists = [];
-  late CookieRequest request; // for Wishlist
+  Map<String, List<MenuItem>> _groupedMenuItems =
+      {}; // Menyimpan menu yang dikelompokkan berdasarkan restoran
+  String? _selectedRestaurantName; // Nama restoran yang dipilih
 
   // Fungsi untuk memuat data JSON
   Future<void> fetchMenuItems() async {
     final String jsonString =
         await rootBundle.loadString('assets/restaurants.json');
-    final List<dynamic> data = json.decode(jsonString); // Dekode JSON
+    final List<MenuItem> menuItems = menuItemsFromJson(jsonString);
+
+    // Mengelompokkan menu berdasarkan restoran
+    final groupedItems = await fetchAndGroupMenuItems();
+
     setState(() {
-      _menuItems = data
-          .map((item) => MenuItem.fromJson(item))
-          .toList(); // Konversi JSON ke list MenuItem
+      _menuItems = menuItems;
+      _groupedMenuItems = groupedItems;
     });
   }
 
-  // Fungsi untuk memfilter menu berdasarkan pencarian nama
+  // Fungsi untuk memfilter menu berdasarkan restoran yang dipilih dan pencarian nama menu
   List<MenuItem> _filterMenuItems() {
-    if (_searchQuery.isEmpty) {
-      return _menuItems; // Jika pencarian kosong, kembalikan semua item
+    if (_selectedRestaurantName == null || _selectedRestaurantName!.isEmpty) {
+      return []; // Jika restoran belum dipilih, kembalikan daftar kosong
     }
-    return _menuItems.where((item) {
+    List<MenuItem> filteredByRestaurant =
+        _groupedMenuItems[_selectedRestaurantName] ?? [];
+    if (_searchQuery.isEmpty) {
+      return filteredByRestaurant; // Jika pencarian kosong, kembalikan semua menu dari restoran yang dipilih
+    }
+    // Filter berdasarkan nama menu
+    return filteredByRestaurant.where((item) {
       return item.fields.name
           .toLowerCase()
           .contains(_searchQuery.toLowerCase());
-    }).toList(); // Filter berdasarkan nama menu
+    }).toList();
+  }
+
+  // Fungsi untuk menangani pemilihan restoran
+  void _onRestaurantClick(String restaurantName) {
+    setState(() {
+      _selectedRestaurantName =
+          restaurantName; // Set nama restoran yang dipilih
+    });
   }
 
   @override
@@ -56,213 +74,74 @@ class _CardsMakananState extends State<CardsMakanan> {
 
   @override
   Widget build(BuildContext context) {
-    request = context.watch<CookieRequest>(); // for WishList
-    fetchWishLists(request); // for WishList
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('[Nama Restaurant]'),
-        backgroundColor: Colors.orangeAccent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Pencarian sudah ditangani dengan onChanged pada TextField
-            },
-          ),
-        ],
-      ),
-      drawer: const LeftDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              '[Deskripsi Restaurant]',
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search by menu name',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value; // Update kata kunci pencarian
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: _menuItems.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Dua kolom per baris
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.8, // Proporsi kartu
-                      ),
-                      itemCount: _filterMenuItems().length,
-                      itemBuilder: (context, index) {
-                        final item = _filterMenuItems()[index];
-
-                        bool isWishListed = false;
-                        for (var i in _wishLists) {
-                          if (item.fields.name == i.name) {
-                            isWishListed = true;
-                            break;
-                          }
-                        }
-                        return _buildMenuCard(
-                          imageUrl:
-                              item.fields.imageUrlMenu, // Gambar dari JSON
-                          name: item.fields.name, // Nama makanan
-                          price: 'Rp${item.fields.price}', // Harga makanan
-                          isWishListed: isWishListed,
-                        );
-                      },
-                    ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Widget untuk menampilkan kartu menu
-  Widget _buildMenuCard({
-    required String imageUrl,
-    required String name,
-    required String price,
-    required bool isWishListed,
-  }) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(title: Text('Menu')),
+      body: Column(
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    height: 120,
-                    width: double.infinity,
-                    color: Colors.grey[300],
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    height: 120,
-                    width: double.infinity,
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.error, color: Colors.red, size: 40),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Search Bar
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-                Text(price,
-                    style: TextStyle(fontSize: 14, color: Colors.grey[700])),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.favorite, 
-                          color: isWishListed == true 
-                            ? Colors.red
-                            : Colors.grey
-                        ),
-                        onPressed: () {
-                          // Tambahkan logika untuk ikon hati di sini
-                          onWishList(request, name);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.add_circle, color: Colors.blue),
-                        onPressed: () {
-                          // Tambahkan logika untuk tombol tambah ('+') di sini
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: TextField(
+              controller: _searchController,
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value; // Update search query
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Search',
+                border: OutlineInputBorder(),
+              ),
             ),
+          ),
+          // Restoran List (Pada homepage, ini adalah daftar restoran dalam bentuk card)
+          Expanded(
+            child: ListView.builder(
+              itemCount: _groupedMenuItems.keys.length,
+              itemBuilder: (context, index) {
+                String restaurantName = _groupedMenuItems.keys.elementAt(index);
+                return GestureDetector(
+                  onTap: () => _onRestaurantClick(restaurantName),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(restaurantName),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          // Daftar Menu
+          Expanded(
+            child: _selectedRestaurantName == null
+                ? Center(child: Text('Pilih restoran untuk melihat menu'))
+                : ListView.builder(
+                    itemCount: _filterMenuItems().length,
+                    itemBuilder: (context, index) {
+                      MenuItem item = _filterMenuItems()[index];
+                      return Card(
+                        margin: EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: item.fields.imageUrlMenu.isNotEmpty
+                              ? Image.network(item.fields.imageUrlMenu,
+                                  width: 50, height: 50)
+                              : Icon(Icons
+                                  .restaurant_menu), // Menampilkan gambar atau icon jika gambar tidak ada
+                          title: Text(item.fields.name),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(item.fields.description),
+                              Text('${item.fields.price} IDR'),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
     );
   }
-
-
-
-  // OLAV'S METHODS
-  // =================================================================================
-  Future<void> fetchWishLists(CookieRequest request) async {
-    final response = await request.get('http://127.0.0.1:8000/wishlist/get-wishlists/');
-    WishLists wishLists = WishLists.fromJson(response);
-    setState(() {
-      _wishLists = wishLists.wishlists!;
-    });
-  }
-
-  Future<void> onWishList(CookieRequest request, String name) async {
-    final response = await request.postJson(
-        "http://127.0.0.1:8000/wishlist/toggle-wishlist/",
-        jsonEncode(<String, String>{
-            'menu_item_name' : name
-        }),
-    );
-    if (context.mounted) {
-        if (response['error'] == null) {
-          String message = "";
-          if (response['message'] == 'Removed from wishlist') {
-            message = "Remove ${name} to wish list!";
-          } else if (response['message'] == 'Added to wishlist') {
-            message = "Added ${name} to wish list!";
-          }
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(
-            content: Text(message),
-            ));
-            Navigator.of(context).pop();
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CardsMakanan()),
-            );
-        } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(
-                content:
-                    Text("Terdapat kesalahan, silakan coba lagi."),
-            ));
-        }
-    }
-  }
-  // =================================================================================
 }
